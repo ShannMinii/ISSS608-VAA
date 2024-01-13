@@ -200,6 +200,6 @@
     "href": "In-class_Ex/In-class_Ex01/In-class_Ex01.html#importing-pisa-data",
     "title": "In-class Exercise 1: Now you see it!",
     "section": "Importing PISA data",
-    "text": "Importing PISA data\nThe code chunk below uses read_sas() of haven to import PISA data into R environment.\n\nstu_qqq &lt;- read_sas(\"data/STU_QQQ_SAS/cy08msp_stu_qqq.sas7bdat\")"
+    "text": "Importing PISA data\nThe code chunk below uses read_sas() of haven to import PISA data into R environment.\n\nstu_qqq &lt;- read_sas(\"data/STU_QQQ_SAS/cy08msp_stu_qqq.sas7bdat\")\n\n\nstu_qqq_SG &lt;- stu_qqq %&gt;%\n  filter(CNT == \"SGP\")\n\n\nwrite_rds(stu_qqq_SG,\n          \"data/STU_QQQ_SAS/stu_qqq_SG.rds\")\n\n\nstu_qqq_Sg &lt;-\n  read_rds(\"data/STU_QQQ_SAS/stu_qqq_SG.rds\")"
   }
 ]
