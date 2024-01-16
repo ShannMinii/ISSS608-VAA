@@ -1,0 +1,1 @@
+<img src="pictures/home.png" alt="Home" width="1000" height="600"/>
