@@ -21,9 +21,22 @@
   z-index: 1; /* Ensure the image has a lower z-index */
 }
 
-
-
 .navbar {
   font-family: 'Glacial Indifference', sans-serif; /* Set the font for the navbar */
   background-color: pink !important;
+  font-size: 19px;
+}
+
+/* Styling for Exercise Title */
+.exercise-title {
+  font-family: 'Glacial Indifference', sans-serif; /* Set the font for the exercise title */
+  font-size: 24px; /* Adjust the font size as needed */
+  font-weight: bold; /* Optionally make it bold */
+  color: #000; /* Set the color of the title */
+}
+
+/* Set the font for the entire content */
+body {
+  font-family: 'Glacial Indifference', sans-serif;
+  font-size: 16px;
 }
