@@ -1,0 +1,12 @@
+---
+title: "Take-home Exercise 1"
+date: "January 17, 2024"
+date-modified: "last-modified"
+output: 
+  html_document:
+    css: styles.css  # Include your custom CSS file
+execute: 
+  eval: true
+  echo: true
+  warning: false
+---
