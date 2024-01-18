@@ -10,3 +10,214 @@ execute:
   echo: true
   warning: false
 ---
+
+# **Project Brief**
+
+OECD education director Andreas Schleicher shared in a BBC article that “Singapore managed to achieve excellence without wide differences between children from wealthy and disadvantaged families.” (2016) Furthermore, several Singapore’s Minister for Education also started an “every school a good school” slogan.
+
+The general public, however, strongly belief that there are still disparities that exist, especially between the elite schools and neighborhood school, between students from families with higher socioeconomic status and those with relatively lower socioeconomic status and immigration and non-immigration families.
+
+# Project Objectives
+
+The 2022 Programme for International Student Assessment (PISA) data was released on December 5, 2022. PISA global education survey every three years to assess the education systems worldwide through testing 15 year old students in the subjects of mathematics, reading, and science.
+
+In this take-home exercise, we are required to use appropriate Exploratory Data Analysis (EDA) methods and ggplot2 functions to reveal:
+
+1.  the distribution of Singapore students’ performance in mathematics, reading, and science, and
+
+2.  the relationship between these performances with schools, gender and socioeconomic status of the students.
+
+Limit your submission to not more than five EDA visualisation.
+
+# 1. Data Preparation
+
+## 1.1 Installing R packages
+
+pacman::p_load() function from the pacman package is used in the following code chunk to install and call the libraries of multiple R packages:
+
+```{r}
+pacman::p_load(tidyverse, haven, ggrepel, patchwork, 
+               ggthemes, hrbrthemes)
+```
+
+## 1.2 Importing Dataset
+
+"Student questionnaire data file" from the PISA 2022 database is provided for the task.
+
+The code chunk below uses read_sas() of haven to import PISA data into R environment.
+
+```{r}
+#| eval: false
+stu_qqq <- read_sas("data/STU_QQQ_SAS/cy08msp_stu_qqq.sas7bdat")
+```
+
+```{r}
+#| eval: false
+stu_qqq_SG <- stu_qqq %>%
+  filter(CNT == "SGP")
+```
+
+```{r}
+#| eval: false
+write_rds(stu_qqq_SG,
+          "data/STU_QQQ_SAS/stu_qqq_SG.rds")
+```
+
+We upload the file as stu_qqq_Sg.
+
+```{r}
+stu_qqq_Sg <-
+  read_rds("data/STU_QQQ_SAS/stu_qqq_SG.rds")
+```
+
+## 1.3 Summary Statistics
+
+Display first 5 rows using head()
+
+```{r}
+head(stu_qqq_Sg, 5)
+```
+
+Check the structure of stu_qqq_Sg
+
+```{r}
+str(stu_qqq_Sg)
+```
+
+The dataset contains the Intl. School ID (CNTSCHID), Intl. Student ID (CNTSTUID), and Student (Standardized) Gender (ST004D01T) variables, which are currently kept as numeric data types. We will convert these to categorical data types due to the following reasons:
+
+1.  The International School ID (CNTSCHID) is a numerical designation used to uniquely identify various schools. The numbers lack inherent mathematical significance; they serve solely as designations.
+
+2.  Comparable to school IDs, The International Student ID (CNTSTUID) is a distinct identity assigned to each student, it should be regarded as a label.
+
+3.  "Student (Standardized) Gender (ST004D01T)" represents gender and is characterized by discrete categories such as male or female rather than a numerical scale.
+
+```{r}
+stu_qqq_Sg$CNTSCHID <- as.factor(stu_qqq_Sg$CNTSCHID)
+stu_qqq_Sg$CNTSTUID <- as.factor(stu_qqq_Sg$CNTSTUID)
+stu_qqq_Sg$ST004D01T <- as.factor(stu_qqq_Sg$ST004D01T)
+```
+
+Proceed to check for duplicates
+
+```{r}
+duplicate_rows <- stu_qqq_Sg[duplicated(stu_qqq_Sg),]
+print(head(duplicate_rows))
+```
+
+The output \# A tibble: 0 × 1,279 indicates that there are zero rows in the resulting tibble. This means that no duplicate rows were found in your dataset stu_qqq_Sg across all 1,279 variables. Each row in your dataset is unique when considering all the variables together.
+
+```{r}
+# Count the total number of missing values in the dataset
+total_na <- sum(is.na(stu_qqq_Sg))
+print(total_na)
+
+# Count the number of missing values per column
+na_per_column <- colSums(is.na(stu_qqq_Sg))
+print(na_per_column)
+```
+
+While there are numerous missing values in the dataset, our focus is primarily on specific columns. We're interested in the columns labeled:
+
+-   CNTSCHID (International School ID)
+
+-   CNTSTUID (International Student ID)
+
+-   ST004D01T (Student Standardized Gender)
+
+-   BMMJ1 (Mother’s occupational status based on 4-digit human coded ISCO)
+
+-   BFMJ2 (Father’s occupational status based on 4-digit human coded ISCO)
+
+-   HISEI (Highest parental occupational status based on 4-digit human coded ISCO)
+
+and a series of columns related to plausible values in different subjects. These subjects include:
+
+-   Mathematics (PV1MATH to PV10MATH)
+
+-   Reading (PV1READ to PV10READ)
+
+-   Science (PV1SCIE to PV10SCIE)
+
+We'll examine these columns for missing data, as they are relevant to our analysis.
+
+We can use the select function from the dplyr package to extract the specific columns.
+
+```{r}
+library(dplyr)
+
+# Selecting specific columns explicitly
+selected_columns <- stu_qqq_Sg %>%
+  select(CNTSCHID, CNTSTUID, ST004D01T,
+         BMMJ1, BFMJ2, HISEI,
+         PV1MATH, PV2MATH, PV3MATH, PV4MATH, PV5MATH, PV6MATH, PV7MATH, PV8MATH, PV9MATH, PV10MATH,
+         PV1READ, PV2READ, PV3READ, PV4READ, PV5READ, PV6READ, PV7READ, PV8READ, PV9READ, PV10READ,
+         PV1SCIE, PV2SCIE, PV3SCIE, PV4SCIE, PV5SCIE, PV6SCIE, PV7SCIE, PV8SCIE, PV9SCIE, PV10SCIE)
+
+# Count the number of missing values per selected column
+na_per_selected_column <- colSums(is.na(selected_columns))
+
+# Printing the number of missing values per selected column
+print(na_per_selected_column)
+```
+
+The counts of missing values for the variables in question are as follows:
+
+-   Mother’s Occupational Status (BMMJ1): 607 missing values
+
+-   Father’s Occupational Status (BFMJ2): 849 missing values
+
+-   Highest Parental Occupational Status (HISEI): 310 missing values
+
+However, we have opted not to impute or omit these cases as we want to preserve the original dataset, maintaining data integrity. Nevertheless, we acknowledge that the missing values in socioeconomic status indicators could limit the depth of socio-economic related insights and possibly affect the generalizability of our findings. This limitation is important to bear in mind when interpreting the results of our analysis. Future research may explore the reasons for these missing values and consider the application of appropriate data imputation methods where socio-economic context is of primary interest.
+
+# 2. Data Wrangling
+
+## 2.1 Consolidate individual student performance data into school-wide metrics
+
+We compute the average of plausible value (PV) scores for each subject at the school level. The steps to accomplish this in R include:
+
+1.  Aggregation of PV Scores per Subject
+
+    -   Start by determining the average PV scores for every student by taking the mean across the ten plausible values for Mathematics, Reading, and Science respectively.
+
+2.  Consolidation by School
+
+    -   Organize the dataset around the International School ID (CNTSCHID) to group students according to their school.
+
+3.  School-Level Averages
+
+    -   For each group representing a school, compute the mean of these individual averages. This results in a single average score that represents the collective performance of students in each subject for that school.
+    
+```{r}
+library(dplyr)
+
+# Calculate the mean PV scores for each student in each subject
+stu_qqq_Sg <- stu_qqq_Sg %>%
+  mutate(AvgMathPV = rowMeans(select(., starts_with("PV1MATH"):starts_with("PV10MATH")), na.rm = TRUE),
+         AvgReadPV = rowMeans(select(., starts_with("PV1READ"):starts_with("PV10READ")), na.rm = TRUE),
+         AvgSciePV = rowMeans(select(., starts_with("PV1SCIE"):starts_with("PV10SCIE")), na.rm = TRUE))
+
+# Group by school ID and calculate the mean of the student averages for each school
+school_avg_scores <- stu_qqq_Sg %>%
+  group_by(CNTSCHID) %>%
+  summarise(AvgMathScore = mean(AvgMathPV, na.rm = TRUE),
+            AvgReadScore = mean(AvgReadPV, na.rm = TRUE),
+            AvgScieScore = mean(AvgSciePV, na.rm = TRUE))
+
+# View the school level averages
+print(school_avg_scores)
+```
+
+# Results
+```{r}
+library(ggplot2)
+
+# Assuming school_avg_scores is your dataframe and CNTSCHID is a factor with many levels
+ggplot(school_avg_scores, aes(x = CNTSCHID, y = AvgMathScore)) +
+  geom_bar(stat = "identity", fill = "blue") +
+  theme_minimal() +
+  labs(title = "Average Mathematics Scores by School", x = "School ID", y = "Average Score") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  facet_wrap(~ CNTSCHID, scales = "free_x", ncol = 10)  # Adjust ncol for the number of columns you want
+```
