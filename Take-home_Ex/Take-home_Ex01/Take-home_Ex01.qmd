@@ -232,6 +232,33 @@ school_avg_scores <- stu_qqq_Sg %>%
 print(school_avg_scores)
 ```
 
+## 2.3 Gender
+```{r}
+library(dplyr)
+
+# Assuming 'stu_qqq_Sg' is your data frame, 'CNTSTUID' is the column with International Student IDs,
+# and 'ST004D01T' is the column with Student Standardized Gender (1 for female; 0 for male)
+
+# Calculate the mean PV scores for each student in each subject and map gender numeric values to labels
+gender_avg_scores <- stu_qqq_Sg %>%
+  mutate(
+    Gender = ifelse(ST004D01T == 1, "Female", "Male"),
+    AvgMathPV = rowMeans(select(., starts_with("PV1MATH"):starts_with("PV10MATH")), na.rm = TRUE),
+    AvgReadPV = rowMeans(select(., starts_with("PV1READ"):starts_with("PV10READ")), na.rm = TRUE),
+    AvgSciePV = rowMeans(select(., starts_with("PV1SCIE"):starts_with("PV10SCIE")), na.rm = TRUE)
+  ) %>%
+  group_by(Gender) %>%
+  summarise(
+    AvgMathScore = mean(AvgMathPV, na.rm = TRUE),
+    AvgReadScore = mean(AvgReadPV, na.rm = TRUE),
+    AvgScieScore = mean(AvgSciePV, na.rm = TRUE)
+  )
+
+# View the gender level averages
+print(gender_avg_scores)
+
+```
+
 # 3. Results
 ## 3.1 Average Plausible Values by Students in Singapore
 ```{r}
