@@ -210,14 +210,50 @@ print(school_avg_scores)
 ```
 
 # Results
-```{r}
-library(ggplot2)
 
-# Assuming school_avg_scores is your dataframe with 'CNTSCHID' as a categorical variable and 'AvgMathScore' as numeric
-ggplot(school_avg_scores, aes(y = CNTSCHID, x = AvgMathScore)) +
-  geom_bar(stat = "identity", fill = "blue") +
-  theme_minimal() +
-  labs(title = "Average Mathematics Scores by School", y = "School ID", x = "Average Score") +
-  coord_flip() +  # This flips the coordinates to make it a horizontal bar chart
-  theme(axis.text.y = element_text(angle = 0))  # Since we flipped the axes, now adjust the y-axis text
+```{r}
+library(plotly)
+library(dplyr)
+# Rank schools by AvgMathScore, AvgReadScore, and AvgScieScore and add labels for top and bottom schools
+school_avg_scores <- school_avg_scores %>%
+  mutate(
+    RankMath = rank(-AvgMathScore),
+    RankRead = rank(-AvgReadScore),
+    RankScie = rank(-AvgScieScore),
+    LabelMath = ifelse(RankMath == 1 | RankMath == n(), as.character(CNTSCHID), NA),
+    LabelRead = ifelse(RankRead == 1 | RankRead == n(), as.character(CNTSCHID), NA),
+    LabelScie = ifelse(RankScie == 1 | RankScie == n(), as.character(CNTSCHID), NA)
+  )
+
+# Find the maximum score to set the limits of the y-axis
+max_score <- max(school_avg_scores$AvgMathScore, school_avg_scores$AvgReadScore, school_avg_scores$AvgScieScore)
+
+# Create a scatter plot for each subject using plotly
+fig <- plot_ly() %>%
+  add_trace(data = school_avg_scores, x = ~RankMath, y = ~AvgMathScore, name = 'Mathematics',
+            type = 'scatter', mode = 'markers', marker = list(size = 10), 
+            hoverinfo = 'text', text = ~CNTSCHID, textposition = 'top center') %>%
+  add_trace(data = school_avg_scores, x = ~RankRead, y = ~AvgReadScore, name = 'Reading',
+            type = 'scatter', mode = 'markers', marker = list(size = 10),
+            hoverinfo = 'text', text = ~CNTSCHID, textposition = 'top center') %>%
+  add_trace(data = school_avg_scores, x = ~RankScie, y = ~AvgScieScore, name = 'Science',
+            type = 'scatter', mode = 'markers', marker = list(size = 10),
+            hoverinfo = 'text', text = ~CNTSCHID, textposition = 'top center') %>%
+  layout(title = 'Average Plausible Values by School',
+         xaxis = list(title = 'International School ID', showticklabels = FALSE, zeroline = FALSE),
+         yaxis = list(title = 'Average Plausible Values', range = c(0, max_score * 1.1)),
+         hoverlabel = list(bgcolor = "white"))
+
+# Add labels for the top and bottom school for each subject
+fig <- fig %>%
+  add_trace(data = subset(school_avg_scores, !is.na(LabelMath)), x = ~RankMath, y = ~AvgMathScore,
+            type = 'scatter', mode = 'text', text = ~LabelMath, showlegend = FALSE) %>%
+  add_trace(data = subset(school_avg_scores, !is.na(LabelRead)), x = ~RankRead, y = ~AvgReadScore,
+            type = 'scatter', mode = 'text', text = ~LabelRead, showlegend = FALSE) %>%
+  add_trace(data = subset(school_avg_scores, !is.na(LabelScie)), x = ~RankScie, y = ~AvgScieScore,
+            type = 'scatter', mode = 'text', text = ~LabelScie, showlegend = FALSE)
+
+# Print the plot
+fig
 ```
+
