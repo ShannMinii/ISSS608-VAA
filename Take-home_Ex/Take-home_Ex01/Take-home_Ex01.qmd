@@ -173,7 +173,30 @@ However, we have opted not to impute or omit these cases as we want to preserve 
 
 # 2. Data Wrangling
 
-## 2.1 Consolidate individual student performance data into school-wide metrics
+## 2.1 Calculate average plausible values for each student
+```{r}
+library(dplyr)
+
+# Assuming 'stu_qqq_Sg' is your data frame and 'CNTSTUID' is the column with International Student IDs
+
+# Calculate the mean PV scores for each student in each subject
+student_avg_scores <- stu_qqq_Sg %>%
+  mutate(
+    AvgMathPV = rowMeans(select(., starts_with("PV1MATH"):starts_with("PV10MATH")), na.rm = TRUE),
+    AvgReadPV = rowMeans(select(., starts_with("PV1READ"):starts_with("PV10READ")), na.rm = TRUE),
+    AvgSciePV = rowMeans(select(., starts_with("PV1SCIE"):starts_with("PV10SCIE")), na.rm = TRUE)
+  )
+
+# The resulting 'student_avg_scores' data frame now has three new columns
+# 'AvgMathPV', 'AvgReadPV', and 'AvgSciePV' which are the average plausible values
+# for Mathematics, Reading, and Science respectively for each student.
+
+# View the student level averages
+print(student_avg_scores)
+
+```
+
+## 2.2 Consolidate individual student performance data into school-wide metrics
 
 We compute the average of plausible value (PV) scores for each subject at the school level. The steps to accomplish this in R include:
 
@@ -209,8 +232,50 @@ school_avg_scores <- stu_qqq_Sg %>%
 print(school_avg_scores)
 ```
 
-# Results
+# 3. Results
+## 3.1 Average Plausible Values by Students in Singapore
+```{r}
+library(plotly)
+library(dplyr)
 
+# Assuming 'student_avg_scores' already contains the average plausible values per student
+
+# Create a histogram for each subject using plotly
+fig <- plot_ly(student_avg_scores, histnorm = "percent") %>%
+  add_trace(
+    x = ~AvgMathPV,
+    type = 'histogram',
+    opacity = 0.6,
+    name = 'Mathematics',
+    marker = list(color = 'blue')
+  ) %>%
+  add_trace(
+    x = ~AvgReadPV,
+    type = 'histogram',
+    opacity = 0.6,
+    name = 'Reading',
+    marker = list(color = 'orange')
+  ) %>%
+  add_trace(
+    x = ~AvgSciePV,
+    type = 'histogram',
+    opacity = 0.6,
+    name = 'Science',
+    marker = list(color = 'green')
+  ) %>%
+  layout(
+    barmode = 'overlay', # Use 'overlay' to place the histograms on top of each other
+    title = 'Distribution of Average Plausible Values for Each Subject',
+    xaxis = list(title = 'Average Plausible Values'),
+    yaxis = list(title = 'Percentage of Students')
+  )
+
+# Print the plot
+fig
+
+```
+
+## 3.2 Average Plausible Values by School
 ```{r}
 library(plotly)
 library(dplyr)
