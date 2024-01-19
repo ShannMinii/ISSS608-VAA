@@ -213,11 +213,11 @@ print(school_avg_scores)
 ```{r}
 library(ggplot2)
 
-# Assuming school_avg_scores is your dataframe and CNTSCHID is a factor with many levels
-ggplot(school_avg_scores, aes(x = CNTSCHID, y = AvgMathScore)) +
+# Assuming school_avg_scores is your dataframe with 'CNTSCHID' as a categorical variable and 'AvgMathScore' as numeric
+ggplot(school_avg_scores, aes(y = CNTSCHID, x = AvgMathScore)) +
   geom_bar(stat = "identity", fill = "blue") +
   theme_minimal() +
-  labs(title = "Average Mathematics Scores by School", x = "School ID", y = "Average Score") +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
-  facet_wrap(~ CNTSCHID, scales = "free_x", ncol = 10)  # Adjust ncol for the number of columns you want
+  labs(title = "Average Mathematics Scores by School", y = "School ID", x = "Average Score") +
+  coord_flip() +  # This flips the coordinates to make it a horizontal bar chart
+  theme(axis.text.y = element_text(angle = 0))  # Since we flipped the axes, now adjust the y-axis text
 ```
