@@ -365,65 +365,8 @@ fig <- plot_ly(student_avg_scores, histnorm = "percent") %>%
 
 # Print the plot
 fig
-
 ```
 
-```{r}
-library(plotly)
-library(dplyr)
-
-# Assuming 'student_avg_scores' already contains the average plausible values per student
-
-# Create a histogram for each subject using plotly
-fig_math <- plot_ly(student_avg_scores, histnorm = "percent") %>%
-  add_trace(
-    x = ~AvgMathPV,
-    type = 'histogram',
-    opacity = 0.6,
-    name = 'Mathematics',
-    marker = list(color = 'blue')
-  ) %>%
-  layout(
-    title = 'Distribution of Average Plausible Values for Mathematics',
-    xaxis = list(title = 'Average Plausible Values'),
-    yaxis = list(title = 'Percentage of Students')
-  )
-
-fig_read <- plot_ly(student_avg_scores, histnorm = "percent") %>%
-  add_trace(
-    x = ~AvgReadPV,
-    type = 'histogram',
-    opacity = 0.6,
-    name = 'Reading',
-    marker = list(color = 'orange')
-  ) %>%
-  layout(
-    title = 'Distribution of Average Plausible Values for Reading',
-    xaxis = list(title = 'Average Plausible Values'),
-    yaxis = list(showticklabels = FALSE) # Remove y-axis labels
-  )
-
-fig_scie <- plot_ly(student_avg_scores, histnorm = "percent") %>%
-  add_trace(
-    x = ~AvgSciePV,
-    type = 'histogram',
-    opacity = 0.6,
-    name = 'Science',
-    marker = list(color = 'green')
-  ) %>%
-  layout(
-    title = 'Distribution of Average Plausible Values for Science',
-    xaxis = list(title = 'Average Plausible Values'),
-    yaxis = list(showticklabels = FALSE) # Remove y-axis labels
-  )
-
-# Arrange the graphs side by side with a common y-axis label
-subplot(
-  fig_math, fig_read, fig_scie, nrows = 1, shareY = TRUE
-) %>%
-layout(yaxis = list(title = 'Percentage of Students')) # Add common y-axis label
-
-```
 ## 3.2 Average Plausible Values by School
 
 ```{r}
