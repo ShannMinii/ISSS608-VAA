@@ -246,17 +246,10 @@ gender_avg_scores <- stu_qqq_Sg %>%
     AvgMathPV = rowMeans(select(., starts_with("PV1MATH"):starts_with("PV10MATH")), na.rm = TRUE),
     AvgReadPV = rowMeans(select(., starts_with("PV1READ"):starts_with("PV10READ")), na.rm = TRUE),
     AvgSciePV = rowMeans(select(., starts_with("PV1SCIE"):starts_with("PV10SCIE")), na.rm = TRUE)
-  ) %>%
-  group_by(Gender) %>%
-  summarise(
-    AvgMathScore = mean(AvgMathPV, na.rm = TRUE),
-    AvgReadScore = mean(AvgReadPV, na.rm = TRUE),
-    AvgScieScore = mean(AvgSciePV, na.rm = TRUE)
   )
 
-# View the gender level averages
+# Now, 'gender_avg_scores' contains the individual student's data with their gender and average scores
 print(gender_avg_scores)
-
 ```
 
 # 3. Results
@@ -349,3 +342,57 @@ fig <- fig %>%
 fig
 ```
 
+## 3.3 Gender
+```{r}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+# Assuming 'stu_qqq_Sg' is your data frame
+
+# Prepare the data with gender and average scores
+gender_scores <- stu_qqq_Sg %>%
+  mutate(
+    Gender = ifelse(ST004D01T == 1, "Female", "Male"),
+    AvgMathPV = rowMeans(select(., starts_with("PV1MATH"):starts_with("PV10MATH")), na.rm = TRUE),
+    AvgReadPV = rowMeans(select(., starts_with("PV1READ"):starts_with("PV10READ")), na.rm = TRUE),
+    AvgSciePV = rowMeans(select(., starts_with("PV1SCIE"):starts_with("PV10SCIE")), na.rm = TRUE)
+  )
+
+# Reshape the data to long format
+long_format <- gender_scores %>%
+  select(CNTSTUID, Gender, AvgMathPV, AvgReadPV, AvgSciePV) %>%
+  pivot_longer(
+    cols = c(AvgMathPV, AvgReadPV, AvgSciePV),
+    names_to = "Subject",
+    values_to = "Score"
+  )
+
+# Adjust the Subject names if necessary
+long_format$Subject <- recode(long_format$Subject,
+                              AvgMathPV = "Math",
+                              AvgReadPV = "Reading",
+                              AvgSciePV = "Science")
+
+# Create the boxplot using the default ggplot2 color scheme
+boxplot <- ggplot(long_format, aes(x = Gender, y = Score, fill = Gender)) +
+  geom_boxplot() +
+  facet_wrap(~Subject, strip.position = "bottom") + # Move the facet labels to the bottom
+  labs(
+    title = "Score Distribution by Gender and Subject",
+    x = "", # Remove the x-axis label
+    y = "Average Plausible Values" # Change the y-axis label to 'Average Plausible Values'
+  ) +
+  theme(
+    axis.title.x = element_blank(), # Remove the x-axis title
+    axis.text.x = element_blank(), # Remove the x-axis text
+    axis.ticks.x = element_blank(), # Remove the x-axis ticks
+    strip.background = element_blank(), # Remove facet label background
+    strip.text.x = element_text(size = 12), # Adjust facet label text size
+    plot.title = element_text(hjust = 0.5) # Center the title
+  )
+
+# Print the boxplot
+print(boxplot)
+
+```
