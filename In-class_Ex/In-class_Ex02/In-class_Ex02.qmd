@@ -1,0 +1,12 @@
+---
+title: "In-class Exercise 2"
+date: "January 20, 2024"
+date-modified: "last-modified"
+execute: 
+  eval: true
+  echo: true
+  warning: false
+editor: visual
+---
+
+[Tableau Public](https://public.tableau.com/app/profile/shannon.lee7844/viz/In-class_Exercise01_17057345538410/Monthlysalesandprofitbyregion2016-2019)

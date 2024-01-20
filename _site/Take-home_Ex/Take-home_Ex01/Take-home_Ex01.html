@@ -1,0 +1,1801 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2024-01-17">
+
+<title>ISSS608-VAA - Take-home Exercise 1</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">ISSS608-VAA</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-hands-on-exercise" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Hands-on Exercise</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-hands-on-exercise">    
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-in-class-exercise" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">In-class Exercise</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-in-class-exercise">    
+        <li>
+    <a class="dropdown-item" href="../../In-class_Ex/In-class_Ex01/In-class_Ex01.html" rel="" target="">
+ <span class="dropdown-text">In-class Exercise 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../In-class_Ex/In-class_Ex02/In-class_Ex02.html" rel="" target="">
+ <span class="dropdown-text">In-class Exercise 2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-take-home-exercise" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Take-home Exercise</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-take-home-exercise">    
+        <li>
+    <a class="dropdown-item" href="../../Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html" rel="" target="">
+ <span class="dropdown-text">Take-home Exercise 1</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#project-brief" id="toc-project-brief" class="nav-link active" data-scroll-target="#project-brief"><strong>Project Brief</strong></a></li>
+  <li><a href="#project-objectives" id="toc-project-objectives" class="nav-link" data-scroll-target="#project-objectives">Project Objectives</a></li>
+  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">1. Data Preparation</a>
+  <ul class="collapse">
+  <li><a href="#installing-r-packages" id="toc-installing-r-packages" class="nav-link" data-scroll-target="#installing-r-packages">1.1 Installing R packages</a></li>
+  <li><a href="#importing-dataset" id="toc-importing-dataset" class="nav-link" data-scroll-target="#importing-dataset">1.2 Importing Dataset</a></li>
+  <li><a href="#summary-statistics" id="toc-summary-statistics" class="nav-link" data-scroll-target="#summary-statistics">1.3 Summary Statistics</a></li>
+  </ul></li>
+  <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link" data-scroll-target="#data-wrangling">2. Data Wrangling</a>
+  <ul class="collapse">
+  <li><a href="#calculate-average-plausible-values-for-each-student" id="toc-calculate-average-plausible-values-for-each-student" class="nav-link" data-scroll-target="#calculate-average-plausible-values-for-each-student">2.1 Calculate average plausible values for each student</a></li>
+  <li><a href="#consolidate-individual-student-performance-data-into-school-wide-metrics" id="toc-consolidate-individual-student-performance-data-into-school-wide-metrics" class="nav-link" data-scroll-target="#consolidate-individual-student-performance-data-into-school-wide-metrics">2.2 Consolidate individual student performance data into school-wide metrics</a></li>
+  <li><a href="#gender" id="toc-gender" class="nav-link" data-scroll-target="#gender">2.3 Gender</a></li>
+  <li><a href="#ses" id="toc-ses" class="nav-link" data-scroll-target="#ses">2.4 SES</a></li>
+  </ul></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">3. Results</a>
+  <ul class="collapse">
+  <li><a href="#average-plausible-values-by-students-in-singapore" id="toc-average-plausible-values-by-students-in-singapore" class="nav-link" data-scroll-target="#average-plausible-values-by-students-in-singapore">3.1 Average Plausible Values by Students in Singapore</a></li>
+  <li><a href="#average-plausible-values-by-school" id="toc-average-plausible-values-by-school" class="nav-link" data-scroll-target="#average-plausible-values-by-school">3.2 Average Plausible Values by School</a></li>
+  <li><a href="#gender-1" id="toc-gender-1" class="nav-link" data-scroll-target="#gender-1">3.3 Gender</a></li>
+  <li><a href="#ses-part-1" id="toc-ses-part-1" class="nav-link" data-scroll-target="#ses-part-1">3.4 SES part 1</a></li>
+  <li><a href="#ses-part-2" id="toc-ses-part-2" class="nav-link" data-scroll-target="#ses-part-2">3.5 SES Part 2</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Take-home Exercise 1</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 17, 2024</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">January 21, 2024</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="project-brief" class="level1">
+<h1><strong>Project Brief</strong></h1>
+<p>OECD education director Andreas Schleicher shared in a BBC article that “Singapore managed to achieve excellence without wide differences between children from wealthy and disadvantaged families.” (2016) Furthermore, several Singapore’s Minister for Education also started an “every school a good school” slogan.</p>
+<p>The general public, however, strongly belief that there are still disparities that exist, especially between the elite schools and neighborhood school, between students from families with higher socioeconomic status and those with relatively lower socioeconomic status and immigration and non-immigration families.</p>
+</section>
+<section id="project-objectives" class="level1">
+<h1>Project Objectives</h1>
+<p>The 2022 Programme for International Student Assessment (PISA) data was released on December 5, 2022. PISA global education survey every three years to assess the education systems worldwide through testing 15 year old students in the subjects of mathematics, reading, and science.</p>
+<p>In this take-home exercise, we are required to use appropriate Exploratory Data Analysis (EDA) methods and ggplot2 functions to reveal:</p>
+<ol type="1">
+<li><p>the distribution of Singapore students’ performance in mathematics, reading, and science, and</p></li>
+<li><p>the relationship between these performances with schools, gender and socioeconomic status of the students.</p></li>
+</ol>
+<p>Limit your submission to not more than five EDA visualisation.</p>
+</section>
+<section id="data-preparation" class="level1">
+<h1>1. Data Preparation</h1>
+<section id="installing-r-packages" class="level2">
+<h2 class="anchored" data-anchor-id="installing-r-packages">1.1 Installing R packages</h2>
+<p>pacman::p_load() function from the pacman package is used in the following code chunk to install and call the libraries of multiple R packages:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, haven, ggrepel, patchwork, </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               ggthemes, hrbrthemes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="importing-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="importing-dataset">1.2 Importing Dataset</h2>
+<p>“Student questionnaire data file” from the PISA 2022 database is provided for the task.</p>
+<p>The code chunk below uses read_sas() of haven to import PISA data into R environment.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>stu_qqq <span class="ot">&lt;-</span> <span class="fu">read_sas</span>(<span class="st">"data/STU_QQQ_SAS/cy08msp_stu_qqq.sas7bdat"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>stu_qqq_SG <span class="ot">&lt;-</span> stu_qqq <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(CNT <span class="sc">==</span> <span class="st">"SGP"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(stu_qqq_SG,</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>          <span class="st">"data/STU_QQQ_SAS/stu_qqq_SG.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We upload the file as stu_qqq_Sg.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>stu_qqq_Sg <span class="ot">&lt;-</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_rds</span>(<span class="st">"data/STU_QQQ_SAS/stu_qqq_SG.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="summary-statistics" class="level2">
+<h2 class="anchored" data-anchor-id="summary-statistics">1.3 Summary Statistics</h2>
+<p>Display first 5 rows using head()</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(stu_qqq_Sg, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 1,279
+  CNT   CNTRYID CNTSCHID CNTSTUID CYC   NatCen STRATUM SUBNATIO REGION  OECD
+  &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
+1 SGP       702 70200052 70200001 08MS  070200 SGP01   7020000   70200     0
+2 SGP       702 70200134 70200002 08MS  070200 SGP01   7020000   70200     0
+3 SGP       702 70200112 70200003 08MS  070200 SGP01   7020000   70200     0
+4 SGP       702 70200004 70200004 08MS  070200 SGP01   7020000   70200     0
+5 SGP       702 70200152 70200005 08MS  070200 SGP01   7020000   70200     0
+# ℹ 1,269 more variables: ADMINMODE &lt;dbl&gt;, LANGTEST_QQQ &lt;dbl&gt;,
+#   LANGTEST_COG &lt;dbl&gt;, LANGTEST_PAQ &lt;dbl&gt;, Option_CT &lt;dbl&gt;, Option_FL &lt;dbl&gt;,
+#   Option_ICTQ &lt;dbl&gt;, Option_WBQ &lt;dbl&gt;, Option_PQ &lt;dbl&gt;, Option_TQ &lt;dbl&gt;,
+#   Option_UH &lt;dbl&gt;, BOOKID &lt;dbl&gt;, ST001D01T &lt;dbl&gt;, ST003D02T &lt;dbl&gt;,
+#   ST003D03T &lt;dbl&gt;, ST004D01T &lt;dbl&gt;, ST250Q01JA &lt;dbl&gt;, ST250Q02JA &lt;dbl&gt;,
+#   ST250Q03JA &lt;dbl&gt;, ST250Q04JA &lt;dbl&gt;, ST250Q05JA &lt;dbl&gt;, ST250D06JA &lt;chr&gt;,
+#   ST250D07JA &lt;chr&gt;, ST251Q01JA &lt;dbl&gt;, ST251Q02JA &lt;dbl&gt;, ST251Q03JA &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+<p>Check the structure of stu_qqq_Sg</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(stu_qqq_Sg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [6,606 × 1,279] (S3: tbl_df/tbl/data.frame)
+ $ CNT         : chr [1:6606] "SGP" "SGP" "SGP" "SGP" ...
+  ..- attr(*, "label")= chr "Country code 3-character"
+ $ CNTRYID     : num [1:6606] 702 702 702 702 702 702 702 702 702 702 ...
+  ..- attr(*, "label")= chr "Country Identifier"
+ $ CNTSCHID    : num [1:6606] 70200052 70200134 70200112 70200004 70200152 ...
+  ..- attr(*, "label")= chr "Intl. School ID"
+ $ CNTSTUID    : num [1:6606] 70200001 70200002 70200003 70200004 70200005 ...
+  ..- attr(*, "label")= chr "Intl. Student ID"
+ $ CYC         : chr [1:6606] "08MS" "08MS" "08MS" "08MS" ...
+  ..- attr(*, "label")= chr "PISA Assessment Cycle (2 digits + 2 character Assessment type - MS/FT)"
+ $ NatCen      : chr [1:6606] "070200" "070200" "070200" "070200" ...
+  ..- attr(*, "label")= chr "National Centre 6-digit Code"
+ $ STRATUM     : chr [1:6606] "SGP01" "SGP01" "SGP01" "SGP01" ...
+  ..- attr(*, "label")= chr "Stratum ID 5-character (cnt + original stratum ID)"
+ $ SUBNATIO    : chr [1:6606] "7020000" "7020000" "7020000" "7020000" ...
+  ..- attr(*, "label")= chr "Adjudicated sub-region code 7-digit code (3-digit country code + region ID + stratum ID)"
+ $ REGION      : num [1:6606] 70200 70200 70200 70200 70200 70200 70200 70200 70200 70200 ...
+  ..- attr(*, "label")= chr "REGION"
+ $ OECD        : num [1:6606] 0 0 0 0 0 0 0 0 0 0 ...
+  ..- attr(*, "label")= chr "OECD country"
+ $ ADMINMODE   : num [1:6606] 2 2 2 2 2 2 2 2 2 2 ...
+  ..- attr(*, "label")= chr "Mode of Respondent"
+ $ LANGTEST_QQQ: num [1:6606] 313 313 313 313 313 313 313 313 313 313 ...
+  ..- attr(*, "label")= chr "Language of Questionnaire"
+ $ LANGTEST_COG: num [1:6606] 313 313 313 313 313 313 313 313 313 313 ...
+  ..- attr(*, "label")= chr "Language of Assessment"
+ $ LANGTEST_PAQ: num [1:6606] NA NA NA NA NA NA NA NA NA NA ...
+  ..- attr(*, "label")= chr "Language of Parent Questionnaire"
+ $ Option_CT   : num [1:6606] NA NA NA NA NA NA NA NA NA NA ...
+  ..- attr(*, "label")= chr "Creative Thinking Option"
+ $ Option_FL   : num [1:6606] NA NA NA NA NA NA NA NA NA NA ...
+  ..- attr(*, "label")= chr "Financial Literacy Option"
+ $ Option_ICTQ : num [1:6606] 1 1 1 1 1 1 1 1 1 1 ...
+  ..- attr(*, "label")= chr "ICT Questionnaire Option"
+ $ Option_WBQ  : num [1:6606] 0 0 0 0 0 0 0 0 0 0 ...
+  ..- attr(*, "label")= chr "Well-Being Questionnaire Option"
+ $ Option_PQ   : num [1:6606] 0 0 0 0 0 0 0 0 0 0 ...
+  ..- attr(*, "label")= chr "Parent Questionnaire Option"
+ $ Option_TQ   : num [1:6606] 0 0 0 0 0 0 0 0 0 0 ...
+  ..- attr(*, "label")= chr "Teacher Questionnaire Option"
+ $ Option_UH   : num [1:6606] 0 0 0 0 0 0 0 0 0 0 ...
+  ..- attr(*, "label")= chr "Une Heure Option"
+ $ BOOKID      : num [1:6606] 4 45 8 40 42 15 13 39 14 7 ...
+  ..- attr(*, "label")= chr "Form Identifier"
+ $ ST001D01T   : num [1:6606] 10 10 10 10 10 10 10 10 10 10 ...
+  ..- attr(*, "label")= chr "Student International Grade (Derived)"
+ $ ST003D02T   : num [1:6606] 10 6 7 2 9 9 3 4 8 6 ...
+  ..- attr(*, "label")= chr "Student (Standardized) Birth - Month"
+ $ ST003D03T   : num [1:6606] 2006 2006 2006 2006 2006 ...
+  ..- attr(*, "label")= chr "Student (Standardized) Birth -Year"
+ $ ST004D01T   : num [1:6606] 1 2 2 2 1 1 2 2 1 2 ...
+  ..- attr(*, "label")= chr "Student (Standardized) Gender"
+ $ ST250Q01JA  : num [1:6606] 2 1 1 2 2 2 1 1 2 2 ...
+  ..- attr(*, "label")= chr "Which of the following are in your [home]: A room of your own"
+ $ ST250Q02JA  : num [1:6606] 1 1 1 1 1 1 1 1 1 1 ...
+  ..- attr(*, "label")= chr "Which of the following are in your [home]: A computer (laptop, desktop, or tablet) that you can use for school work"
+ $ ST250Q03JA  : num [1:6606] 1 1 2 1 1 1 1 1 1 1 ...
+  ..- attr(*, "label")= chr "Which of the following are in your [home]: Educational Software or Apps"
+ $ ST250Q04JA  : num [1:6606] 1 1 1 1 1 1 1 1 1 1 ...
+  ..- attr(*, "label")= chr "Which of the following are in your [home]: Your own [cell phone] with Internet access (e.g. smartphone)"
+ $ ST250Q05JA  : num [1:6606] 1 1 1 1 1 1 1 1 1 1 ...
+  ..- attr(*, "label")= chr "Which of the following are in your [home]: Internet access (e.g. Wi-fi) (excluding through smartphones)"
+ $ ST250D06JA  : chr [1:6606] "7020002" "7020001" "7020001" "7020002" ...
+  ..- attr(*, "label")= chr "Which of the following are in your home? &lt;Country-specific item 1&gt;"
+ $ ST250D07JA  : chr [1:6606] "7020002" "7020001" "7020002" "7020002" ...
+  ..- attr(*, "label")= chr "Which of the following are in your home? &lt;Country-specific item 2&gt;"
+ $ ST251Q01JA  : num [1:6606] 2 1 2 1 2 2 2 1 3 3 ...
+  ..- attr(*, "label")= chr "How many of these items are there at your [home]: Cars, vans, or trucks"
+ $ ST251Q02JA  : num [1:6606] 1 4 1 2 2 1 1 1 1 1 ...
+  ..- attr(*, "label")= chr "How many of these items are there at your [home]: Mopeds or motorcycles"
+ $ ST251Q03JA  : num [1:6606] 3 3 3 3 2 2 3 3 4 3 ...
+  ..- attr(*, "label")= chr "How many of these items are there at your [home]: Rooms with a bath or shower"
+ $ ST251Q04JA  : num [1:6606] 3 3 3 3 2 3 3 3 4 3 ...
+  ..- attr(*, "label")= chr "How many of these items are there at your [home]: Rooms with a [flush toilet]"
+ $ ST251Q06JA  : num [1:6606] 3 4 2 2 1 2 2 3 4 1 ...
+  ..- attr(*, "label")= chr "How many of these items are there at your [home]: Musical instruments (e.g. guitar, piano, [country-specific example])"
+ $ ST251Q07JA  : num [1:6606] 3 2 1 1 4 1 4 1 4 3 ...
+  ..- attr(*, "label")= chr "How many of these items are there at your [home]: Works of art (e.g. paintings, sculptures, [country-specific example])"
+ $ ST251D08JA  : chr [1:6606] "9999997" "9999997" "9999997" "9999997" ...
+  ..- attr(*, "label")= chr "How many of these items are there at your home? &lt;Country-specific item 1&gt;"
+ $ ST251D09JA  : chr [1:6606] "9999997" "9999997" "9999997" "9999997" ...
+  ..- attr(*, "label")= chr "How many of these items are there at your home? &lt;Country-specific item 2&gt;"
+ $ ST253Q01JA  : num [1:6606] 7 8 7 6 7 7 8 8 8 7 ...
+  ..- attr(*, "label")= chr "How many [digital devices] with screens are there in your [home]?"
+ $ ST254Q01JA  : num [1:6606] 2 3 2 2 2 2 2 2 2 2 ...
+  ..- attr(*, "label")= chr "How many of the following [digital devices] are in your [home]: Televisions"
+ $ ST254Q02JA  : num [1:6606] 1 2 2 1 3 2 2 5 2 2 ...
+  ..- attr(*, "label")= chr "How many of the following [digital devices] are in your [home]: Desktop computers"
+ $ ST254Q03JA  : num [1:6606] 3 2 2 2 2 2 3 3 3 4 ...
+  ..- attr(*, "label")= chr "How many of the following [digital devices] are in your [home]: Laptop computers or notebooks"
+ $ ST254Q04JA  : num [1:6606] 2 3 2 1 1 2 2 3 3 2 ...
+  ..- attr(*, "label")= chr "How many of the following [digital devices] are in your [home]: Tablets (e.g. [iPad®], [BlackBerry® Playbook™])"
+ $ ST254Q05JA  : num [1:6606] 1 5 1 1 NA 1 1 5 2 2 ...
+  ..- attr(*, "label")= chr "How many of the following [digital devices] are in your [home]: E-book readers (e.g. [Kindle™], [Kobo], [Bookeen])"
+ $ ST254Q06JA  : num [1:6606] 3 2 3 3 4 2 4 3 4 4 ...
+  ..- attr(*, "label")= chr "How many of the following [digital devices] are in your [home]: [Cell phones] with Internet access (i.e. smartphones)"
+ $ ST255Q01JA  : num [1:6606] 7 4 4 3 2 2 4 5 7 4 ...
+  ..- attr(*, "label")= chr "How many books are there in your [home]?"
+ $ ST256Q01JA  : num [1:6606] 2 4 5 2 4 1 1 3 4 4 ...
+  ..- attr(*, "label")= chr "How many of these books at [home]: Religious books (e.g. [Bible], [Example 2])"
+ $ ST256Q02JA  : num [1:6606] 2 5 2 1 1 2 1 5 4 2 ...
+  ..- attr(*, "label")= chr "How many of these books at [home]: Classical literature (e.g. [Shakespeare], [Example 2])"
+ $ ST256Q03JA  : num [1:6606] 4 5 2 1 1 2 2 5 5 1 ...
+  ..- attr(*, "label")= chr "How many of these books at [home]: Contemporary literature"
+ $ ST256Q06JA  : num [1:6606] 4 3 3 2 2 5 2 4 4 1 ...
+  ..- attr(*, "label")= chr "How many of these books at [home]: Books on science"
+ $ ST256Q07JA  : num [1:6606] 3 5 5 2 2 5 1 4 3 1 ...
+  ..- attr(*, "label")= chr "How many of these books at [home]: Books on art, music, or design"
+ $ ST256Q08JA  : num [1:6606] 3 3 3 1 1 5 1 5 5 2 ...
+  ..- attr(*, "label")= chr "How many of these books at [home]: [Technical reference books]"
+ $ ST256Q09JA  : num [1:6606] 2 2 4 2 2 2 2 2 2 3 ...
+  ..- attr(*, "label")= chr "How many of these books at [home]: Dictionaries"
+ $ ST256Q10JA  : num [1:6606] 4 4 5 2 4 1 4 4 4 3 ...
+  ..- attr(*, "label")= chr "How many of these books at [home]: Books to help with your school work"
+ $ ST230Q01JA  : num [1:6606] 4 4 2 4 4 3 2 2 3 4 ...
+  ..- attr(*, "label")= chr "How many siblings (including brothers, sisters, step-brothers, and step-sisters) do you have?"
+ $ ST005Q01JA  : num [1:6606] 2 2 2 2 2 2 2 2 2 2 ...
+  ..- attr(*, "label")= chr "What is the [highest level of schooling] completed by your mother?"
+ $ ST006Q01JA  : num [1:6606] 2 2 2 2 2 2 2 NA 2 2 ...
+  ..- attr(*, "label")= chr "Does your mother have any of the following qualifications: [ISCED level 8]"
+ $ ST006Q02JA  : num [1:6606] 2 2 2 2 2 2 2 1 2 2 ...
+  ..- attr(*, "label")= chr "Does your mother have any of the following qualifications: [ISCED level 7]"
+ $ ST006Q03JA  : num [1:6606] 1 2 2 2 2 2 2 1 1 1 ...
+  ..- attr(*, "label")= chr "Does your mother have any of the following qualifications: [ISCED level 6]"
+ $ ST006Q04JA  : num [1:6606] 2 1 2 2 1 1 2 1 1 2 ...
+  ..- attr(*, "label")= chr "Does your mother have any of the following qualifications: [ISCED level 5]"
+ $ ST006Q05JA  : num [1:6606] 1 1 2 1 2 1 1 1 1 1 ...
+  ..- attr(*, "label")= chr "Does your mother have any of the following qualifications: [ISCED level 4]"
+ $ ST007Q01JA  : num [1:6606] 2 2 2 4 2 2 4 2 2 2 ...
+  ..- attr(*, "label")= chr "What is the [highest level of schooling] completed by your father?"
+ $ ST008Q01JA  : num [1:6606] 2 2 2 NA 2 2 2 NA 2 2 ...
+  ..- attr(*, "label")= chr "Does your father have any of the following qualifications: [ISCED level 8]"
+ $ ST008Q02JA  : num [1:6606] 2 2 2 NA 2 1 2 NA 2 2 ...
+  ..- attr(*, "label")= chr "Does your father have any of the following qualifications: [ISCED level 7]"
+ $ ST008Q03JA  : num [1:6606] 2 2 2 NA 2 1 2 1 1 2 ...
+  ..- attr(*, "label")= chr "Does your father have any of the following qualifications: [ISCED level 6]"
+ $ ST008Q04JA  : num [1:6606] 1 1 2 NA 1 1 2 1 1 1 ...
+  ..- attr(*, "label")= chr "Does your father have any of the following qualifications: [ISCED level 5]"
+ $ ST008Q05JA  : num [1:6606] 2 1 2 1 2 1 2 1 1 2 ...
+  ..- attr(*, "label")= chr "Does your father have any of the following qualifications: [ISCED level 4]"
+ $ ST258Q01JA  : num [1:6606] 1 1 1 5 1 1 1 1 1 1 ...
+  ..- attr(*, "label")= chr "In the past 30 days, how often did you not eat because there was not enough money to buy food?"
+ $ ST259Q01JA  : num [1:6606] NA NA NA NA NA NA NA NA NA NA ...
+  ..- attr(*, "label")= chr "Now think about where you would place your family on this scale. Where would you say your family stands at this time?"
+ $ ST259Q02JA  : num [1:6606] NA NA NA NA NA NA NA NA NA NA ...
+  ..- attr(*, "label")= chr "Now think about where you would place your family on this scale. Where do you think you will stand when you are 30?"
+ $ ST019AQ01T  : num [1:6606] 1 1 1 1 1 2 1 2 1 1 ...
+  ..- attr(*, "label")= chr "In what country were you and your parents born? You"
+ $ ST019BQ01T  : num [1:6606] 1 1 2 1 1 2 1 2 1 1 ...
+  ..- attr(*, "label")= chr "In what country were you and your parents born? Mother"
+ $ ST019CQ01T  : num [1:6606] 1 1 1 1 1 2 1 2 1 1 ...
+  ..- attr(*, "label")= chr "In what country were you and your parents born? Father"
+ $ ST021Q01TA  : num [1:6606] NA NA NA NA NA 1 NA 1 NA NA ...
+  ..- attr(*, "label")= chr "How old were you when you arrived in [country of test]?"
+ $ ST022Q01TA  : num [1:6606] 1 1 2 2 1 2 1 2 1 2 ...
+  ..- attr(*, "label")= chr "What language do you speak at home most of the time?"
+ $ ST226Q01JA  : num [1:6606] 1 1 1 1 1 1 1 4 1 1 ...
+  ..- attr(*, "label")= chr "How long have you been enrolled at this school?"
+ $ ST125Q01NA  : num [1:6606] 3 5 8 4 8 3 4 8 8 4 ...
+  ..- attr(*, "label")= chr "How old were you when you started [ISCED 0]: Years"
+ $ ST126Q01TA  : num [1:6606] 4 5 5 5 5 5 5 5 4 5 ...
+  ..- attr(*, "label")= chr "How old were you when you started [ISCED 1]: Years"
+ $ ST127Q01TA  : num [1:6606] 1 1 1 1 1 1 1 1 1 1 ...
+  ..- attr(*, "label")= chr "Have you ever repeated a [grade]: At [ISCED 1]"
+ $ ST127Q02TA  : num [1:6606] 1 1 1 1 1 1 1 1 1 1 ...
+  ..- attr(*, "label")= chr "Have you ever repeated a [grade]: At [ISCED 2]"
+ $ ST127Q03TA  : num [1:6606] 1 1 1 1 1 1 1 1 1 1 ...
+  ..- attr(*, "label")= chr "Have you ever repeated a [grade]: At [ISCED 3]"
+ $ ST260Q01JA  : num [1:6606] 1 1 1 1 1 1 1 1 1 1 ...
+  ..- attr(*, "label")= chr "Have you ever missed school for more than three months in a row: At [ISCED 1]"
+ $ ST260Q02JA  : num [1:6606] 1 1 1 1 1 1 1 1 1 1 ...
+  ..- attr(*, "label")= chr "Have you ever missed school for more than three months in a row: At [ISCED 2]"
+ $ ST260Q03JA  : num [1:6606] 1 1 1 1 1 1 1 1 1 1 ...
+  ..- attr(*, "label")= chr "Have you ever missed school for more than three months in a row: At [ISCED 3]"
+ $ ST261Q01JA  : num [1:6606] NA NA NA NA NA NA NA NA NA NA ...
+  ..- attr(*, "label")= chr "Why miss school for 3+ months: I was bored."
+ $ ST261Q02JA  : num [1:6606] NA NA NA NA NA NA NA NA NA NA ...
+  ..- attr(*, "label")= chr "Why miss school for 3+ months: I was suspended for something (e.g. violence, aggression, use of drugs, drug dealing)."
+ $ ST261Q03JA  : num [1:6606] NA NA NA NA NA NA NA NA NA NA ...
+  ..- attr(*, "label")= chr "Why miss school for 3+ months: I was pregnant."
+ $ ST261Q04JA  : num [1:6606] NA NA NA NA NA NA NA NA NA NA ...
+  ..- attr(*, "label")= chr "Why miss school for 3+ months: I could not reach school because of transportation problems."
+ $ ST261Q05JA  : num [1:6606] NA NA NA NA NA NA NA NA NA NA ...
+  ..- attr(*, "label")= chr "Why miss school for 3+ months: I had to take care of a family member."
+ $ ST261Q06JA  : num [1:6606] NA NA NA NA NA NA NA NA NA NA ...
+  ..- attr(*, "label")= chr "Why miss school for 3+ months: I had to help with work at home, the family business, or on the family land."
+ $ ST261Q07JA  : num [1:6606] NA NA NA NA NA NA NA NA NA NA ...
+  ..- attr(*, "label")= chr "Why miss school for 3+ months: I had to get work to bring money home."
+ $ ST261Q08JA  : num [1:6606] NA NA NA NA NA NA NA NA NA NA ...
+  ..- attr(*, "label")= chr "Why miss school for 3+ months: I was sick."
+ $ ST261Q09JA  : num [1:6606] NA NA NA NA NA NA NA NA NA NA ...
+  ..- attr(*, "label")= chr "Why miss school for 3+ months: I did not feel safe at school."
+ $ ST261Q10JA  : num [1:6606] NA NA NA NA NA NA NA NA NA NA ...
+  ..- attr(*, "label")= chr "Why miss school for 3+ months: I could not pay [school fees]."
+ $ ST261Q11JA  : num [1:6606] NA NA NA NA NA NA NA NA NA NA ...
+  ..- attr(*, "label")= chr "Why miss school for 3+ months: School was closed because of a natural disaster (e.g. flood, earthquake)."
+ $ ST062Q01TA  : num [1:6606] 1 1 1 1 2 1 1 1 1 1 ...
+  ..- attr(*, "label")= chr "In the last two full weeks of school, how often: I [skipped] a whole school day"
+  [list output truncated]</code></pre>
+</div>
+</div>
+<p>The dataset contains the Intl. School ID (CNTSCHID), Intl. Student ID (CNTSTUID), and Student (Standardized) Gender (ST004D01T) variables, which are currently kept as numeric data types. We will convert these to categorical data types due to the following reasons:</p>
+<ol type="1">
+<li><p>The International School ID (CNTSCHID) is a numerical designation used to uniquely identify various schools. The numbers lack inherent mathematical significance; they serve solely as designations.</p></li>
+<li><p>Comparable to school IDs, The International Student ID (CNTSTUID) is a distinct identity assigned to each student, it should be regarded as a label.</p></li>
+<li><p>“Student (Standardized) Gender (ST004D01T)” represents gender and is characterized by discrete categories such as male or female rather than a numerical scale.</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>stu_qqq_Sg<span class="sc">$</span>CNTSCHID <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(stu_qqq_Sg<span class="sc">$</span>CNTSCHID)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>stu_qqq_Sg<span class="sc">$</span>CNTSTUID <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(stu_qqq_Sg<span class="sc">$</span>CNTSTUID)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>stu_qqq_Sg<span class="sc">$</span>ST004D01T <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(stu_qqq_Sg<span class="sc">$</span>ST004D01T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Proceed to check for duplicates</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>duplicate_rows <span class="ot">&lt;-</span> stu_qqq_Sg[<span class="fu">duplicated</span>(stu_qqq_Sg),]</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(duplicate_rows))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 0 × 1,279
+# ℹ 1,279 variables: CNT &lt;chr&gt;, CNTRYID &lt;dbl&gt;, CNTSCHID &lt;fct&gt;, CNTSTUID &lt;fct&gt;,
+#   CYC &lt;chr&gt;, NatCen &lt;chr&gt;, STRATUM &lt;chr&gt;, SUBNATIO &lt;chr&gt;, REGION &lt;dbl&gt;,
+#   OECD &lt;dbl&gt;, ADMINMODE &lt;dbl&gt;, LANGTEST_QQQ &lt;dbl&gt;, LANGTEST_COG &lt;dbl&gt;,
+#   LANGTEST_PAQ &lt;dbl&gt;, Option_CT &lt;dbl&gt;, Option_FL &lt;dbl&gt;, Option_ICTQ &lt;dbl&gt;,
+#   Option_WBQ &lt;dbl&gt;, Option_PQ &lt;dbl&gt;, Option_TQ &lt;dbl&gt;, Option_UH &lt;dbl&gt;,
+#   BOOKID &lt;dbl&gt;, ST001D01T &lt;dbl&gt;, ST003D02T &lt;dbl&gt;, ST003D03T &lt;dbl&gt;,
+#   ST004D01T &lt;fct&gt;, ST250Q01JA &lt;dbl&gt;, ST250Q02JA &lt;dbl&gt;, ST250Q03JA &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+<p>The output # A tibble: 0 × 1,279 indicates that there are zero rows in the resulting tibble. This means that no duplicate rows were found in your dataset stu_qqq_Sg across all 1,279 variables. Each row in your dataset is unique when considering all the variables together.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count the total number of missing values in the dataset</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>total_na <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(stu_qqq_Sg))</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(total_na)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4168500</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count the number of missing values per column</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>na_per_column <span class="ot">&lt;-</span> <span class="fu">colSums</span>(<span class="fu">is.na</span>(stu_qqq_Sg))</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(na_per_column)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         CNT      CNTRYID     CNTSCHID     CNTSTUID          CYC       NatCen 
+           0            0            0            0            0            0 
+     STRATUM     SUBNATIO       REGION         OECD    ADMINMODE LANGTEST_QQQ 
+           0            0            0            0            0           39 
+LANGTEST_COG LANGTEST_PAQ    Option_CT    Option_FL  Option_ICTQ   Option_WBQ 
+           0         6606         6606         6606            0            0 
+   Option_PQ    Option_TQ    Option_UH       BOOKID    ST001D01T    ST003D02T 
+           0            0            0            0            0            0 
+   ST003D03T    ST004D01T   ST250Q01JA   ST250Q02JA   ST250Q03JA   ST250Q04JA 
+           0            0           66           45           60           46 
+  ST250Q05JA   ST250D06JA   ST250D07JA   ST251Q01JA   ST251Q02JA   ST251Q03JA 
+          46            0            0           47           78           51 
+  ST251Q04JA   ST251Q06JA   ST251Q07JA   ST251D08JA   ST251D09JA   ST253Q01JA 
+          62           47           42            0            0           41 
+  ST254Q01JA   ST254Q02JA   ST254Q03JA   ST254Q04JA   ST254Q05JA   ST254Q06JA 
+         134          188          176          117          120           58 
+  ST255Q01JA   ST256Q01JA   ST256Q02JA   ST256Q03JA   ST256Q06JA   ST256Q07JA 
+          44          359          347          357          318          339 
+  ST256Q08JA   ST256Q09JA   ST256Q10JA   ST230Q01JA   ST005Q01JA   ST006Q01JA 
+         377          299          278           43           86          892 
+  ST006Q02JA   ST006Q03JA   ST006Q04JA   ST006Q05JA   ST007Q01JA   ST008Q01JA 
+         752          545          686          657          103         1034 
+  ST008Q02JA   ST008Q03JA   ST008Q04JA   ST008Q05JA   ST258Q01JA   ST259Q01JA 
+         794          638          748          736           46         6606 
+  ST259Q02JA   ST019AQ01T   ST019BQ01T   ST019CQ01T   ST021Q01TA   ST022Q01TA 
+        6606          142           64           76         5266           42 
+  ST226Q01JA   ST125Q01NA   ST126Q01TA   ST127Q01TA   ST127Q02TA   ST127Q03TA 
+          46           56           52           63           75           95 
+  ST260Q01JA   ST260Q02JA   ST260Q03JA   ST261Q01JA   ST261Q02JA   ST261Q03JA 
+          59           71           80         6313         6316         6319 
+  ST261Q04JA   ST261Q05JA   ST261Q06JA   ST261Q07JA   ST261Q08JA   ST261Q09JA 
+        6317         6318         6319         6322         6303         6316 
+  ST261Q10JA   ST261Q11JA   ST062Q01TA   ST062Q02TA   ST062Q03TA   ST267Q01JA 
+        6319         6320           60           59           49         2459 
+  ST267Q02JA   ST267Q03JA   ST267Q04JA   ST267Q05JA   ST267Q06JA   ST267Q07JA 
+        2534         2498         2524         2484         2567         2564 
+  ST267Q08JA   ST034Q01TA   ST034Q02TA   ST034Q03TA   ST034Q04TA   ST034Q05TA 
+        2447         1139         1087         1164         1174         1161 
+  ST034Q06TA   ST038Q03NA   ST038Q04NA   ST038Q05NA   ST038Q06NA   ST038Q07NA 
+        1147           53           49           60           50           51 
+  ST038Q08NA   ST038Q09JA   ST038Q10JA   ST038Q11JA   ST265Q01JA   ST265Q02JA 
+          58           49           49           47           43           46 
+  ST265Q03JA   ST265Q04JA   ST266Q01JA   ST266Q02JA   ST266Q03JA   ST266Q04JA 
+          44           43           52           51           53           52 
+  ST266Q05JA   ST294Q01JA   ST294Q02JA   ST294Q03JA   ST294Q04JA   ST294Q05JA 
+          53           50           97           73           58           50 
+  ST295Q01JA   ST295Q02JA   ST295Q03JA   ST295Q04JA   ST295Q05JA   ST326Q01JA 
+          69           79          108          106           75           57 
+  ST326Q02JA   ST326Q03JA   ST326Q04JA   ST326Q05JA   ST326Q06JA   ST326Q07JA 
+         112           98           78           78           71         6606 
+  ST326Q08JA   ST326Q09JA   ST326Q10JA   ST326Q11JA   ST326Q12JA   ST322Q01JA 
+        6606         6606         6606         6606         6606         1103 
+  ST322Q02JA   ST322Q03JA   ST322Q04JA   ST322Q06JA   ST322Q07JA   ST307Q01JA 
+        1143         1156         1182         1212         1111         3320 
+  ST307Q02JA   ST307Q03JA   ST307Q04JA   ST307Q05JA   ST307Q06JA   ST307Q07JA 
+        3274         3295         3302         3346         3378         3306 
+  ST307Q08JA   ST307Q09JA   ST307Q10JA   ST309Q01JA   ST309Q02JA   ST309Q03JA 
+        3377         3335         3370         3371         3288         3354 
+  ST309Q04JA   ST309Q05JA   ST309Q06JA   ST309Q07JA   ST309Q08JA   ST309Q09JA 
+        3252         3349         3354         3387         3254         3372 
+  ST309Q10JA   ST301Q01JA   ST301Q02JA   ST301Q03JA   ST301Q04JA   ST301Q05JA 
+        3313         3327         3338         3372         3304         3307 
+  ST301Q06JA   ST301Q07JA   ST301Q08JA   ST301Q09JA   ST301Q10JA   ST343Q01JA 
+        3348         3258         3358         3400         3283         3350 
+  ST343Q02JA   ST343Q03JA   ST343Q04JA   ST343Q05JA   ST343Q06JA   ST343Q07JA 
+        3295         3297         3395         3346         3393         3373 
+  ST343Q08JA   ST343Q09JA   ST343Q10JA   ST311Q01JA   ST311Q02JA   ST311Q03JA 
+        3257         3317         3304         3265         3389         3309 
+  ST311Q04JA   ST311Q05JA   ST311Q06JA   ST311Q07JA   ST311Q08JA   ST311Q09JA 
+        3287         3346         3420         3378         3342         3302 
+  ST311Q10JA   ST315Q01JA   ST315Q02JA   ST315Q03JA   ST315Q04JA   ST315Q05JA 
+        3274         3332         3320         3328         3355         3280 
+  ST315Q06JA   ST315Q07JA   ST315Q08JA   ST315Q09JA   ST315Q10JA   ST303Q01JA 
+        3361         3349         3318         3341         3342         2508 
+  ST303Q02JA   ST303Q03JA   ST303Q04JA   ST303Q05JA   ST303Q06JA   ST303Q07JA 
+        2525         2537         2512         2494         2552         2499 
+  ST303Q08JA   ST305Q01JA   ST305Q02JA   ST305Q03JA   ST305Q04JA   ST305Q05JA 
+        2493         3283         3301         3312         3406         3370 
+  ST305Q06JA   ST305Q07JA   ST305Q08JA   ST305Q09JA   ST305Q10JA   ST345Q01JA 
+        3342         3394         3321         3329         3326         3362 
+  ST345Q02JA   ST345Q03JA   ST345Q04JA   ST345Q05JA   ST345Q06JA   ST345Q07JA 
+        3294         3275         3349         3425         3311         3398 
+  ST345Q08JA   ST345Q09JA   ST345Q10JA   ST313Q01JA   ST313Q02JA   ST313Q03JA 
+        3311         3309         3305         3271         3288         3328 
+  ST313Q04JA   ST313Q05JA   ST313Q06JA   ST313Q07JA   ST313Q08JA   ST313Q09JA 
+        3336         3352         3303         3383         3394         3386 
+  ST313Q10JA   ST263Q02JA   ST263Q04JA   ST263Q06JA   ST263Q08JA   ST016Q01NA 
+        3297           63           61           63         6606         6606 
+  ST059Q01TA   ST059Q02JA   ST296Q01JA   ST296Q02JA   ST296Q03JA   ST296Q04JA 
+         109          175           70           77           87           78 
+  ST272Q01JA   ST273Q01JA   ST273Q02JA   ST273Q03JA   ST273Q04JA   ST273Q05JA 
+        6606         1913         1984         1958         1866         1955 
+  ST273Q06JA   ST273Q07JA   ST270Q01JA   ST270Q02JA   ST270Q03JA   ST270Q04JA 
+        1953         1925           68           67           68           71 
+  ST285Q01JA   ST285Q02JA   ST285Q03JA   ST285Q04JA   ST285Q05JA   ST285Q06JA 
+        2944         3033         2974         3006         2960         2934 
+  ST285Q07JA   ST285Q08JA   ST285Q09JA   ST283Q01JA   ST283Q02JA   ST283Q03JA 
+        2975         2974         3018         2984         2983         2987 
+  ST283Q04JA   ST283Q05JA   ST283Q06JA   ST283Q07JA   ST283Q08JA   ST283Q09JA 
+        2977         2988         2985         2954         3027         2989 
+  ST275Q01WA   ST275Q02WA   ST275Q03WA   ST275Q04WA   ST275Q05WA   ST275Q06WA 
+        2951         3000         3017         2994         2994         2979 
+  ST275Q07WA   ST275Q08WA   ST275Q09WA   ST276Q01JA   ST276Q02JA   ST276Q03JA 
+        3033         2925         2994         3321         3360         3385 
+  ST276Q04JA   ST276Q05JA   ST276Q06JA   ST276Q07JA   ST276Q08JA   ST276Q09JA 
+        3353         3379         3364         3398         3252         3336 
+  ST276Q10JA   ST268Q01JA   ST268Q02JA   ST268Q03JA   ST268Q04JA   ST268Q05JA 
+        3336           69           74           79           73           71 
+  ST268Q06JA   ST268Q07JA   ST268Q08JA   ST268Q09JA   ST290Q01WA   ST290Q02WA 
+          82           66           71           65         2963         3023 
+  ST290Q03WA   ST290Q04WA   ST290Q05WA   ST290Q06WA   ST290Q07WA   ST290Q08WA 
+        3078         2925         2938         2981         2976         2985 
+  ST290Q09WA   ST291Q01JA   ST291Q02JA   ST291Q03JA   ST291Q04JA   ST291Q05JA 
+        2982         3337         3329         3341         3353         3376 
+  ST291Q06JA   ST291Q07JA   ST291Q08JA   ST291Q09JA   ST291Q10JA   ST289Q01WA 
+        3348         3324         3320         3343         3399         3859 
+  ST289Q02JA   ST289Q03WA   ST289Q04JA   ST289Q05WA   ST289Q06JA   ST289Q07JA 
+        3774         3945         3909         3895         3907         3863 
+  ST289Q08WA   ST289Q09WA   ST289Q10WA   ST289Q11WA   ST289Q14JA   ST293Q01JA 
+        3884         3865         3937         3950         3909         3036 
+  ST293Q02JA   ST293Q03JA   ST293Q04JA   ST293Q05JA   ST293Q06JA   ST293Q07JA 
+        3028         2983         3001         2921         2933         2998 
+  ST293Q08JA   ST293Q09JA   ST292Q01JA   ST292Q02JA   ST292Q03JA   ST292Q04JA 
+        2919         3051         1198         1187         1183         1186 
+  ST292Q05JA   ST292Q06JA   ST297Q01JA   ST297Q03JA   ST297Q05JA   ST297Q06JA 
+        1158         1118           61           61           61           61 
+  ST297Q07JA   ST297Q09JA   ST334Q01JA   ST334Q02JA   ST334Q03JA   ST334Q04JA 
+          61           61         6606         6606         6606         6606 
+  ST334Q05JA   ST334Q06JA   ST334Q07JA   ST334Q08JA   ST334Q09JA   ST334Q10JA 
+        6606         6606         6606         6606         6606         6606 
+  ST335Q01JA   ST335Q02JA   ST335Q03JA   ST335Q05JA   ST335Q06JA   ST335Q07JA 
+        6606         6606         6606         6606         6606         6606 
+  ST336Q01JA   ST336Q03JA   ST336Q04JA   ST336Q05JA   ST336Q06JA   ST336Q07JA 
+        6606         6606         6606         6606         6606         6606 
+  ST337Q01JA   ST337Q02JA   ST337Q03JA   ST337Q04JA   ST337Q05JA   ST337Q06JA 
+        6606         6606         6606         6606         6606         6606 
+  ST337Q07JA   ST337Q08JA   ST338Q01JA   ST338Q02JA   ST338Q03JA   ST338Q04JA 
+        6606         6606         6606         6606         6606         6606 
+  ST338Q05JA   ST338Q06JA   ST338Q07JA   ST338Q08JA   ST339Q04JA   ST339Q06JA 
+        6606         6606         6606         6606         6606         6606 
+  ST340Q01JA   ST340Q02JA   ST340Q03JA   ST340Q04JA   ST340Q05JA   ST340Q06JA 
+        6606         6606         6606         6606         6606         6606 
+  ST340Q07JA   ST340Q08JA   ST340Q09JA   ST340Q10JA   ST341Q01JA   ST341Q02JA 
+        6606         6606         6606         6606         6606         6606 
+  ST341Q03JA   ST341Q04JA   ST341Q05JA   ST342Q01JA   ST342Q02JA   ST342Q03JA 
+        6606         6606         6606         6606         6606         6606 
+  ST342Q04JA   ST342Q06JA   ST342Q07JA   ST342Q08JA   ST300Q01JA   ST300Q02JA 
+        6606         6606         6606         6606         3477         3335 
+  ST300Q03JA   ST300Q04JA   ST300Q05JA   ST300Q06JA   ST300Q07JA   ST300Q08JA 
+        3315         3351         3364         3357         3376         3279 
+  ST300Q09JA   ST300Q10JA   ST327Q01JA   ST327Q02JA   ST327Q03JA   ST327Q04JA 
+        3410         3327          223          193         6606          265 
+  ST327Q05JA   ST327Q06JA   ST327Q07JA   ST327Q08JA   ST330Q01WA   ST330Q02WA 
+         410          226          404          593         3648         3669 
+  ST330Q03WA   ST330Q04WA   ST330Q05WA   ST330Q06WA   ST330Q07WA   ST330Q08WA 
+        3563         3699         3637         3671         3773         3670 
+  ST330Q09WA   ST330Q11WA   ST330D10WA   ST324Q02JA   ST324Q04JA   ST324Q05JA 
+        3682         3676            0         2987         3029         3034 
+  ST324Q07JA   ST324Q10JA   ST324Q11JA   ST324Q12JA   ST324Q13JA   ST324Q14JA 
+        2964         3027         3063         3051         2979         2969 
+  ST347Q01JA   ST347Q02JA   ST348Q01JA   ST348Q02JA   ST348Q03JA   ST348Q04JA 
+        6606         6606         6606         6606         6606         6606 
+  ST348Q05JA   ST348Q06JA   ST348Q07JA   ST348Q08JA   ST349Q01JA   ST350Q01JA 
+        6606         6606         6606         6606         6606         6606 
+  ST351Q01JA   ST351Q02JA   ST351Q03JA   ST351Q04JA   ST351Q05JA   ST351Q06JA 
+        6606         6606         6606         6606         6606         6606 
+  ST351Q07JA   ST351Q08JA   ST352Q01JA   ST352Q02JA   ST352Q03JA   ST352Q04JA 
+        6606         6606         6606         6606         6606         6606 
+  ST352Q05JA   ST352Q06JA   ST352Q07JA   ST352Q08JA   ST353Q01JA   ST353Q02JA 
+        6606         6606         6606         6606         6606         6606 
+  ST353Q03JA   ST353Q04JA   ST353Q05JA   ST353Q06JA   ST353Q07JA   ST353Q08JA 
+        6606         6606         6606         6606         6606         6606 
+  ST354Q01JA   ST354Q02JA   ST354Q03JA   ST354Q04JA   ST354Q05JA   ST354Q06JA 
+        6606         6606         6606         6606         6606         6606 
+  ST354Q07JA   ST354Q08JA   ST354Q09JA   ST354Q10JA   ST355Q01JA   ST355Q02JA 
+        6606         6606         6606         6606         6606         6606 
+  ST355Q03JA   ST355Q04JA   ST355Q05JA   ST355Q06JA   ST355Q07JA   ST355Q08JA 
+        6606         6606         6606         6606         6606         6606 
+  ST356Q01JA   ST331Q01JA   ST331Q02JA   ST331Q03JA   FL150Q01TA   FL150Q02TA 
+        6606          134          126          125         6606         6606 
+  FL150Q03TA   FL164Q01HA   FL164Q02HA   FL164Q03HA   FL164Q04HA   FL164Q05HA 
+        6606         6606         6606         6606         6606         6606 
+  FL164Q06HA   FL164Q07HA   FL164Q08HA   FL164Q09HA   FL164Q10HA   FL164Q11HA 
+        6606         6606         6606         6606         6606         6606 
+  FL164Q12HA   FL164Q13HA   FL164Q14HA   FL164Q15HA   FL164Q16HA   FL166Q01HA 
+        6606         6606         6606         6606         6606         6606 
+  FL166Q02HA   FL166Q03HA   FL166Q05HA   FL166Q06HA   FL166Q07HA   FL174Q01JA 
+        6606         6606         6606         6606         6606         6606 
+  FL174Q02JA   FL174Q03JA   FL174Q04JA   FL174Q05JA   FL174Q06JA   FL174Q07JA 
+        6606         6606         6606         6606         6606         6606 
+  FL167Q01HA   FL167Q02HA   FL167Q06JA   FL167Q03HA   FL167Q04HA   FL167Q05HA 
+        6606         6606         6606         6606         6606         6606 
+  FL167Q07JA   FL170Q01JA   FL170Q02JA   FL170Q03JA   FL170Q04JA   FL170Q05JA 
+        6606         6606         6606         6606         6606         6606 
+  FL170Q06JA   FL170Q07JA   FL159Q01HA   FL159Q02HA   FL159Q03HA   FL159Q04HA 
+        6606         6606         6606         6606         6606         6606 
+  FL160Q01HA   FL160Q02HA   FL160Q03HA   FL160Q04HA   FL161Q01HA   FL161Q02HA 
+        6606         6606         6606         6606         6606         6606 
+  FL161Q03HA   FL162Q01HA   FL162Q02HA   FL162Q03HA   FL162Q04HA   FL162Q05HA 
+        6606         6606         6606         6606         6606         6606 
+  FL162Q06HA   FL163Q01HA   FL163Q02HA   FL163Q03HA   FL163Q04HA   FL163Q05HA 
+        6606         6606         6606         6606         6606         6606 
+  FL171Q01JA   FL171Q02JA   FL171Q03JA   FL171Q04JA   FL171Q05JA   FL171Q07JA 
+        6606         6606         6606         6606         6606         6606 
+  FL171Q08JA   FL171Q09JA   FL171Q10JA   FL171Q11JA   FL171Q12JA   FL169Q01HA 
+        6606         6606         6606         6606         6606         6606 
+  FL169Q05JA   FL169Q02HA   FL169Q06JA   FL169Q07JA   FL169Q03HA   FL169Q04HA 
+        6606         6606         6606         6606         6606         6606 
+  FL169Q08JA   FL169Q10JA   FL169Q11JA   FL172Q01JA   FL172Q03JA   FL172Q05JA 
+        6606         6606         6606         6606         6606         6606 
+  FL172Q06JA   IC170Q01JA   IC170Q02JA   IC170Q03JA   IC170Q04JA   IC170Q05JA 
+        6606          151          149          137          154          158 
+  IC170Q06JA   IC170Q07JA   IC171Q01JA   IC171Q02JA   IC171Q03JA   IC171Q04JA 
+         141          132          151          157          151          163 
+  IC171Q05JA   IC171Q06JA   IC172Q01JA   IC172Q02JA   IC172Q03JA   IC172Q04JA 
+         143          141          141          149          143          156 
+  IC172Q05JA   IC172Q06JA   IC172Q07JA   IC172Q08JA   IC172Q09JA   IC173Q01JA 
+         151          164          143          147          147          142 
+  IC173Q02JA   IC173Q03JA   IC173Q04JA   IC174Q01JA   IC174Q02JA   IC174Q03JA 
+         150          155          142          164          176          187 
+  IC174Q04JA   IC174Q05JA   IC174Q06JA   IC174Q07JA   IC174Q08JA   IC174Q09JA 
+         173          179          179          184          185          176 
+  IC174Q10JA   IC175Q01JA   IC175Q02JA   IC175Q03JA   IC175Q05JA   IC176Q01JA 
+         169          162          170          166          167          168 
+  IC176Q02JA   IC176Q03JA   IC176Q04JA   IC176Q05JA   IC176Q06JA   IC176Q07JA 
+         184          199          176          178          173          175 
+  IC176Q08JA   IC184Q01JA   IC184Q02JA   IC184Q03JA   IC184Q04JA   IC177Q01JA 
+         172          170          177          175          174          173 
+  IC177Q02JA   IC177Q03JA   IC177Q04JA   IC177Q05JA   IC177Q06JA   IC177Q07JA 
+         199          207          196          183          181          180 
+  IC178Q01JA   IC178Q02JA   IC178Q03JA   IC178Q04JA   IC178Q05JA   IC178Q06JA 
+         206          231          226          224          207          215 
+  IC178Q07JA   IC179Q01JA   IC179Q02JA   IC179Q03JA   IC179Q04JA   IC179Q05JA 
+         211          190          202          198          202          195 
+  IC179Q06JA   IC180Q01JA   IC180Q02JA   IC180Q03JA   IC180Q04JA   IC180Q05JA 
+         192          194          216          205          205          199 
+  IC180Q06JA   IC180Q07JA   IC180Q08JA   IC181Q01JA   IC181Q02JA   IC181Q03JA 
+         209          200          203         6606         6606         6606 
+  IC181Q04JA   IC182Q01JA   IC182Q02JA   IC182Q03JA   IC183Q01JA   IC183Q02JA 
+        6606          190          188          190          202          223 
+  IC183Q03JA   IC183Q04JA   IC183Q05JA   IC183Q07JA   IC183Q08JA   IC183Q09JA 
+         221          233          212          233          211          233 
+  IC183Q10JA   IC183Q12JA   IC183Q13JA   IC183Q14JA   IC183Q15JA   IC183Q16JA 
+         213          226          226          210          213          207 
+  WB150Q01HA   WB151Q01HA   WB152Q01HA   WB153Q01HA   WB153Q02HA   WB153Q03HA 
+        6606         6606         6606         6606         6606         6606 
+  WB153Q04HA   WB153Q05HA   WB154Q01HA   WB154Q02HA   WB154Q03HA   WB154Q04HA 
+        6606         6606         6606         6606         6606         6606 
+  WB154Q05HA   WB154Q06HA   WB154Q07HA   WB154Q08HA   WB154Q09HA   WB155Q01HA 
+        6606         6606         6606         6606         6606         6606 
+  WB155Q02HA   WB155Q03HA   WB155Q04HA   WB155Q05HA   WB155Q06HA   WB155Q07HA 
+        6606         6606         6606         6606         6606         6606 
+  WB155Q08HA   WB155Q09HA   WB155Q10HA   WB156Q01HA   WB158Q01HA   WB160Q01HA 
+        6606         6606         6606         6606         6606         6606 
+  WB161Q01HA   WB162Q01HA   WB162Q02HA   WB162Q03HA   WB162Q04HA   WB162Q05HA 
+        6606         6606         6606         6606         6606         6606 
+  WB162Q06HA   WB162Q07HA   WB162Q08HA   WB162Q09HA   WB163Q01HA   WB163Q02HA 
+        6606         6606         6606         6606         6606         6606 
+  WB163Q03HA   WB163Q04HA   WB163Q05HA   WB163Q06HA   WB163Q07HA   WB163Q08HA 
+        6606         6606         6606         6606         6606         6606 
+  WB164Q01HA   WB165Q01HA   WB166Q01HA   WB166Q02HA   WB166Q03HA   WB166Q04HA 
+        6606         6606         6606         6606         6606         6606 
+  WB167Q01HA   WB168Q01HA   WB168Q02HA   WB168Q03HA   WB168Q04HA   WB171Q01HA 
+        6606         6606         6606         6606         6606         6606 
+  WB171Q02HA   WB171Q03HA   WB171Q04HA   WB172Q01HA   WB173Q01HA   WB173Q02HA 
+        6606         6606         6606         6606         6606         6606 
+  WB173Q03HA   WB173Q04HA   WB176Q01HA   WB177Q01HA   WB177Q02HA   WB177Q03HA 
+        6606         6606         6606         6606         6606         6606 
+  WB177Q04HA   WB032Q01NA   WB032Q02NA   WB031Q01NA   WB178Q01HA   WB178Q02HA 
+        6606         6606         6606         6606         6606         6606 
+  WB178Q03HA   WB178Q04HA   WB178Q05HA   WB178Q06HA   WB178Q07HA   PA001Q01TA 
+        6606         6606         6606         6606         6606         6606 
+  PA001Q02TA   PA001Q03TA   PA003Q01TA   PA003Q02TA   PA003Q03TA   PA003Q05IA 
+        6606         6606         6606         6606         6606         6606 
+  PA003Q18WA   PA003Q19WA   PA003Q20WA   PA003Q11JA   PA003Q12JA   PA003Q13JA 
+        6606         6606         6606         6606         6606         6606 
+  PA003Q14JA   PA003Q15JA   PA003Q16JA   PA003Q17JA   PA196Q01WA   PA196Q02WA 
+        6606         6606         6606         6606         6606         6606 
+  PA196Q03WA   PA196Q04WA   PA197Q01WA   PA197Q02WA   PA197Q03WA   PA197Q04WA 
+        6606         6606         6606         6606         6606         6606 
+  PA197Q05WA   PA008Q01TA   PA008Q02TA   PA008Q03TA   PA008Q04TA   PA008Q05TA 
+        6606         6606         6606         6606         6606         6606 
+  PA008Q06NA   PA008Q07NA   PA008Q08NA   PA008Q09NA   PA008Q10NA   PA009Q01NA 
+        6606         6606         6606         6606         6606         6606 
+  PA009Q02NA   PA009Q03NA   PA009Q04NA   PA009Q05NA   PA009Q06NA   PA009Q07NA 
+        6606         6606         6606         6606         6606         6606 
+  PA009Q08NA   PA009Q09NA   PA009Q10NA   PA009Q11NA   PA007Q01TA   PA007Q02TA 
+        6606         6606         6606         6606         6606         6606 
+  PA007Q03TA   PA007Q04TA   PA007Q05TA   PA007Q06TA   PA007Q07TA   PA007Q09NA 
+        6606         6606         6606         6606         6606         6606 
+  PA007Q11NA   PA007Q12NA   PA007Q13NA   PA007Q14NA   PA007Q15NA   PA005Q01TA 
+        6606         6606         6606         6606         6606         6606 
+  PA006Q01TA   PA006Q02TA   PA006Q03TA   PA006Q04TA   PA006Q05TA   PA006Q06TA 
+        6606         6606         6606         6606         6606         6606 
+  PA006Q07TA   PA006Q08TA   PA006Q09TA   PA006Q10TA   PA006Q11TA   PA006Q12HA 
+        6606         6606         6606         6606         6606         6606 
+  PA006Q13HA   PA006Q14HA   PA166Q01HA   PA167Q02HA   PA167Q03HA   PA167Q04HA 
+        6606         6606         6606         6606         6606         6606 
+  PA167Q05HA   PA183Q01JA   PA183Q02JA   PA183Q03JA   PA183Q04JA   PA183Q05JA 
+        6606         6606         6606         6606         6606         6606 
+  PA183Q06JA   PA183Q07JA   PA183Q08JA   PA018Q01NA   PA018Q02NA   PA018Q03NA 
+        6606         6606         6606         6606         6606         6606 
+  PA177Q01HA   PA177Q02HA   PA177Q03HA   PA177Q04HA   PA177Q05HA   PA177Q06HA 
+        6606         6606         6606         6606         6606         6606 
+  PA177Q07HA   PA177Q08HA   PA180Q01HA   PA182Q01HA   PA175Q01HA   PA175Q02HA 
+        6606         6606         6606         6606         6606         6606 
+  PA175Q03JA   PA175Q04JA   PA185Q01JA   PA185Q02JA   PA185Q03JA   PA185Q04JA 
+        6606         6606         6606         6606         6606         6606 
+  PA185Q05JA   PA185Q07JA   PA185Q08JA   PA185Q09JA   PA185Q10JA   PA186Q01JA 
+        6606         6606         6606         6606         6606         6606 
+  PA186Q02JA   PA186Q03JA   PA186Q04JA   PA186Q05JA   PA186Q06JA   PA186Q07JA 
+        6606         6606         6606         6606         6606         6606 
+  PA186Q08JA   PA187Q04JA   PA187Q06JA   PA188Q01JA   PA188Q02JA   PA188Q03JA 
+        6606         6606         6606         6606         6606         6606 
+  PA188Q04JA   PA188Q05JA   PA188Q06JA   PA188Q08JA   PA188Q09JA   PA188Q10JA 
+        6606         6606         6606         6606         6606         6606 
+  PA189Q01JA   PA189Q02JA   PA189Q03JA   PA189Q04JA   PA189Q05JA   PA189Q06JA 
+        6606         6606         6606         6606         6606         6606 
+  PA189Q09JA   PA189Q10JA   PA194Q01JA   PA195Q01JA   PA041Q01TA   PA042Q01TA 
+        6606         6606         6606         6606         6606         6606 
+     EFFORT1      EFFORT2        OCOD1        OCOD2        OCOD3        PROGN 
+        1054         1106            0            0            0            0 
+         AGE        GRADE       ISCEDP        IMMIG       COBN_S       COBN_M 
+           0            0            0          236            0            0 
+      COBN_F        LANGN       REPEAT       MISSSC     SKIPPING      TARDYSD 
+           0            0           48           53           54           49 
+    EXERPRAC     STUDYHMW      WORKPAY     WORKHOME     EXPECEDU     MATHPREF 
+          47           46           51           51          209           69 
+    MATHEASE      MATHMOT      DURECEC         BSMJ        SISCO      RELATST 
+          75           67         2094         1379          259           48 
+      BELONG      BULLIED     FEELSAFE      SCHRISK    PERSEVAGR     CURIOAGR 
+          49           46           43           51           92          103 
+     COOPAGR     EMPATAGR     ASSERAGR     STRESAGR     EMOCOAGR      GROSAGR 
+          98           97          126          147          136         6606 
+    INFOSEEK       FAMSUP      DISCLIM     TEACHSUP     COGACRCO     COGACMCO 
+        6606          105           63           68           71           84 
+      EXPOFA     EXPO21ST      MATHEFF     MATHEF21       FAMCON       ANXMAT 
+          80           83           77           80           90           82 
+    MATHPERS     CREATEFF     CREATSCH     CREATFAM      CREATAS     CREATOOS 
+          83         6606         6606         6606         6606         6606 
+     CREATOP      OPENART      IMAGINE      SCHSUST      LEARRES     PROBSELF 
+        6606         6606         6606         6606         6606         6606 
+    FAMSUPSL      FEELLAH       SDLEFF       MISCED       FISCED       HISCED 
+        6606         6606         6606           74           97           57 
+    PAREDINT        BMMJ1        BFMJ2        HISEI       ICTRES      HOMEPOS 
+          57          607          849          310           40           40 
+        ESCS     FCFMLRTY     FLSCHOOL     FLMULTSB     FLFAMILY     ACCESSFP 
+          47         6606         6606         6606         6606         6606 
+    FLCONFIN     FLCONICT     ACCESSFA     ATTCONFM     FRINFLFM       ICTSCH 
+        6606         6606         6606         6606         6606          131 
+    ICTAVSCH      ICTHOME     ICTAVHOM      ICTQUAL      ICTSUBJ       ICTENQ 
+         119          138          131          139          186          155 
+     ICTFEED       ICTOUT      ICTWKDY     ICTWKEND       ICTREG      ICTINFO 
+         163          157          173          204          189          193 
+    ICTDISTR     ICTEFFIC       STUBMI      BODYIMA      SOCONPA      LIFESAT 
+        6606          258         6606         6606         6606         6606 
+    PSYCHSYM       SOCCON        EXPWB      CURSUPP       PQMIMP       PQMCAR 
+        6606         6606         6606         6606         6606         6606 
+    PARINVOL     PQSCHOOL     PASCHPOL      ATTIMMP      PAREXPT     CREATHME 
+        6606         6606         6606         6606         6606         6606 
+    CREATACT     CREATOPN      CREATOR     W_FSTUWT   W_FSTURWT1   W_FSTURWT2 
+        6606         6606         6606            0            0            0 
+  W_FSTURWT3   W_FSTURWT4   W_FSTURWT5   W_FSTURWT6   W_FSTURWT7   W_FSTURWT8 
+           0            0            0            0            0            0 
+  W_FSTURWT9  W_FSTURWT10  W_FSTURWT11  W_FSTURWT12  W_FSTURWT13  W_FSTURWT14 
+           0            0            0            0            0            0 
+ W_FSTURWT15  W_FSTURWT16  W_FSTURWT17  W_FSTURWT18  W_FSTURWT19  W_FSTURWT20 
+           0            0            0            0            0            0 
+ W_FSTURWT21  W_FSTURWT22  W_FSTURWT23  W_FSTURWT24  W_FSTURWT25  W_FSTURWT26 
+           0            0            0            0            0            0 
+ W_FSTURWT27  W_FSTURWT28  W_FSTURWT29  W_FSTURWT30  W_FSTURWT31  W_FSTURWT32 
+           0            0            0            0            0            0 
+ W_FSTURWT33  W_FSTURWT34  W_FSTURWT35  W_FSTURWT36  W_FSTURWT37  W_FSTURWT38 
+           0            0            0            0            0            0 
+ W_FSTURWT39  W_FSTURWT40  W_FSTURWT41  W_FSTURWT42  W_FSTURWT43  W_FSTURWT44 
+           0            0            0            0            0            0 
+ W_FSTURWT45  W_FSTURWT46  W_FSTURWT47  W_FSTURWT48  W_FSTURWT49  W_FSTURWT50 
+           0            0            0            0            0            0 
+ W_FSTURWT51  W_FSTURWT52  W_FSTURWT53  W_FSTURWT54  W_FSTURWT55  W_FSTURWT56 
+           0            0            0            0            0            0 
+ W_FSTURWT57  W_FSTURWT58  W_FSTURWT59  W_FSTURWT60  W_FSTURWT61  W_FSTURWT62 
+           0            0            0            0            0            0 
+ W_FSTURWT63  W_FSTURWT64  W_FSTURWT65  W_FSTURWT66  W_FSTURWT67  W_FSTURWT68 
+           0            0            0            0            0            0 
+ W_FSTURWT69  W_FSTURWT70  W_FSTURWT71  W_FSTURWT72  W_FSTURWT73  W_FSTURWT74 
+           0            0            0            0            0            0 
+ W_FSTURWT75  W_FSTURWT76  W_FSTURWT77  W_FSTURWT78  W_FSTURWT79  W_FSTURWT80 
+           0            0            0            0            0            0 
+        UNIT     WVARSTRR      PV1MATH      PV2MATH      PV3MATH      PV4MATH 
+           0            0            0            0            0            0 
+     PV5MATH      PV6MATH      PV7MATH      PV8MATH      PV9MATH     PV10MATH 
+           0            0            0            0            0            0 
+     PV1READ      PV2READ      PV3READ      PV4READ      PV5READ      PV6READ 
+           0            0            0            0            0            0 
+     PV7READ      PV8READ      PV9READ     PV10READ      PV1SCIE      PV2SCIE 
+           0            0            0            0            0            0 
+     PV3SCIE      PV4SCIE      PV5SCIE      PV6SCIE      PV7SCIE      PV8SCIE 
+           0            0            0            0            0            0 
+     PV9SCIE     PV10SCIE      PV1MCCR      PV2MCCR      PV3MCCR      PV4MCCR 
+           0            0            0            0            0            0 
+     PV5MCCR      PV6MCCR      PV7MCCR      PV8MCCR      PV9MCCR     PV10MCCR 
+           0            0            0            0            0            0 
+     PV1MCQN      PV2MCQN      PV3MCQN      PV4MCQN      PV5MCQN      PV6MCQN 
+           0            0            0            0            0            0 
+     PV7MCQN      PV8MCQN      PV9MCQN     PV10MCQN      PV1MCSS      PV2MCSS 
+           0            0            0            0            0            0 
+     PV3MCSS      PV4MCSS      PV5MCSS      PV6MCSS      PV7MCSS      PV8MCSS 
+           0            0            0            0            0            0 
+     PV9MCSS     PV10MCSS      PV1MCUD      PV2MCUD      PV3MCUD      PV4MCUD 
+           0            0            0            0            0            0 
+     PV5MCUD      PV6MCUD      PV7MCUD      PV8MCUD      PV9MCUD     PV10MCUD 
+           0            0            0            0            0            0 
+     PV1MPEM      PV2MPEM      PV3MPEM      PV4MPEM      PV5MPEM      PV6MPEM 
+           0            0            0            0            0            0 
+     PV7MPEM      PV8MPEM      PV9MPEM     PV10MPEM      PV1MPFS      PV2MPFS 
+           0            0            0            0            0            0 
+     PV3MPFS      PV4MPFS      PV5MPFS      PV6MPFS      PV7MPFS      PV8MPFS 
+           0            0            0            0            0            0 
+     PV9MPFS     PV10MPFS      PV1MPIN      PV2MPIN      PV3MPIN      PV4MPIN 
+           0            0            0            0            0            0 
+     PV5MPIN      PV6MPIN      PV7MPIN      PV8MPIN      PV9MPIN     PV10MPIN 
+           0            0            0            0            0            0 
+     PV1MPRE      PV2MPRE      PV3MPRE      PV4MPRE      PV5MPRE      PV6MPRE 
+           0            0            0            0            0            0 
+     PV7MPRE      PV8MPRE      PV9MPRE     PV10MPRE        SENWT      VER_DAT 
+           0            0            0            0            0            0 
+           i 
+           0 </code></pre>
+</div>
+</div>
+<p>While there are numerous missing values in the dataset, our focus is primarily on specific columns. We’re interested in the columns labeled:</p>
+<ul>
+<li><p>CNTSCHID (International School ID)</p></li>
+<li><p>CNTSTUID (International Student ID)</p></li>
+<li><p>ST004D01T (Student Standardized Gender)</p></li>
+<li><p>HISEI (Highest parental occupational status based on 4-digit human coded ISCO)</p></li>
+<li><p>PAREDINT (Index highest parental education)</p></li>
+<li><p>HOMEPOS (Home possessions)</p></li>
+<li><p>ESCS (Index of economic, social and cultural status)</p></li>
+</ul>
+<p>and a series of columns related to plausible values in different subjects. These subjects include:</p>
+<ul>
+<li><p>Mathematics (PV1MATH to PV10MATH)</p></li>
+<li><p>Reading (PV1READ to PV10READ)</p></li>
+<li><p>Science (PV1SCIE to PV10SCIE)</p></li>
+</ul>
+<p>We’ll examine these columns for missing data, as they are relevant to our analysis.</p>
+<p>We can use the select function from the dplyr package to extract the specific columns.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Selecting specific columns explicitly</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>selected_columns <span class="ot">&lt;-</span> stu_qqq_Sg <span class="sc">%&gt;%</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(CNTSCHID, CNTSTUID, ST004D01T,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>         HISEI, PAREDINT, HOMEPOS, ESCS,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>         PV1MATH, PV2MATH, PV3MATH, PV4MATH, PV5MATH, PV6MATH, PV7MATH, PV8MATH, PV9MATH, PV10MATH,</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>         PV1READ, PV2READ, PV3READ, PV4READ, PV5READ, PV6READ, PV7READ, PV8READ, PV9READ, PV10READ,</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>         PV1SCIE, PV2SCIE, PV3SCIE, PV4SCIE, PV5SCIE, PV6SCIE, PV7SCIE, PV8SCIE, PV9SCIE, PV10SCIE)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Count the number of missing values per selected column</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>na_per_selected_column <span class="ot">&lt;-</span> <span class="fu">colSums</span>(<span class="fu">is.na</span>(selected_columns))</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Printing the number of missing values per selected column</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(na_per_selected_column)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> CNTSCHID  CNTSTUID ST004D01T     HISEI  PAREDINT   HOMEPOS      ESCS   PV1MATH 
+        0         0         0       310        57        40        47         0 
+  PV2MATH   PV3MATH   PV4MATH   PV5MATH   PV6MATH   PV7MATH   PV8MATH   PV9MATH 
+        0         0         0         0         0         0         0         0 
+ PV10MATH   PV1READ   PV2READ   PV3READ   PV4READ   PV5READ   PV6READ   PV7READ 
+        0         0         0         0         0         0         0         0 
+  PV8READ   PV9READ  PV10READ   PV1SCIE   PV2SCIE   PV3SCIE   PV4SCIE   PV5SCIE 
+        0         0         0         0         0         0         0         0 
+  PV6SCIE   PV7SCIE   PV8SCIE   PV9SCIE  PV10SCIE 
+        0         0         0         0         0 </code></pre>
+</div>
+</div>
+<p>The counts of missing values for the variables in question are as follows:</p>
+<ul>
+<li><p>Mother’s Occupational Status (BMMJ1): 607 missing values</p></li>
+<li><p>Father’s Occupational Status (BFMJ2): 849 missing values</p></li>
+<li><p>Highest Parental Occupational Status (HISEI): 310 missing values</p></li>
+</ul>
+<p>However, we have opted not to impute or omit these cases as we want to preserve the original dataset, maintaining data integrity. Nevertheless, we acknowledge that the missing values in socioeconomic status indicators could limit the depth of socio-economic related insights and possibly affect the generalizability of our findings. This limitation is important to bear in mind when interpreting the results of our analysis. Future research may explore the reasons for these missing values and consider the application of appropriate data imputation methods where socio-economic context is of primary interest.</p>
+</section>
+</section>
+<section id="data-wrangling" class="level1">
+<h1>2. Data Wrangling</h1>
+<section id="calculate-average-plausible-values-for-each-student" class="level2">
+<h2 class="anchored" data-anchor-id="calculate-average-plausible-values-for-each-student">2.1 Calculate average plausible values for each student</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming 'stu_qqq_Sg' is your data frame and 'CNTSTUID' is the column with International Student IDs</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the mean PV scores for each student in each subject</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>student_avg_scores <span class="ot">&lt;-</span> stu_qqq_Sg <span class="sc">%&gt;%</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">AvgMathPV =</span> <span class="fu">rowMeans</span>(<span class="fu">select</span>(., <span class="fu">starts_with</span>(<span class="st">"PV1MATH"</span>)<span class="sc">:</span><span class="fu">starts_with</span>(<span class="st">"PV10MATH"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">AvgReadPV =</span> <span class="fu">rowMeans</span>(<span class="fu">select</span>(., <span class="fu">starts_with</span>(<span class="st">"PV1READ"</span>)<span class="sc">:</span><span class="fu">starts_with</span>(<span class="st">"PV10READ"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">AvgSciePV =</span> <span class="fu">rowMeans</span>(<span class="fu">select</span>(., <span class="fu">starts_with</span>(<span class="st">"PV1SCIE"</span>)<span class="sc">:</span><span class="fu">starts_with</span>(<span class="st">"PV10SCIE"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co"># The resulting 'student_avg_scores' data frame now has three new columns</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 'AvgMathPV', 'AvgReadPV', and 'AvgSciePV' which are the average plausible values</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="co"># for Mathematics, Reading, and Science respectively for each student.</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="co"># View the student level averages</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(student_avg_scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6,606 × 1,282
+   CNT   CNTRYID CNTSCHID CNTSTUID CYC   NatCen STRATUM SUBNATIO REGION  OECD
+   &lt;chr&gt;   &lt;dbl&gt; &lt;fct&gt;    &lt;fct&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
+ 1 SGP       702 70200052 70200001 08MS  070200 SGP01   7020000   70200     0
+ 2 SGP       702 70200134 70200002 08MS  070200 SGP01   7020000   70200     0
+ 3 SGP       702 70200112 70200003 08MS  070200 SGP01   7020000   70200     0
+ 4 SGP       702 70200004 70200004 08MS  070200 SGP01   7020000   70200     0
+ 5 SGP       702 70200152 70200005 08MS  070200 SGP01   7020000   70200     0
+ 6 SGP       702 70200043 70200006 08MS  070200 SGP01   7020000   70200     0
+ 7 SGP       702 70200049 70200007 08MS  070200 SGP01   7020000   70200     0
+ 8 SGP       702 70200107 70200008 08MS  070200 SGP01   7020000   70200     0
+ 9 SGP       702 70200012 70200009 08MS  070200 SGP01   7020000   70200     0
+10 SGP       702 70200061 70200010 08MS  070200 SGP01   7020000   70200     0
+# ℹ 6,596 more rows
+# ℹ 1,272 more variables: ADMINMODE &lt;dbl&gt;, LANGTEST_QQQ &lt;dbl&gt;,
+#   LANGTEST_COG &lt;dbl&gt;, LANGTEST_PAQ &lt;dbl&gt;, Option_CT &lt;dbl&gt;, Option_FL &lt;dbl&gt;,
+#   Option_ICTQ &lt;dbl&gt;, Option_WBQ &lt;dbl&gt;, Option_PQ &lt;dbl&gt;, Option_TQ &lt;dbl&gt;,
+#   Option_UH &lt;dbl&gt;, BOOKID &lt;dbl&gt;, ST001D01T &lt;dbl&gt;, ST003D02T &lt;dbl&gt;,
+#   ST003D03T &lt;dbl&gt;, ST004D01T &lt;fct&gt;, ST250Q01JA &lt;dbl&gt;, ST250Q02JA &lt;dbl&gt;,
+#   ST250Q03JA &lt;dbl&gt;, ST250Q04JA &lt;dbl&gt;, ST250Q05JA &lt;dbl&gt;, ST250D06JA &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+</section>
+<section id="consolidate-individual-student-performance-data-into-school-wide-metrics" class="level2">
+<h2 class="anchored" data-anchor-id="consolidate-individual-student-performance-data-into-school-wide-metrics">2.2 Consolidate individual student performance data into school-wide metrics</h2>
+<p>We compute the average of plausible value (PV) scores for each subject at the school level. The steps to accomplish this in R include:</p>
+<ol type="1">
+<li><p>Aggregation of PV Scores per Subject</p>
+<ul>
+<li>Start by determining the average PV scores for every student by taking the mean across the ten plausible values for Mathematics, Reading, and Science respectively.</li>
+</ul></li>
+<li><p>Consolidation by School</p>
+<ul>
+<li>Organize the dataset around the International School ID (CNTSCHID) to group students according to their school.</li>
+</ul></li>
+<li><p>School-Level Averages</p>
+<ul>
+<li>For each group representing a school, compute the mean of these individual averages. This results in a single average score that represents the collective performance of students in each subject for that school.</li>
+</ul></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the mean PV scores for each student in each subject</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>stu_qqq_Sg <span class="ot">&lt;-</span> stu_qqq_Sg <span class="sc">%&gt;%</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">AvgMathPV =</span> <span class="fu">rowMeans</span>(<span class="fu">select</span>(., <span class="fu">starts_with</span>(<span class="st">"PV1MATH"</span>)<span class="sc">:</span><span class="fu">starts_with</span>(<span class="st">"PV10MATH"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">AvgReadPV =</span> <span class="fu">rowMeans</span>(<span class="fu">select</span>(., <span class="fu">starts_with</span>(<span class="st">"PV1READ"</span>)<span class="sc">:</span><span class="fu">starts_with</span>(<span class="st">"PV10READ"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">AvgSciePV =</span> <span class="fu">rowMeans</span>(<span class="fu">select</span>(., <span class="fu">starts_with</span>(<span class="st">"PV1SCIE"</span>)<span class="sc">:</span><span class="fu">starts_with</span>(<span class="st">"PV10SCIE"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Group by school ID and calculate the mean of the student averages for each school</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>school_avg_scores <span class="ot">&lt;-</span> stu_qqq_Sg <span class="sc">%&gt;%</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(CNTSCHID) <span class="sc">%&gt;%</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">AvgMathScore =</span> <span class="fu">mean</span>(AvgMathPV, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">AvgReadScore =</span> <span class="fu">mean</span>(AvgReadPV, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">AvgScieScore =</span> <span class="fu">mean</span>(AvgSciePV, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="co"># View the school level averages</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(school_avg_scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 164 × 4
+   CNTSCHID AvgMathScore AvgReadScore AvgScieScore
+   &lt;fct&gt;           &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
+ 1 70200001         725.         653.         698.
+ 2 70200002         535.         507.         534.
+ 3 70200003         740.         665.         714.
+ 4 70200004         510.         480.         494.
+ 5 70200005         547.         516.         529.
+ 6 70200006         487.         468.         477.
+ 7 70200007         580.         540.         579.
+ 8 70200008         567.         522.         540.
+ 9 70200009         560.         536.         552.
+10 70200010         531.         503.         540.
+# ℹ 154 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="gender" class="level2">
+<h2 class="anchored" data-anchor-id="gender">2.3 Gender</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming 'stu_qqq_Sg' is your data frame, 'CNTSTUID' is the column with International Student IDs,</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># and 'ST004D01T' is the column with Student Standardized Gender (1 for female; 0 for male)</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the mean PV scores for each student in each subject and map gender numeric values to labels</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>gender_avg_scores <span class="ot">&lt;-</span> stu_qqq_Sg <span class="sc">%&gt;%</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Gender =</span> <span class="fu">ifelse</span>(ST004D01T <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Female"</span>, <span class="st">"Male"</span>),</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">AvgMathPV =</span> <span class="fu">rowMeans</span>(<span class="fu">select</span>(., <span class="fu">starts_with</span>(<span class="st">"PV1MATH"</span>)<span class="sc">:</span><span class="fu">starts_with</span>(<span class="st">"PV10MATH"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">AvgReadPV =</span> <span class="fu">rowMeans</span>(<span class="fu">select</span>(., <span class="fu">starts_with</span>(<span class="st">"PV1READ"</span>)<span class="sc">:</span><span class="fu">starts_with</span>(<span class="st">"PV10READ"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">AvgSciePV =</span> <span class="fu">rowMeans</span>(<span class="fu">select</span>(., <span class="fu">starts_with</span>(<span class="st">"PV1SCIE"</span>)<span class="sc">:</span><span class="fu">starts_with</span>(<span class="st">"PV10SCIE"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Now, 'gender_avg_scores' contains the individual student's data with their gender and average scores</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(gender_avg_scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6,606 × 1,283
+   CNT   CNTRYID CNTSCHID CNTSTUID CYC   NatCen STRATUM SUBNATIO REGION  OECD
+   &lt;chr&gt;   &lt;dbl&gt; &lt;fct&gt;    &lt;fct&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
+ 1 SGP       702 70200052 70200001 08MS  070200 SGP01   7020000   70200     0
+ 2 SGP       702 70200134 70200002 08MS  070200 SGP01   7020000   70200     0
+ 3 SGP       702 70200112 70200003 08MS  070200 SGP01   7020000   70200     0
+ 4 SGP       702 70200004 70200004 08MS  070200 SGP01   7020000   70200     0
+ 5 SGP       702 70200152 70200005 08MS  070200 SGP01   7020000   70200     0
+ 6 SGP       702 70200043 70200006 08MS  070200 SGP01   7020000   70200     0
+ 7 SGP       702 70200049 70200007 08MS  070200 SGP01   7020000   70200     0
+ 8 SGP       702 70200107 70200008 08MS  070200 SGP01   7020000   70200     0
+ 9 SGP       702 70200012 70200009 08MS  070200 SGP01   7020000   70200     0
+10 SGP       702 70200061 70200010 08MS  070200 SGP01   7020000   70200     0
+# ℹ 6,596 more rows
+# ℹ 1,273 more variables: ADMINMODE &lt;dbl&gt;, LANGTEST_QQQ &lt;dbl&gt;,
+#   LANGTEST_COG &lt;dbl&gt;, LANGTEST_PAQ &lt;dbl&gt;, Option_CT &lt;dbl&gt;, Option_FL &lt;dbl&gt;,
+#   Option_ICTQ &lt;dbl&gt;, Option_WBQ &lt;dbl&gt;, Option_PQ &lt;dbl&gt;, Option_TQ &lt;dbl&gt;,
+#   Option_UH &lt;dbl&gt;, BOOKID &lt;dbl&gt;, ST001D01T &lt;dbl&gt;, ST003D02T &lt;dbl&gt;,
+#   ST003D03T &lt;dbl&gt;, ST004D01T &lt;fct&gt;, ST250Q01JA &lt;dbl&gt;, ST250Q02JA &lt;dbl&gt;,
+#   ST250Q03JA &lt;dbl&gt;, ST250Q04JA &lt;dbl&gt;, ST250Q05JA &lt;dbl&gt;, ST250D06JA &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+</section>
+<section id="ses" class="level2">
+<h2 class="anchored" data-anchor-id="ses">2.4 SES</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming 'stu_qqq_Sg' is your original data frame</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating a data frame for HISEI</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>df_hisei <span class="ot">&lt;-</span> stu_qqq_Sg <span class="sc">%&gt;%</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(HISEI)) <span class="sc">%&gt;%</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">AvgMathPV =</span> <span class="fu">rowMeans</span>(<span class="fu">select</span>(., <span class="fu">starts_with</span>(<span class="st">"PV1MATH"</span>), <span class="fu">starts_with</span>(<span class="st">"PV10MATH"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">AvgReadPV =</span> <span class="fu">rowMeans</span>(<span class="fu">select</span>(., <span class="fu">starts_with</span>(<span class="st">"PV1READ"</span>), <span class="fu">starts_with</span>(<span class="st">"PV10READ"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">AvgSciePV =</span> <span class="fu">rowMeans</span>(<span class="fu">select</span>(., <span class="fu">starts_with</span>(<span class="st">"PV1SCIE"</span>), <span class="fu">starts_with</span>(<span class="st">"PV10SCIE"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df_hisei)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6,296 × 1,282
+   CNT   CNTRYID CNTSCHID CNTSTUID CYC   NatCen STRATUM SUBNATIO REGION  OECD
+   &lt;chr&gt;   &lt;dbl&gt; &lt;fct&gt;    &lt;fct&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
+ 1 SGP       702 70200052 70200001 08MS  070200 SGP01   7020000   70200     0
+ 2 SGP       702 70200134 70200002 08MS  070200 SGP01   7020000   70200     0
+ 3 SGP       702 70200112 70200003 08MS  070200 SGP01   7020000   70200     0
+ 4 SGP       702 70200004 70200004 08MS  070200 SGP01   7020000   70200     0
+ 5 SGP       702 70200152 70200005 08MS  070200 SGP01   7020000   70200     0
+ 6 SGP       702 70200043 70200006 08MS  070200 SGP01   7020000   70200     0
+ 7 SGP       702 70200049 70200007 08MS  070200 SGP01   7020000   70200     0
+ 8 SGP       702 70200107 70200008 08MS  070200 SGP01   7020000   70200     0
+ 9 SGP       702 70200012 70200009 08MS  070200 SGP01   7020000   70200     0
+10 SGP       702 70200061 70200010 08MS  070200 SGP01   7020000   70200     0
+# ℹ 6,286 more rows
+# ℹ 1,272 more variables: ADMINMODE &lt;dbl&gt;, LANGTEST_QQQ &lt;dbl&gt;,
+#   LANGTEST_COG &lt;dbl&gt;, LANGTEST_PAQ &lt;dbl&gt;, Option_CT &lt;dbl&gt;, Option_FL &lt;dbl&gt;,
+#   Option_ICTQ &lt;dbl&gt;, Option_WBQ &lt;dbl&gt;, Option_PQ &lt;dbl&gt;, Option_TQ &lt;dbl&gt;,
+#   Option_UH &lt;dbl&gt;, BOOKID &lt;dbl&gt;, ST001D01T &lt;dbl&gt;, ST003D02T &lt;dbl&gt;,
+#   ST003D03T &lt;dbl&gt;, ST004D01T &lt;fct&gt;, ST250Q01JA &lt;dbl&gt;, ST250Q02JA &lt;dbl&gt;,
+#   ST250Q03JA &lt;dbl&gt;, ST250Q04JA &lt;dbl&gt;, ST250Q05JA &lt;dbl&gt;, ST250D06JA &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming 'stu_qqq_Sg' is your original data frame</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating a data frame for ESCS</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>df_escs <span class="ot">&lt;-</span> stu_qqq_Sg <span class="sc">%&gt;%</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(ESCS)) <span class="sc">%&gt;%</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">AvgMathPV =</span> <span class="fu">rowMeans</span>(<span class="fu">select</span>(., <span class="fu">starts_with</span>(<span class="st">"PV1MATH"</span>), <span class="fu">starts_with</span>(<span class="st">"PV10MATH"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">AvgReadPV =</span> <span class="fu">rowMeans</span>(<span class="fu">select</span>(., <span class="fu">starts_with</span>(<span class="st">"PV1READ"</span>), <span class="fu">starts_with</span>(<span class="st">"PV10READ"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">AvgSciePV =</span> <span class="fu">rowMeans</span>(<span class="fu">select</span>(., <span class="fu">starts_with</span>(<span class="st">"PV1SCIE"</span>), <span class="fu">starts_with</span>(<span class="st">"PV10SCIE"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df_escs) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6,559 × 1,282
+   CNT   CNTRYID CNTSCHID CNTSTUID CYC   NatCen STRATUM SUBNATIO REGION  OECD
+   &lt;chr&gt;   &lt;dbl&gt; &lt;fct&gt;    &lt;fct&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
+ 1 SGP       702 70200052 70200001 08MS  070200 SGP01   7020000   70200     0
+ 2 SGP       702 70200134 70200002 08MS  070200 SGP01   7020000   70200     0
+ 3 SGP       702 70200112 70200003 08MS  070200 SGP01   7020000   70200     0
+ 4 SGP       702 70200004 70200004 08MS  070200 SGP01   7020000   70200     0
+ 5 SGP       702 70200152 70200005 08MS  070200 SGP01   7020000   70200     0
+ 6 SGP       702 70200043 70200006 08MS  070200 SGP01   7020000   70200     0
+ 7 SGP       702 70200049 70200007 08MS  070200 SGP01   7020000   70200     0
+ 8 SGP       702 70200107 70200008 08MS  070200 SGP01   7020000   70200     0
+ 9 SGP       702 70200012 70200009 08MS  070200 SGP01   7020000   70200     0
+10 SGP       702 70200061 70200010 08MS  070200 SGP01   7020000   70200     0
+# ℹ 6,549 more rows
+# ℹ 1,272 more variables: ADMINMODE &lt;dbl&gt;, LANGTEST_QQQ &lt;dbl&gt;,
+#   LANGTEST_COG &lt;dbl&gt;, LANGTEST_PAQ &lt;dbl&gt;, Option_CT &lt;dbl&gt;, Option_FL &lt;dbl&gt;,
+#   Option_ICTQ &lt;dbl&gt;, Option_WBQ &lt;dbl&gt;, Option_PQ &lt;dbl&gt;, Option_TQ &lt;dbl&gt;,
+#   Option_UH &lt;dbl&gt;, BOOKID &lt;dbl&gt;, ST001D01T &lt;dbl&gt;, ST003D02T &lt;dbl&gt;,
+#   ST003D03T &lt;dbl&gt;, ST004D01T &lt;fct&gt;, ST250Q01JA &lt;dbl&gt;, ST250Q02JA &lt;dbl&gt;,
+#   ST250Q03JA &lt;dbl&gt;, ST250Q04JA &lt;dbl&gt;, ST250Q05JA &lt;dbl&gt;, ST250D06JA &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="results" class="level1">
+<h1>3. Results</h1>
+<section id="average-plausible-values-by-students-in-singapore" class="level2">
+<h2 class="anchored" data-anchor-id="average-plausible-values-by-students-in-singapore">3.1 Average Plausible Values by Students in Singapore</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hrbrthemes)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Reshape the data to long format</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>student_avg_long <span class="ot">&lt;-</span> student_avg_scores <span class="sc">%&gt;%</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(AvgMathPV, AvgReadPV, AvgSciePV),</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"subject"</span>,</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"value"</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace the subject names with more readable names if necessary</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>student_avg_long<span class="sc">$</span>subject <span class="ot">&lt;-</span> <span class="fu">recode</span>(student_avg_long<span class="sc">$</span>subject,</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">AvgMathPV =</span> <span class="st">"Mathematics"</span>,</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">AvgReadPV =</span> <span class="st">"Reading"</span>,</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">AvgSciePV =</span> <span class="st">"Science"</span>)</span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the ggplot object with larger axis title texts</span></span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> student_avg_long <span class="sc">%&gt;%</span></span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">fill =</span> subject)) <span class="sc">+</span></span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">10</span>, <span class="at">alpha =</span> <span class="dv">1</span>) <span class="sc">+</span>  <span class="co"># Full opacity</span></span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Mathematics"</span> <span class="ot">=</span> <span class="st">"darkblue"</span>, <span class="st">"Reading"</span> <span class="ot">=</span> <span class="st">"orange"</span>, <span class="st">"Science"</span> <span class="ot">=</span> <span class="st">"darkgreen"</span>)) <span class="sc">+</span></span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>subject, <span class="at">scales =</span> <span class="st">"free_x"</span>, <span class="at">ncol =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">'Distribution of Average Plausible Values for Each Subject'</span>,</span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">'Average Plausible Values'</span>,</span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">'Count of Students'</span></span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>(<span class="at">base_size =</span> <span class="dv">16</span>) <span class="sc">+</span>  <span class="co"># Increase base font size</span></span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">20</span>),  <span class="co"># Center and increase plot title size</span></span>
+<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">14</span>),  <span class="co"># Center and increase x-axis title size</span></span>
+<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">14</span>),  <span class="co"># Center and increase y-axis title size</span></span>
+<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>),  <span class="co"># Center the facet labels</span></span>
+<span id="cb29-37"><a href="#cb29-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
+<span id="cb29-38"><a href="#cb29-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.spacing =</span> <span class="fu">unit</span>(<span class="fl">0.1</span>, <span class="st">"lines"</span>),</span>
+<span id="cb29-39"><a href="#cb29-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),   <span class="co"># Increase x-axis tick label size</span></span>
+<span id="cb29-40"><a href="#cb29-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),   <span class="co"># Increase y-axis tick label size</span></span>
+<span id="cb29-41"><a href="#cb29-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks.y =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"black"</span>),</span>
+<span id="cb29-42"><a href="#cb29-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.y =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">"grey90"</span>),  <span class="co"># Specify color for horizontal grid lines</span></span>
+<span id="cb29-43"><a href="#cb29-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),  <span class="co"># Remove vertical grid lines</span></span>
+<span id="cb29-44"><a href="#cb29-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>(),  <span class="co"># Remove minor vertical grid lines</span></span>
+<span id="cb29-45"><a href="#cb29-45" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Ensure the axis text and ticks for the non-leftmost panels are removed</span></span>
+<span id="cb29-46"><a href="#cb29-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y.right =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb29-47"><a href="#cb29-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks.y.right =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb29-48"><a href="#cb29-48" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb29-49"><a href="#cb29-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-50"><a href="#cb29-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the plot</span></span>
+<span id="cb29-51"><a href="#cb29-51" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="average-plausible-values-by-school" class="level2">
+<h2 class="anchored" data-anchor-id="average-plausible-values-by-school">3.2 Average Plausible Values by School</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hrbrthemes)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Rank schools by AvgMathScore, AvgReadScore, and AvgScieScore and add labels for top and bottom schools</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>school_avg_scores <span class="ot">&lt;-</span> school_avg_scores <span class="sc">%&gt;%</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">RankMath =</span> <span class="fu">rank</span>(<span class="sc">-</span>AvgMathScore),</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">RankRead =</span> <span class="fu">rank</span>(<span class="sc">-</span>AvgReadScore),</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">RankScie =</span> <span class="fu">rank</span>(<span class="sc">-</span>AvgScieScore),</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">LabelMath =</span> <span class="fu">ifelse</span>(RankMath <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span> RankMath <span class="sc">==</span> <span class="fu">n</span>(), <span class="fu">as.character</span>(CNTSCHID), <span class="cn">NA</span>),</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">LabelRead =</span> <span class="fu">ifelse</span>(RankRead <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span> RankRead <span class="sc">==</span> <span class="fu">n</span>(), <span class="fu">as.character</span>(CNTSCHID), <span class="cn">NA</span>),</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">LabelScie =</span> <span class="fu">ifelse</span>(RankScie <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span> RankScie <span class="sc">==</span> <span class="fu">n</span>(), <span class="fu">as.character</span>(CNTSCHID), <span class="cn">NA</span>)</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the maximum score to set the limits of the y-axis</span></span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>max_score <span class="ot">&lt;-</span> <span class="fu">max</span>(school_avg_scores<span class="sc">$</span>AvgMathScore, school_avg_scores<span class="sc">$</span>AvgReadScore, school_avg_scores<span class="sc">$</span>AvgScieScore)</span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>max_rank <span class="ot">&lt;-</span> <span class="fu">max</span>(school_avg_scores<span class="sc">$</span>RankMath, school_avg_scores<span class="sc">$</span>RankRead, school_avg_scores<span class="sc">$</span>RankScie, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> <span class="dv">10</span></span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(school_avg_scores) <span class="sc">+</span></span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> RankMath, <span class="at">y =</span> AvgMathScore, <span class="at">color =</span> <span class="st">"Mathematics"</span>), <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> RankRead, <span class="at">y =</span> AvgReadScore, <span class="at">color =</span> <span class="st">"Reading"</span>), <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> RankScie, <span class="at">y =</span> AvgScieScore, <span class="at">color =</span> <span class="st">"Science"</span>), <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> <span class="fu">subset</span>(school_avg_scores, <span class="sc">!</span><span class="fu">is.na</span>(LabelMath)), </span>
+<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">ifelse</span>(RankMath <span class="sc">==</span> <span class="dv">1</span>, RankMath <span class="sc">+</span> <span class="dv">30</span>, RankMath <span class="sc">+</span> <span class="dv">1</span>), <span class="at">y =</span> AvgMathScore, </span>
+<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>                <span class="at">label =</span> <span class="fu">ifelse</span>(RankMath <span class="sc">==</span> <span class="dv">1</span>, <span class="fu">paste</span>(<span class="st">"Maths/Science ="</span>, LabelMath), <span class="st">""</span>)), <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> <span class="fu">subset</span>(school_avg_scores, <span class="sc">!</span><span class="fu">is.na</span>(LabelRead)), </span>
+<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">ifelse</span>(RankRead <span class="sc">==</span> <span class="dv">1</span>, RankRead <span class="sc">+</span> <span class="dv">35</span>, RankRead <span class="sc">+</span> <span class="dv">1</span>), <span class="at">y =</span> AvgReadScore, </span>
+<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a>                <span class="at">label =</span> <span class="fu">ifelse</span>(RankRead <span class="sc">==</span> <span class="dv">1</span>, <span class="fu">paste</span>(<span class="st">"Reading ="</span>, LabelRead), <span class="st">""</span>)), <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb30-30"><a href="#cb30-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> <span class="fu">subset</span>(school_avg_scores, <span class="sc">!</span><span class="fu">is.na</span>(LabelMath) <span class="sc">&amp;</span> RankMath <span class="sc">!=</span> <span class="dv">1</span>), </span>
+<span id="cb30-31"><a href="#cb30-31" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> RankMath <span class="sc">-</span> <span class="fl">0.2</span>, <span class="at">y =</span> AvgMathScore <span class="sc">-</span> <span class="dv">120</span>, </span>
+<span id="cb30-32"><a href="#cb30-32" aria-hidden="true" tabindex="-1"></a>                <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">"Maths/Reading ="</span>, LabelMath)), <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb30-33"><a href="#cb30-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> <span class="fu">subset</span>(school_avg_scores, <span class="sc">!</span><span class="fu">is.na</span>(LabelScie) <span class="sc">&amp;</span> RankScie <span class="sc">!=</span> <span class="dv">1</span>), </span>
+<span id="cb30-34"><a href="#cb30-34" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> RankScie <span class="sc">-</span> <span class="fl">0.2</span>, <span class="at">y =</span> AvgScieScore <span class="sc">-</span> <span class="dv">160</span>, </span>
+<span id="cb30-35"><a href="#cb30-35" aria-hidden="true" tabindex="-1"></a>                <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">"Science ="</span>, LabelScie)), <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb30-36"><a href="#cb30-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_d</span>() <span class="sc">+</span></span>
+<span id="cb30-37"><a href="#cb30-37" aria-hidden="true" tabindex="-1"></a>   <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Mathematics"</span> <span class="ot">=</span> <span class="st">"darkblue"</span>, <span class="st">"Reading"</span> <span class="ot">=</span> <span class="st">"orange"</span>, <span class="st">"Science"</span> <span class="ot">=</span> <span class="st">"darkgreen"</span>)) <span class="sc">+</span></span>
+<span id="cb30-38"><a href="#cb30-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb30-39"><a href="#cb30-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Average Plausible Values by School'</span>,</span>
+<span id="cb30-40"><a href="#cb30-40" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">""</span>) <span class="sc">+</span>  <span class="co"># Remove the word "Subject" from the legend</span></span>
+<span id="cb30-41"><a href="#cb30-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb30-42"><a href="#cb30-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span>,  <span class="co"># Move the legend to the top</span></span>
+<span id="cb30-43"><a href="#cb30-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.justification =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>),  <span class="co"># Align the legend to the top-right corner</span></span>
+<span id="cb30-44"><a href="#cb30-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),  <span class="co"># Decrease legend text size to 11</span></span>
+<span id="cb30-45"><a href="#cb30-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),  <span class="co"># Increase x-axis title size and center</span></span>
+<span id="cb30-46"><a href="#cb30-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),  <span class="co"># Increase y-axis title size and center</span></span>
+<span id="cb30-47"><a href="#cb30-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),  <span class="co"># Center the title</span></span>
+<span id="cb30-48"><a href="#cb30-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb30-49"><a href="#cb30-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),  <span class="co"># Remove x-axis labels</span></span>
+<span id="cb30-50"><a href="#cb30-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),  <span class="co"># Remove vertical gridlines</span></span>
+<span id="cb30-51"><a href="#cb30-51" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>()  <span class="co"># Remove vertical gridlines</span></span>
+<span id="cb30-52"><a href="#cb30-52" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb30-53"><a href="#cb30-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'International School ID'</span>) <span class="sc">+</span></span>
+<span id="cb30-54"><a href="#cb30-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">'Average Plausible Values'</span>) <span class="sc">+</span></span>
+<span id="cb30-55"><a href="#cb30-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, max_rank <span class="sc">+</span> <span class="dv">2</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, max_score <span class="sc">*</span> <span class="fl">1.1</span>))  <span class="co"># Adjusted coordinate limits</span></span>
+<span id="cb30-56"><a href="#cb30-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-57"><a href="#cb30-57" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the plot</span></span>
+<span id="cb30-58"><a href="#cb30-58" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="gender-1" class="level2">
+<h2 class="anchored" data-anchor-id="gender-1">3.3 Gender</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hrbrthemes)  <span class="co"># Load hrbrthemes for theme_ipsum</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming 'stu_qqq_Sg' is your data frame</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare the data with gender and average scores</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>gender_scores <span class="ot">&lt;-</span> stu_qqq_Sg <span class="sc">%&gt;%</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">Gender =</span> <span class="fu">ifelse</span>(ST004D01T <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Female"</span>, <span class="st">"Male"</span>),</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">AvgMathPV =</span> <span class="fu">rowMeans</span>(<span class="fu">select</span>(., <span class="fu">starts_with</span>(<span class="st">"PV1MATH"</span>)<span class="sc">:</span><span class="fu">starts_with</span>(<span class="st">"PV10MATH"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">AvgReadPV =</span> <span class="fu">rowMeans</span>(<span class="fu">select</span>(., <span class="fu">starts_with</span>(<span class="st">"PV1READ"</span>)<span class="sc">:</span><span class="fu">starts_with</span>(<span class="st">"PV10READ"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">AvgSciePV =</span> <span class="fu">rowMeans</span>(<span class="fu">select</span>(., <span class="fu">starts_with</span>(<span class="st">"PV1SCIE"</span>)<span class="sc">:</span><span class="fu">starts_with</span>(<span class="st">"PV10SCIE"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Reshape the data to long format</span></span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>long_format <span class="ot">&lt;-</span> gender_scores <span class="sc">%&gt;%</span></span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(CNTSTUID, Gender, AvgMathPV, AvgReadPV, AvgSciePV) <span class="sc">%&gt;%</span></span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(AvgMathPV, AvgReadPV, AvgSciePV),</span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"Subject"</span>,</span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"Score"</span></span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Subject =</span> <span class="fu">recode</span>(Subject,</span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>                          <span class="at">AvgMathPV =</span> <span class="st">"Mathematics"</span>,</span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a>                          <span class="at">AvgReadPV =</span> <span class="st">"Reading"</span>,</span>
+<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a>                          <span class="at">AvgSciePV =</span> <span class="st">"Science"</span>))</span>
+<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate averages for each group</span></span>
+<span id="cb31-32"><a href="#cb31-32" aria-hidden="true" tabindex="-1"></a>group_averages <span class="ot">&lt;-</span> long_format <span class="sc">%&gt;%</span></span>
+<span id="cb31-33"><a href="#cb31-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Gender, Subject) <span class="sc">%&gt;%</span></span>
+<span id="cb31-34"><a href="#cb31-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">AvgScore =</span> <span class="fu">mean</span>(Score, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">'drop'</span>)</span>
+<span id="cb31-35"><a href="#cb31-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-36"><a href="#cb31-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the boxplot with gender colors and move the facet labels to the top</span></span>
+<span id="cb31-37"><a href="#cb31-37" aria-hidden="true" tabindex="-1"></a>boxplot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(long_format, <span class="fu">aes</span>(<span class="at">x =</span> Gender, <span class="at">y =</span> Score, <span class="at">fill =</span> Gender)) <span class="sc">+</span></span>
+<span id="cb31-38"><a href="#cb31-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb31-39"><a href="#cb31-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> group_averages, <span class="fu">aes</span>(<span class="at">x =</span> Gender, <span class="at">y =</span> AvgScore, <span class="at">group =</span> Gender), </span>
+<span id="cb31-40"><a href="#cb31-40" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span>  <span class="co"># Change dot color to red</span></span>
+<span id="cb31-41"><a href="#cb31-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> group_averages, <span class="fu">aes</span>(<span class="at">x =</span> Gender, <span class="at">y =</span> AvgScore, <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">"Avg="</span>, <span class="fu">round</span>(AvgScore, <span class="dv">1</span>))), </span>
+<span id="cb31-42"><a href="#cb31-42" aria-hidden="true" tabindex="-1"></a>            <span class="at">nudge_y =</span> <span class="dv">10</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">2.5</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span>  <span class="co"># Remove fontface argument</span></span>
+<span id="cb31-43"><a href="#cb31-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Subject, <span class="at">strip.position =</span> <span class="st">"top"</span>, <span class="at">labeller =</span> <span class="fu">labeller</span>(<span class="at">Subject =</span> <span class="fu">c</span>(<span class="at">Mathematics =</span> <span class="st">"Mathematics"</span>, <span class="at">Reading =</span> <span class="st">"Reading"</span>, <span class="at">Science =</span> <span class="st">"Science"</span>))) <span class="sc">+</span></span>
+<span id="cb31-44"><a href="#cb31-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb31-45"><a href="#cb31-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Score Distribution by Gender and Subject"</span>,</span>
+<span id="cb31-46"><a href="#cb31-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">""</span>,</span>
+<span id="cb31-47"><a href="#cb31-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Plausible Values"</span></span>
+<span id="cb31-48"><a href="#cb31-48" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb31-49"><a href="#cb31-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>(<span class="at">base_size =</span> <span class="dv">16</span>, <span class="at">base_family =</span> <span class="st">""</span>) <span class="sc">+</span>  <span class="co"># Set base font size to 16</span></span>
+<span id="cb31-50"><a href="#cb31-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb31-51"><a href="#cb31-51" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb31-52"><a href="#cb31-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb31-53"><a href="#cb31-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),  <span class="co"># Center facet labels and increase size</span></span>
+<span id="cb31-54"><a href="#cb31-54" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),  <span class="co"># Remove x-axis labels</span></span>
+<span id="cb31-55"><a href="#cb31-55" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),  <span class="co"># Remove x-axis ticks</span></span>
+<span id="cb31-56"><a href="#cb31-56" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">18</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),  <span class="co"># Center plot title</span></span>
+<span id="cb31-57"><a href="#cb31-57" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),  <span class="co"># Center y-axis text</span></span>
+<span id="cb31-58"><a href="#cb31-58" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),  <span class="co"># Center y-axis title</span></span>
+<span id="cb31-59"><a href="#cb31-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),  <span class="co"># Remove vertical gridlines</span></span>
+<span id="cb31-60"><a href="#cb31-60" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>()  <span class="co"># Remove vertical gridlines</span></span>
+<span id="cb31-61"><a href="#cb31-61" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb31-62"><a href="#cb31-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="cn">NA</span>), <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.05</span>))) <span class="sc">+</span>  <span class="co"># Start y-axis at 0</span></span>
+<span id="cb31-63"><a href="#cb31-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Female"</span> <span class="ot">=</span> <span class="st">"#FF69B4"</span>, <span class="st">"Male"</span> <span class="ot">=</span> <span class="st">"#1E90FF"</span>))</span>
+<span id="cb31-64"><a href="#cb31-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-65"><a href="#cb31-65" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the boxplot</span></span>
+<span id="cb31-66"><a href="#cb31-66" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(boxplot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="ses-part-1" class="level2">
+<h2 class="anchored" data-anchor-id="ses-part-1">3.4 SES part 1</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hrbrthemes)  <span class="co"># Load hrbrthemes for theme_ipsum</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming 'df_hisei' is your data frame and it has been loaded correctly</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Reshaping the data</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>long_df_hisei <span class="ot">&lt;-</span> df_hisei <span class="sc">%&gt;%</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">"AvgMathPV"</span>, <span class="st">"AvgReadPV"</span>, <span class="st">"AvgSciePV"</span>),</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"Subject"</span>,</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"AveragePV"</span></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Subject =</span> <span class="fu">recode</span>(Subject,</span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"AvgMathPV"</span> <span class="ot">=</span> <span class="st">"Math"</span>,</span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"AvgReadPV"</span> <span class="ot">=</span> <span class="st">"Reading"</span>,</span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"AvgSciePV"</span> <span class="ot">=</span> <span class="st">"Science"</span>))</span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating a scatter plot with ggplot2</span></span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(long_df_hisei, <span class="fu">aes</span>(<span class="at">x =</span> HISEI, <span class="at">y =</span> AveragePV, <span class="at">color =</span> Subject)) <span class="sc">+</span></span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.4</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="fu">aes</span>(<span class="at">group =</span> Subject), <span class="at">size =</span> <span class="fl">0.8</span>) <span class="sc">+</span>  <span class="co"># Adjust the size for trend lines</span></span>
+<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Math"</span> <span class="ot">=</span> <span class="st">"darkblue"</span>, <span class="st">"Reading"</span> <span class="ot">=</span> <span class="st">"orange"</span>, <span class="st">"Science"</span> <span class="ot">=</span> <span class="st">"darkgreen"</span>)) <span class="sc">+</span></span>
+<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Relationship between HISEI and Average PV Scores'</span>,</span>
+<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">'HISEI'</span>,</span>
+<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">'Average PV Score'</span>) <span class="sc">+</span></span>
+<span id="cb32-28"><a href="#cb32-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb32-29"><a href="#cb32-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb32-30"><a href="#cb32-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb32-31"><a href="#cb32-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),  <span class="co"># Increase legend font size to 11</span></span>
+<span id="cb32-32"><a href="#cb32-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span>,  <span class="co"># Adjust legend position</span></span>
+<span id="cb32-33"><a href="#cb32-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),  <span class="co"># Increase x-axis title font size and center</span></span>
+<span id="cb32-34"><a href="#cb32-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),  <span class="co"># Increase y-axis title font size and center</span></span>
+<span id="cb32-35"><a href="#cb32-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),  <span class="co"># Center main title and set font size to 20</span></span>
+<span id="cb32-36"><a href="#cb32-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()  <span class="co"># Remove minor gridlines</span></span>
+<span id="cb32-37"><a href="#cb32-37" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb32-38"><a href="#cb32-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="cn">NA</span>)) <span class="sc">+</span>  <span class="co"># Start x-axis at 0</span></span>
+<span id="cb32-39"><a href="#cb32-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="cn">NA</span>))  <span class="co"># Start y-axis at 0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="ses-part-2" class="level2">
+<h2 class="anchored" data-anchor-id="ses-part-2">3.5 SES Part 2</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hrbrthemes)  <span class="co"># Load hrbrthemes for theme_ipsum</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming 'df_escs' is your data frame and it has been loaded correctly</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Reshaping the data</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>long_df_escs <span class="ot">&lt;-</span> df_escs <span class="sc">%&gt;%</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">"AvgMathPV"</span>, <span class="st">"AvgReadPV"</span>, <span class="st">"AvgSciePV"</span>),</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"Subject"</span>,</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"AveragePV"</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Subject =</span> <span class="fu">recode</span>(Subject,</span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"AvgMathPV"</span> <span class="ot">=</span> <span class="st">"Math"</span>,</span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"AvgReadPV"</span> <span class="ot">=</span> <span class="st">"Reading"</span>,</span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"AvgSciePV"</span> <span class="ot">=</span> <span class="st">"Science"</span>))</span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating a scatter plot with ggplot2</span></span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(long_df_escs, <span class="fu">aes</span>(<span class="at">x =</span> ESCS, <span class="at">y =</span> AveragePV, <span class="at">color =</span> Subject)) <span class="sc">+</span></span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.4</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="fu">aes</span>(<span class="at">group =</span> Subject), <span class="at">size =</span> <span class="fl">0.8</span>) <span class="sc">+</span>  <span class="co"># Adjust the size for trend lines</span></span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Math"</span> <span class="ot">=</span> <span class="st">"darkblue"</span>, <span class="st">"Reading"</span> <span class="ot">=</span> <span class="st">"orange"</span>, <span class="st">"Science"</span> <span class="ot">=</span> <span class="st">"darkgreen"</span>)) <span class="sc">+</span></span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Relationship between ESCS and Average PV Scores'</span>,</span>
+<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">'ESCS'</span>,</span>
+<span id="cb33-27"><a href="#cb33-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">'Average PV Score'</span>) <span class="sc">+</span></span>
+<span id="cb33-28"><a href="#cb33-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb33-29"><a href="#cb33-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb33-30"><a href="#cb33-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb33-31"><a href="#cb33-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),  <span class="co"># Increase legend font size to 12</span></span>
+<span id="cb33-32"><a href="#cb33-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span>,  <span class="co"># Adjust legend position</span></span>
+<span id="cb33-33"><a href="#cb33-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),  <span class="co"># Increase x-axis title font size to 14 and center</span></span>
+<span id="cb33-34"><a href="#cb33-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),  <span class="co"># Increase y-axis title font size to 14 and center</span></span>
+<span id="cb33-35"><a href="#cb33-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),  <span class="co"># Center main title and set font size to 18</span></span>
+<span id="cb33-36"><a href="#cb33-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()  <span class="co"># Remove minor gridlines</span></span>
+<span id="cb33-37"><a href="#cb33-37" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb33-38"><a href="#cb33-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="cn">NA</span>)) <span class="sc">+</span>  <span class="co"># Start x-axis at 0</span></span>
+<span id="cb33-39"><a href="#cb33-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="cn">NA</span>))  <span class="co"># Start y-axis at 0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
