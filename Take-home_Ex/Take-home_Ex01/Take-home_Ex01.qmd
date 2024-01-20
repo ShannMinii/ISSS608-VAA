@@ -367,6 +367,59 @@ fig <- plot_ly(student_avg_scores, histnorm = "percent") %>%
 fig
 ```
 
+```{r}
+library(tidyverse)
+library(hrbrthemes)
+library(viridis)
+library(forcats)
+
+# Reshape the data to long format
+student_avg_long <- student_avg_scores %>%
+  pivot_longer(
+    cols = c(AvgMathPV, AvgReadPV, AvgSciePV),
+    names_to = "subject",
+    values_to = "value"
+  )
+
+# Replace the subject names with more readable names if necessary
+student_avg_long$subject <- recode(student_avg_long$subject,
+                                   AvgMathPV = "Mathematics",
+                                   AvgReadPV = "Reading",
+                                   AvgSciePV = "Science")
+
+# Create the ggplot object with larger axis title texts
+p <- student_avg_long %>%
+  ggplot(aes(x = value, fill = subject)) +
+  geom_histogram(binwidth = 10, alpha = 1) +  # Full opacity
+  scale_fill_manual(values = c("Mathematics" = "blue", "Reading" = "orange", "Science" = "darkgreen")) +
+  facet_wrap(~subject, scales = "free_x", ncol = 3) +
+  labs(
+    title = 'Distribution of Average Plausible Values for Each Subject',
+    x = 'Average Plausible Values',
+    y = 'Count of Students'
+  ) +
+  theme_ipsum(base_size = 16) +  # Increase base font size
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 20),  # Center and increase plot title size
+    axis.title.x = element_text(hjust = 0.5, size = 14),  # Center and increase x-axis title size
+    axis.title.y = element_text(hjust = 0.5, size = 14),  # Center and increase y-axis title size
+    strip.text = element_text(hjust = 0.5),  # Center the facet labels
+    legend.position = "none",
+    panel.spacing = unit(0.1, "lines"),
+    axis.text.x = element_text(size = 14),   # Increase x-axis tick label size
+    axis.text.y = element_text(size = 14),   # Increase y-axis tick label size
+    axis.ticks.y = element_line(color = "black"),
+    panel.grid.major.y = element_line(colour = "grey90"),  # Specify color for horizontal grid lines
+    panel.grid.major.x = element_blank(),  # Remove vertical grid lines
+    panel.grid.minor.x = element_blank(),  # Remove minor vertical grid lines
+    # Ensure the axis text and ticks for the non-leftmost panels are removed
+    axis.text.y.right = element_blank(),
+    axis.ticks.y.right = element_blank()
+  )
+
+# Print the plot
+p
+```
 ## 3.2 Average Plausible Values by School
 
 ```{r}
