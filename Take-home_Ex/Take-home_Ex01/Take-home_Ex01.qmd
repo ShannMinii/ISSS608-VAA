@@ -391,7 +391,7 @@ student_avg_long$subject <- recode(student_avg_long$subject,
 p <- student_avg_long %>%
   ggplot(aes(x = value, fill = subject)) +
   geom_histogram(binwidth = 10, alpha = 1) +  # Full opacity
-  scale_fill_manual(values = c("Mathematics" = "blue", "Reading" = "orange", "Science" = "darkgreen")) +
+  scale_fill_manual(values = c("Mathematics" = "darkblue", "Reading" = "orange", "Science" = "darkgreen")) +
   facet_wrap(~subject, scales = "free_x", ncol = 3) +
   labs(
     title = 'Distribution of Average Plausible Values for Each Subject',
@@ -468,6 +468,44 @@ fig <- fig %>%
 fig
 ```
 
+```{r}
+library(tidyverse)
+library(hrbrthemes)
+library(viridis)
+library(forcats)
+
+max_rank <- max(school_avg_scores$RankMath, school_avg_scores$RankRead, school_avg_scores$RankScie, na.rm = TRUE) + 10
+p <- ggplot(school_avg_scores) +
+  geom_point(aes(x = RankMath, y = AvgMathScore, color = "Mathematics"), size = 0.5) +
+  geom_point(aes(x = RankRead, y = AvgReadScore, color = "Reading"), size = 0.5) +
+  geom_point(aes(x = RankScie, y = AvgScieScore, color = "Science"), size = 0.5) +
+  geom_text(data = subset(school_avg_scores, !is.na(LabelMath)), 
+            aes(x = ifelse(RankMath == 1, RankMath + 30, RankMath + 1), y = AvgMathScore, 
+                label = ifelse(RankMath == 1, paste("Maths/Science =", LabelMath), "")), size = 2.5) +
+  geom_text(data = subset(school_avg_scores, !is.na(LabelRead)), 
+            aes(x = ifelse(RankRead == 1, RankRead + 35, RankRead + 1), y = AvgReadScore, 
+                label = ifelse(RankRead == 1, paste("Reading =", LabelRead), "")), size = 2.5) +
+  geom_text(data = subset(school_avg_scores, !is.na(LabelMath) & RankMath != 1), 
+            aes(x = RankMath - 0.2, y = AvgMathScore - 120, 
+                label = paste("Maths/Reading =", LabelMath)), size = 2.5) +
+  geom_text(data = subset(school_avg_scores, !is.na(LabelScie) & RankScie != 1), 
+            aes(x = RankScie - 0.2, y = AvgScieScore - 160, 
+                label = paste("Science =", LabelScie)), size = 2.5) +
+  scale_color_viridis_d() +
+  scale_color_manual(values = c("Mathematics" = "darkblue", "Reading" = "orange", "Science" = "darkgreen")) +
+  theme_ipsum() +
+  labs(title = 'Average Plausible Values by School',
+       color = "Subject") +
+  theme(legend.position = "bottom") +
+  xlab('International School ID') +
+  ylab('Average Plausible Values') +
+  coord_cartesian(xlim = c(0, max_rank + 2), ylim = c(0, max_score * 1.1))  # Adjusted coordinate limits
+
+# Print the plot
+print(p)
+```
+
+```
 ## 3.3 Gender
 
 ```{r}
@@ -524,6 +562,61 @@ print(boxplot)
 
 ```
 
+```{r}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(hrbrthemes)  # Load hrbrthemes for theme_ipsum
+
+# Assuming 'stu_qqq_Sg' is your data frame
+
+# Prepare the data with gender and average scores
+gender_scores <- stu_qqq_Sg %>%
+  mutate(
+    Gender = ifelse(ST004D01T == 1, "Female", "Male"),
+    AvgMathPV = rowMeans(select(., starts_with("PV1MATH"):starts_with("PV10MATH")), na.rm = TRUE),
+    AvgReadPV = rowMeans(select(., starts_with("PV1READ"):starts_with("PV10READ")), na.rm = TRUE),
+    AvgSciePV = rowMeans(select(., starts_with("PV1SCIE"):starts_with("PV10SCIE")), na.rm = TRUE)
+  )
+
+# Reshape the data to long format
+long_format <- gender_scores %>%
+  select(CNTSTUID, Gender, AvgMathPV, AvgReadPV, AvgSciePV) %>%
+  pivot_longer(
+    cols = c(AvgMathPV, AvgReadPV, AvgSciePV),
+    names_to = "Subject",
+    values_to = "Score"
+  )
+
+# Adjust the Subject names if necessary
+long_format$Subject <- recode(long_format$Subject,
+                              AvgMathPV = "Math",
+                              AvgReadPV = "Reading",
+                              AvgSciePV = "Science")
+
+# Create the boxplot with gender colors and move the facet labels to the top
+boxplot <- ggplot(long_format, aes(x = Gender, y = Score, fill = Gender)) +  # Correct the x aes to Gender
+  geom_boxplot() +
+  facet_wrap(~Subject, strip.position = "top") + # Move the facet labels to the top
+  labs(
+    title = "Score Distribution by Gender and Subject",
+    x = "", # Remove the x-axis label for clarity
+    y = "Average Plausible Values"
+  ) +
+  theme_ipsum(base_size = 12, base_family = "") +  # Apply the theme_ipsum
+  theme(
+    legend.title = element_blank(), # Hide the legend title
+    legend.position = "bottom", # Move legend to bottom
+    strip.text.x = element_text(size = 12), # Adjust facet label text size
+    axis.text.x = element_blank(), # Remove x-axis text (this will remove 'Gender' from x-axis)
+    axis.ticks.x = element_blank() # Remove x-axis ticks
+  ) +
+  scale_fill_manual(values = c("Female" = "#FF69B4", "Male" = "#1E90FF"))  # Custom colors for Female and Male
+
+# Print the boxplot
+print(boxplot)
+
+```
 
 ## 3.4 SES part 1
 
