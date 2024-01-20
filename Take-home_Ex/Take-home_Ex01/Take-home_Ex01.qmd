@@ -125,11 +125,13 @@ While there are numerous missing values in the dataset, our focus is primarily o
 
 -   ST004D01T (Student Standardized Gender)
 
--   BMMJ1 (Mother’s occupational status based on 4-digit human coded ISCO)
-
--   BFMJ2 (Father’s occupational status based on 4-digit human coded ISCO)
-
 -   HISEI (Highest parental occupational status based on 4-digit human coded ISCO)
+
+-   PAREDINT (Index highest parental education)
+
+-   HOMEPOS (Home possessions)
+
+-   ESCS (Index of economic, social and cultural status)
 
 and a series of columns related to plausible values in different subjects. These subjects include:
 
@@ -149,7 +151,7 @@ library(dplyr)
 # Selecting specific columns explicitly
 selected_columns <- stu_qqq_Sg %>%
   select(CNTSCHID, CNTSTUID, ST004D01T,
-         BMMJ1, BFMJ2, HISEI,
+         HISEI, PAREDINT, HOMEPOS, ESCS,
          PV1MATH, PV2MATH, PV3MATH, PV4MATH, PV5MATH, PV6MATH, PV7MATH, PV8MATH, PV9MATH, PV10MATH,
          PV1READ, PV2READ, PV3READ, PV4READ, PV5READ, PV6READ, PV7READ, PV8READ, PV9READ, PV10READ,
          PV1SCIE, PV2SCIE, PV3SCIE, PV4SCIE, PV5SCIE, PV6SCIE, PV7SCIE, PV8SCIE, PV9SCIE, PV10SCIE)
@@ -174,6 +176,7 @@ However, we have opted not to impute or omit these cases as we want to preserve 
 # 2. Data Wrangling
 
 ## 2.1 Calculate average plausible values for each student
+
 ```{r}
 library(dplyr)
 
@@ -211,7 +214,7 @@ We compute the average of plausible value (PV) scores for each subject at the sc
 3.  School-Level Averages
 
     -   For each group representing a school, compute the mean of these individual averages. This results in a single average score that represents the collective performance of students in each subject for that school.
-    
+
 ```{r}
 library(dplyr)
 
@@ -233,6 +236,7 @@ print(school_avg_scores)
 ```
 
 ## 2.3 Gender
+
 ```{r}
 library(dplyr)
 
@@ -252,8 +256,77 @@ gender_avg_scores <- stu_qqq_Sg %>%
 print(gender_avg_scores)
 ```
 
+## 2.4 SES
+```{r}
+# Assuming 'stu_qqq_Sg' is your original data frame
+
+# Creating a data frame for HISEI
+df_hisei <- stu_qqq_Sg %>%
+  filter(!is.na(HISEI)) %>%
+  mutate(
+    AvgMathPV = rowMeans(select(., starts_with("PV1MATH"), starts_with("PV10MATH")), na.rm = TRUE),
+    AvgReadPV = rowMeans(select(., starts_with("PV1READ"), starts_with("PV10READ")), na.rm = TRUE),
+    AvgSciePV = rowMeans(select(., starts_with("PV1SCIE"), starts_with("PV10SCIE")), na.rm = TRUE)
+  )
+
+print(df_hisei)
+```
+
+```{r}
+library(dplyr)
+
+# Assuming 'stu_qqq_Sg' is your original data frame
+
+# Creating a data frame for PAREDINT
+df_paredint <- stu_qqq_Sg %>%
+  filter(!is.na(PAREDINT)) %>%
+  mutate(
+    AvgMathPV = rowMeans(select(., starts_with("PV1MATH"), starts_with("PV10MATH")), na.rm = TRUE),
+    AvgReadPV = rowMeans(select(., starts_with("PV1READ"), starts_with("PV10READ")), na.rm = TRUE),
+    AvgSciePV = rowMeans(select(., starts_with("PV1SCIE"), starts_with("PV10SCIE")), na.rm = TRUE)
+  )
+
+# 'df_paredint' now contains students without missing PAREDINT values and their average PV scores
+```
+
+```{r}
+library(dplyr)
+
+# Assuming 'stu_qqq_Sg' is your original data frame
+
+# Creating a data frame for HOMEPOS
+df_homepos <- stu_qqq_Sg %>%
+  filter(!is.na(HOMEPOS)) %>%
+  mutate(
+    AvgMathPV = rowMeans(select(., starts_with("PV1MATH"), starts_with("PV10MATH")), na.rm = TRUE),
+    AvgReadPV = rowMeans(select(., starts_with("PV1READ"), starts_with("PV10READ")), na.rm = TRUE),
+    AvgSciePV = rowMeans(select(., starts_with("PV1SCIE"), starts_with("PV10SCIE")), na.rm = TRUE)
+  )
+
+# 'df_homepos' now contains students without missing HOMEPOS values and their average PV scores
+```
+
+```{r}
+library(dplyr)
+
+# Assuming 'stu_qqq_Sg' is your original data frame
+
+# Creating a data frame for ESCS
+df_escs <- stu_qqq_Sg %>%
+  filter(!is.na(ESCS)) %>%
+  mutate(
+    AvgMathPV = rowMeans(select(., starts_with("PV1MATH"), starts_with("PV10MATH")), na.rm = TRUE),
+    AvgReadPV = rowMeans(select(., starts_with("PV1READ"), starts_with("PV10READ")), na.rm = TRUE),
+    AvgSciePV = rowMeans(select(., starts_with("PV1SCIE"), starts_with("PV10SCIE")), na.rm = TRUE)
+  )
+
+# 'df_escs' now contains students without missing ESCS values and their average PV scores
+
+```
 # 3. Results
+
 ## 3.1 Average Plausible Values by Students in Singapore
+
 ```{r}
 library(plotly)
 library(dplyr)
@@ -295,7 +368,64 @@ fig
 
 ```
 
+```{r}
+library(plotly)
+library(dplyr)
+
+# Assuming 'student_avg_scores' already contains the average plausible values per student
+
+# Create a histogram for each subject using plotly
+fig_math <- plot_ly(student_avg_scores, histnorm = "percent") %>%
+  add_trace(
+    x = ~AvgMathPV,
+    type = 'histogram',
+    opacity = 0.6,
+    name = 'Mathematics',
+    marker = list(color = 'blue')
+  ) %>%
+  layout(
+    title = 'Distribution of Average Plausible Values for Mathematics',
+    xaxis = list(title = 'Average Plausible Values'),
+    yaxis = list(title = 'Percentage of Students')
+  )
+
+fig_read <- plot_ly(student_avg_scores, histnorm = "percent") %>%
+  add_trace(
+    x = ~AvgReadPV,
+    type = 'histogram',
+    opacity = 0.6,
+    name = 'Reading',
+    marker = list(color = 'orange')
+  ) %>%
+  layout(
+    title = 'Distribution of Average Plausible Values for Reading',
+    xaxis = list(title = 'Average Plausible Values'),
+    yaxis = list(showticklabels = FALSE) # Remove y-axis labels
+  )
+
+fig_scie <- plot_ly(student_avg_scores, histnorm = "percent") %>%
+  add_trace(
+    x = ~AvgSciePV,
+    type = 'histogram',
+    opacity = 0.6,
+    name = 'Science',
+    marker = list(color = 'green')
+  ) %>%
+  layout(
+    title = 'Distribution of Average Plausible Values for Science',
+    xaxis = list(title = 'Average Plausible Values'),
+    yaxis = list(showticklabels = FALSE) # Remove y-axis labels
+  )
+
+# Arrange the graphs side by side with a common y-axis label
+subplot(
+  fig_math, fig_read, fig_scie, nrows = 1, shareY = TRUE
+) %>%
+layout(yaxis = list(title = 'Percentage of Students')) # Add common y-axis label
+
+```
 ## 3.2 Average Plausible Values by School
+
 ```{r}
 library(plotly)
 library(dplyr)
@@ -316,13 +446,13 @@ max_score <- max(school_avg_scores$AvgMathScore, school_avg_scores$AvgReadScore,
 # Create a scatter plot for each subject using plotly
 fig <- plot_ly() %>%
   add_trace(data = school_avg_scores, x = ~RankMath, y = ~AvgMathScore, name = 'Mathematics',
-            type = 'scatter', mode = 'markers', marker = list(size = 10), 
+            type = 'scatter', mode = 'markers', marker = list(size = 3), 
             hoverinfo = 'text', text = ~CNTSCHID, textposition = 'top center') %>%
   add_trace(data = school_avg_scores, x = ~RankRead, y = ~AvgReadScore, name = 'Reading',
-            type = 'scatter', mode = 'markers', marker = list(size = 10),
+            type = 'scatter', mode = 'markers', marker = list(size = 3),
             hoverinfo = 'text', text = ~CNTSCHID, textposition = 'top center') %>%
   add_trace(data = school_avg_scores, x = ~RankScie, y = ~AvgScieScore, name = 'Science',
-            type = 'scatter', mode = 'markers', marker = list(size = 10),
+            type = 'scatter', mode = 'markers', marker = list(size = 3),
             hoverinfo = 'text', text = ~CNTSCHID, textposition = 'top center') %>%
   layout(title = 'Average Plausible Values by School',
          xaxis = list(title = 'International School ID', showticklabels = FALSE, zeroline = FALSE),
@@ -343,6 +473,7 @@ fig
 ```
 
 ## 3.3 Gender
+
 ```{r}
 library(dplyr)
 library(tidyr)
@@ -395,4 +526,53 @@ boxplot <- ggplot(long_format, aes(x = Gender, y = Score, fill = Gender)) +
 # Print the boxplot
 print(boxplot)
 
+```
+
+
+## 3.4 SES part 1
+
+```{r}
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+
+# Reshaping the data
+long_df_hisei <- df_hisei %>%
+  pivot_longer(
+    cols = c("AvgMathPV", "AvgReadPV", "AvgSciePV"),
+    names_to = "Subject",
+    values_to = "AveragePV"
+  ) %>%
+  mutate(Subject = recode(Subject,
+                          "AvgMathPV" = "Math",
+                          "AvgReadPV" = "Reading",
+                          "AvgSciePV" = "Science"))
+
+# Creating a scatter plot
+fig <- plot_ly(long_df_hisei, x = ~HISEI, y = ~AveragePV, type = 'scatter', mode = 'markers',
+               color = ~Subject, colors = RColorBrewer::brewer.pal(3, "Dark2"),
+               marker = list(size = 5, opacity = 0.5),
+               hoverinfo = 'text',
+               text = ~paste("Subject:", Subject, "<br>HISEI:", HISEI, "<br>Average PV:", AveragePV))
+
+# Adding trend lines for each subject
+subjects <- unique(long_df_hisei$Subject)
+for (subject in subjects) {
+  subject_data <- long_df_hisei[long_df_hisei$Subject == subject,]
+  lm_model <- lm(AveragePV ~ HISEI, data = subject_data)
+  fig <- fig %>%
+    add_trace(data = subject_data, x = ~HISEI, y = ~fitted(lm_model), type = 'scatter', mode = 'lines',
+              line = list(color = RColorBrewer::brewer.pal(3, "Dark2")[which(subjects == subject)], width = 1),
+              showlegend = FALSE)
+}
+
+# Layout adjustments
+fig <- fig %>%
+  layout(title = 'Relationship between HISEI and Average PV Scores',
+         xaxis = list(title = 'HISEI', zeroline = FALSE, range = c(0, max(long_df_hisei$HISEI, na.rm = TRUE))),
+         yaxis = list(title = 'Average PV Score', zeroline = FALSE, range = c(0, max(long_df_hisei$AveragePV, na.rm = TRUE))),
+         legend = list(orientation = 'v', x = 1.05, y = 0.5, xanchor = 'left', yanchor = 'middle'))
+
+# Print the interactive plot
+fig
 ```
