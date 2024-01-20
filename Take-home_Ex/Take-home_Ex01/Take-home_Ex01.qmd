@@ -72,13 +72,13 @@ stu_qqq_Sg <-
 
 ## 1.3 Summary Statistics
 
-Display first 5 rows using head()
+We first display first 5 rows using head().
 
 ```{r}
 head(stu_qqq_Sg, 5)
 ```
 
-Check the structure of stu_qqq_Sg
+Then, we check the structure of stu_qqq_Sg.
 
 ```{r}
 str(stu_qqq_Sg)
@@ -86,11 +86,11 @@ str(stu_qqq_Sg)
 
 The dataset contains the Intl. School ID (CNTSCHID), Intl. Student ID (CNTSTUID), and Student (Standardized) Gender (ST004D01T) variables, which are currently kept as numeric data types. We will convert these to categorical data types due to the following reasons:
 
-1.  The International School ID (CNTSCHID) is a numerical designation used to uniquely identify various schools. The numbers lack inherent mathematical significance; they serve solely as designations.
+1.  The International School ID is a numerical designation used to uniquely identify various schools. The numbers lack inherent mathematical significance; they serve solely as designations.
 
-2.  Comparable to school IDs, The International Student ID (CNTSTUID) is a distinct identity assigned to each student, it should be regarded as a label.
+2.  Comparable to school IDs, The International Student ID is a distinct identity assigned to each student, it should be regarded as a label.
 
-3.  "Student (Standardized) Gender (ST004D01T)" represents gender and is characterized by discrete categories such as male or female rather than a numerical scale.
+3.  "Student (Standardized) Gender" represents gender and is characterized by discrete categories such as male or female rather than a numerical scale.
 
 ```{r}
 stu_qqq_Sg$CNTSCHID <- as.factor(stu_qqq_Sg$CNTSCHID)
@@ -98,23 +98,21 @@ stu_qqq_Sg$CNTSTUID <- as.factor(stu_qqq_Sg$CNTSTUID)
 stu_qqq_Sg$ST004D01T <- as.factor(stu_qqq_Sg$ST004D01T)
 ```
 
-Proceed to check for duplicates
+We proceed to check for duplicates.
 
 ```{r}
 duplicate_rows <- stu_qqq_Sg[duplicated(stu_qqq_Sg),]
 print(head(duplicate_rows))
 ```
 
-The output \# A tibble: 0 × 1,279 indicates that there are zero rows in the resulting tibble. This means that no duplicate rows were found in your dataset stu_qqq_Sg across all 1,279 variables. Each row in your dataset is unique when considering all the variables together.
+The output \# A tibble: 0 × 1,279 indicates that there are zero rows in the resulting tibble. This means that no duplicate rows were found in dataset stu_qqq_Sg across all 1,279 variables.
+
+Next, we proceed to check for missing values.
 
 ```{r}
 # Count the total number of missing values in the dataset
 total_na <- sum(is.na(stu_qqq_Sg))
 print(total_na)
-
-# Count the number of missing values per column
-na_per_column <- colSums(is.na(stu_qqq_Sg))
-print(na_per_column)
 ```
 
 While there are numerous missing values in the dataset, our focus is primarily on specific columns. We're interested in the columns labeled:
@@ -126,10 +124,6 @@ While there are numerous missing values in the dataset, our focus is primarily o
 -   ST004D01T (Student Standardized Gender)
 
 -   HISEI (Highest parental occupational status based on 4-digit human coded ISCO)
-
--   PAREDINT (Index highest parental education)
-
--   HOMEPOS (Home possessions)
 
 -   ESCS (Index of economic, social and cultural status)
 
@@ -151,7 +145,7 @@ library(dplyr)
 # Selecting specific columns explicitly
 selected_columns <- stu_qqq_Sg %>%
   select(CNTSCHID, CNTSTUID, ST004D01T,
-         HISEI, PAREDINT, HOMEPOS, ESCS,
+         HISEI, ESCS,
          PV1MATH, PV2MATH, PV3MATH, PV4MATH, PV5MATH, PV6MATH, PV7MATH, PV8MATH, PV9MATH, PV10MATH,
          PV1READ, PV2READ, PV3READ, PV4READ, PV5READ, PV6READ, PV7READ, PV8READ, PV9READ, PV10READ,
          PV1SCIE, PV2SCIE, PV3SCIE, PV4SCIE, PV5SCIE, PV6SCIE, PV7SCIE, PV8SCIE, PV9SCIE, PV10SCIE)
@@ -165,22 +159,19 @@ print(na_per_selected_column)
 
 The counts of missing values for the variables in question are as follows:
 
--   Mother’s Occupational Status (BMMJ1): 607 missing values
-
--   Father’s Occupational Status (BFMJ2): 849 missing values
-
 -   Highest Parental Occupational Status (HISEI): 310 missing values
 
-However, we have opted not to impute or omit these cases as we want to preserve the original dataset, maintaining data integrity. Nevertheless, we acknowledge that the missing values in socioeconomic status indicators could limit the depth of socio-economic related insights and possibly affect the generalizability of our findings. This limitation is important to bear in mind when interpreting the results of our analysis. Future research may explore the reasons for these missing values and consider the application of appropriate data imputation methods where socio-economic context is of primary interest.
+-   Index of economic, social and cultural status (ESCS): 47 missing values
+
+To ensure our analysis is accurate, we're going to remove these incomplete rows from our dataset.
 
 # 2. Data Wrangling
 
 ## 2.1 Calculate average plausible values for each student
+We calculate each student's average plausible values for each subject, condensing multiple data points into one representative score per subject. This simplification aids in analyzing the distribution of performances across different subjects in Singapore.
 
 ```{r}
 library(dplyr)
-
-# Assuming 'stu_qqq_Sg' is your data frame and 'CNTSTUID' is the column with International Student IDs
 
 # Calculate the mean PV scores for each student in each subject
 student_avg_scores <- stu_qqq_Sg %>%
@@ -190,13 +181,8 @@ student_avg_scores <- stu_qqq_Sg %>%
     AvgSciePV = rowMeans(select(., starts_with("PV1SCIE"):starts_with("PV10SCIE")), na.rm = TRUE)
   )
 
-# The resulting 'student_avg_scores' data frame now has three new columns
-# 'AvgMathPV', 'AvgReadPV', and 'AvgSciePV' which are the average plausible values
-# for Mathematics, Reading, and Science respectively for each student.
-
 # View the student level averages
 print(student_avg_scores)
-
 ```
 
 ## 2.2 Consolidate individual student performance data into school-wide metrics
@@ -235,7 +221,9 @@ school_avg_scores <- stu_qqq_Sg %>%
 print(school_avg_scores)
 ```
 
-## 2.3 Gender
+## 2.3 Gender Labeling
+
+Here, we label genders and calculate average PV Scores per subject for each student.
 
 ```{r}
 library(dplyr)
@@ -256,7 +244,9 @@ gender_avg_scores <- stu_qqq_Sg %>%
 print(gender_avg_scores)
 ```
 
-## 2.4 SES
+## 2.4 Create clean HISEI and ESCS dataframes
+As mentioned earlier, we'll create a new dataframe for HISEI where any row with a missing HISEI value is removed. This will reduce our dataset by 310 rows.
+
 ```{r}
 # Assuming 'stu_qqq_Sg' is your original data frame
 
@@ -272,6 +262,7 @@ df_hisei <- stu_qqq_Sg %>%
 print(df_hisei)
 ```
 
+For ESCS, We'll make another dataframe where we remove rows missing ESCS values. This will decrease the dataset by 47 rows.
 
 ```{r}
 library(dplyr)
@@ -289,9 +280,11 @@ df_escs <- stu_qqq_Sg %>%
 
 print(df_escs) 
 ```
-# 3. Results
 
-## 3.1 Average Plausible Values by Students in Singapore
+# 3. Exploratory Data Analysis
+
+## 3.1 Distribution of Average Plausible Values by Students in Singapore
+
 ```{r}
 library(tidyverse)
 library(hrbrthemes)
@@ -346,7 +339,9 @@ p <- student_avg_long %>%
 p
 ```
 
-## 3.2 Average Plausible Values by School
+For each subject represented in the histograms, the scores predominantly converge around a central peak, indicative of the mode — the score range that most students fall into. The distribution patterns reveal a diminished number of students attaining scores at both extremities of the spectrum, either very high or very low. This results in a bell-shaped curve, reflecting a typical distribution where scores are most densely populated near the central value.
+
+## 3.2 Distribution of Average Plausible Values by School
 
 ```{r}
 library(tidyverse)
@@ -387,7 +382,7 @@ p <- ggplot(school_avg_scores) +
   scale_color_viridis_d() +
    scale_color_manual(values = c("Mathematics" = "darkblue", "Reading" = "orange", "Science" = "darkgreen")) +
   theme_ipsum() +
-  labs(title = 'Average Plausible Values by School',
+  labs(title = 'Distribution of Average Plausible Values by School',
        color = "") +  # Remove the word "Subject" from the legend
   theme(
     legend.position = "top",  # Move the legend to the top
@@ -410,7 +405,12 @@ print(p)
 
 ```
 
-## 3.3 Gender
+The data points create a descending trajectory from left to right, indicating that schools positioned at the left end of the spectrum generally exhibit higher average scores compared to those towards the right. This gradient suggests performance disparities across schools, with some institutions outperforming others.
+
+The data presents noteworthy insights, particularly the exemplary performance in Mathematics and Science by the school labeled with ID 70200003. In contrast, the school assigned ID 70200149 is distinguished by its underachievement in both Mathematics and Reading.
+
+## 3.3 Distribution of Average Plausible Values by Gender
+
 ```{r}
 library(dplyr)
 library(dplyr)
@@ -456,7 +456,7 @@ boxplot <- ggplot(long_format, aes(x = Gender, y = Score, fill = Gender)) +
             nudge_y = 10, color = "black", size = 2.5, show.legend = FALSE, vjust = -1) +  # Remove fontface argument
   facet_wrap(~Subject, strip.position = "top", labeller = labeller(Subject = c(Mathematics = "Mathematics", Reading = "Reading", Science = "Science"))) +
   labs(
-    title = "Score Distribution by Gender and Subject",
+    title = "PV Score Distribution by Gender and Subject",
     x = "",
     y = "Average Plausible Values"
   ) +
@@ -480,8 +480,11 @@ boxplot <- ggplot(long_format, aes(x = Gender, y = Score, fill = Gender)) +
 print(boxplot)
 ```
 
+The box plots illustrate the median scores (indicated by the line within each box), the interquartile range (the span of the box), and the range of the data (the "whiskers" extending from the boxes), which includes outliers (represented by the dots). 
 
-## 3.4 SES part 1
+The red dots represent the mean scores and we can see that in Mathematics, male students have a slightly higher average score (579.5) compared to female students (568.2). The Reading scores show a more pronounced difference, with female students having a higher average score (552.9) than male students (532.4). In Science, the average scores are closer, with male students averaging 563.9 and female students averaging 558.
+
+## 3.4 Relationship between HISEI and Average PV Scores
 
 ```{r}
 library(ggplot2)
@@ -525,7 +528,12 @@ ggplot(long_df_hisei, aes(x = HISEI, y = AveragePV, color = Subject)) +
   scale_y_continuous(limits = c(0, NA))  # Start y-axis at 0
 ```
 
-## 3.5 SES Part 2
+The trend lines for each subject indicate a positive correlation between HISEI and the average PV scores, suggesting that as HISEI increases, so does the average score in these subjects. In other words, students with higher socio-economic backgrounds, as measured by their parents' occupational status, tend to score higher average PV scores.
+
+However, the spread of the data points suggests there is variability that is not solely explained by HISEI. This indicates that while there is a trend, there are other factors at play influencing student performance in these subjects. The wide dispersion of scores at similar HISEI levels suggests that socio-economic status, is one of several factors that may influence educational outcomes.
+
+## 3.5 Relationship between ESCS and Average PV Scores
+
 ```{r}
 library(ggplot2)
 library(tidyr)
@@ -568,3 +576,9 @@ ggplot(long_df_escs, aes(x = ESCS, y = AveragePV, color = Subject)) +
   scale_y_continuous(limits = c(0, NA))  # Start y-axis at 0
 
 ```
+
+All three subjects show a positive correlation between the ESCS and the average PV scores, as indicated by the upward trend of the lines fitted to the data points in each subject area. This suggests that students with higher ESCS tend to have higher average scores in these subjects. The trend lines for each subject are quite close to one another, indicating that the relationship between ESCS and average PV scores is similar across all three subjects.
+
+The scatter plot indicates a more concentrated distribution of data points around the trend line for each subject area when assessing the relationship between ESCS and average PV scores. This tighter clustering suggests that ESCS may have a more consistent association with student performance in Mathematics, Reading, and Science, compared to the broader spread observed with HISEI.
+
+While the trend lines still point to a positive correlation—higher ESCS often correlates with higher PV scores—the reduced spread implies that ESCS could be a more reliable indicator of average scores in these subjects. Nevertheless, the presence of scores outside the immediate vicinity of the trend lines does indicate that factors beyond ESCS also play a role in educational performance, albeit perhaps to a lesser extent than observed with HISEI. 
