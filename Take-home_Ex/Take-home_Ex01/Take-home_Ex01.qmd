@@ -530,7 +530,7 @@ ggplot(long_df_hisei, aes(x = HISEI, y = AveragePV, color = Subject)) +
 
 The trend lines for each subject indicate a positive correlation between HISEI and the average PV scores, suggesting that as HISEI increases, so does the average score in these subjects. In other words, students with higher socio-economic backgrounds, as measured by their parents' occupational status, tend to score higher average PV scores.
 
-However, the spread of the data points suggests there is variability that is not solely explained by HISEI. This indicates that while there is a trend, there are other factors at play influencing student performance in these subjects. The wide dispersion of scores at similar HISEI levels suggests that socio-economic status, is one of several factors that may influence educational outcomes.
+However, the spread of the data points suggests there is variability that is not solely explained by HISEI. This indicates that while there is a trend, there are other factors at play influencing student performance in these subjects. The wide dispersion of scores at similar HISEI levels suggests that other factors may influence educational outcomes.
 
 ## 3.5 Relationship between ESCS and Average PV Scores
 
@@ -577,8 +577,8 @@ ggplot(long_df_escs, aes(x = ESCS, y = AveragePV, color = Subject)) +
 
 ```
 
-All three subjects show a positive correlation between the ESCS and the average PV scores, as indicated by the upward trend of the lines fitted to the data points in each subject area. This suggests that students with higher ESCS tend to have higher average scores in these subjects. The trend lines for each subject are quite close to one another, indicating that the relationship between ESCS and average PV scores is similar across all three subjects.
+All three subjects show a positive correlation between the ESCS and the average PV scores, as indicated by the upward trend of the lines fitted to the data points in each subject area. This suggests that students whose parents have higher index of economic, social and cultural status tend to achieve better average scores. The trend lines for each subject are quite close to one another, indicating that the relationship between ESCS and average PV scores is similar across all three subjects.
 
 The scatter plot indicates a more concentrated distribution of data points around the trend line for each subject area when assessing the relationship between ESCS and average PV scores. This tighter clustering suggests that ESCS may have a more consistent association with student performance in Mathematics, Reading, and Science, compared to the broader spread observed with HISEI.
 
-While the trend lines still point to a positive correlation—higher ESCS often correlates with higher PV scores—the reduced spread implies that ESCS could be a more reliable indicator of average scores in these subjects. Nevertheless, the presence of scores outside the immediate vicinity of the trend lines does indicate that factors beyond ESCS also play a role in educational performance, albeit perhaps to a lesser extent than observed with HISEI. 
+While the trend lines still point to a positive correlation—higher ESCS often correlates with higher PV scores—the reduced spread implies that ESCS could be a more reliable indicator of average scores. Nevertheless, the presence of scores outside the immediate vicinity of the trend lines does indicate that factors beyond ESCS also play a role in educational performance.
