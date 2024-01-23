@@ -66,7 +66,7 @@ If it used within a shiny application, elements associated with an id (data_id) 
 
 Below shows a typical code chunk to plot an interactive statistical graph by using ggiraph package. Notice that the code chunk consists of two parts. First, an ggplot object will be created. Next, girafe() of ggiraph will be used to create an interactive svg object.
 
-```{r}
+```{r echo=TRUE, eval=FALSE}
 p <- ggplot(data=exam_data, 
        aes(x = MATHS)) +
   geom_dotplot_interactive(
@@ -89,11 +89,28 @@ Notice that two steps are involved. First, an interactive version of ggplot2 geo
 
 By hovering the mouse pointer on an data point of interest, the student’s ID will be displayed.
 
+```{r echo=FALSE, eval=TRUE}
+p <- ggplot(data=exam_data, 
+       aes(x = MATHS)) +
+  geom_dotplot_interactive(
+    aes(tooltip = ID),
+    stackgroups = TRUE, 
+    binwidth = 1, 
+    method = "histodot") +
+  scale_y_continuous(NULL, 
+                     breaks = NULL)
+girafe(
+  ggobj = p,
+  width_svg = 6,
+  height_svg = 6*0.618
+)
+```
+
 ## 3.5.1 Displaying multiple information on tooltip
 
 The content of the tooltip can be customised by including a list object as shown in the code chunk below.
 
-```{r}
+```{r echo=TRUE, eval=FALSE}
 exam_data$tooltip <- c(paste0(     
   "Name = ", exam_data$ID,         
   "\n Class = ", exam_data$CLASS)) 
@@ -120,6 +137,27 @@ The first three lines of codes in the code chunk create a new field called toolt
 
 By hovering the mouse pointer on an data point of interest, the student’s ID and Class will be displayed.
 
+```{r echo=FALSE, eval=TRUE}
+exam_data$tooltip <- c(paste0(     
+  "Name = ", exam_data$ID,         
+  "\n Class = ", exam_data$CLASS)) 
+
+p <- ggplot(data=exam_data, 
+       aes(x = MATHS)) +
+  geom_dotplot_interactive(
+    aes(tooltip = exam_data$tooltip), 
+    stackgroups = TRUE,
+    binwidth = 1,
+    method = "histodot") +
+  scale_y_continuous(NULL,               
+                     breaks = NULL)
+girafe(
+  ggobj = p,
+  width_svg = 8,
+  height_svg = 8*0.618
+)
+```
+
 ## 3.6.1 Customising Tooltip style
 
 Code chunk below uses opts_tooltip() of ggiraph to customize tooltip rendering by add css declarations.
@@ -137,6 +175,9 @@ p <- ggplot(data=exam_data,
     method = "histodot") +               
   scale_y_continuous(NULL,               
                      breaks = NULL)
+
+# Notice that the background colour of the tooltip is black and the font colour is white and bold.
+
 girafe(                                  
   ggobj = p,                             
   width_svg = 6,                         
@@ -146,8 +187,6 @@ girafe(
       css = tooltip_css)) #<<
 )                                        
 ```
-
-Notice that the background colour of the tooltip is black and the font colour is white and bold.
 
 ## 3.6.2 Displaying statistics on tooltip
 
@@ -194,14 +233,15 @@ p <- ggplot(data=exam_data,
     method = "histodot") +               
   scale_y_continuous(NULL,               
                      breaks = NULL)
+
+# Interactivity: Elements associated with a data_id (i.e CLASS) will be highlighted upon mouse over.
+
 girafe(                                  
   ggobj = p,                             
   width_svg = 6,                         
   height_svg = 6*0.618                      
 )                                        
 ```
-
-Interactivity: Elements associated with a data_id (i.e CLASS) will be highlighted upon mouse over.
 
 Note that the default value of the hover css is hover_css = “fill:orange;”.
 
@@ -219,6 +259,9 @@ p <- ggplot(data=exam_data,
     method = "histodot") +               
   scale_y_continuous(NULL,               
                      breaks = NULL)
+
+# Interactivity: Elements associated with a data_id (i.e CLASS) will be highlighted upon mouse over.
+
 girafe(                                  
   ggobj = p,                             
   width_svg = 6,                         
@@ -229,8 +272,6 @@ girafe(
   )                                        
 )                                        
 ```
-
-Interactivity: Elements associated with a data_id (i.e CLASS) will be highlighted upon mouse over.
 
 Note: Different from previous example, in this example the ccs customisation request are encoded directly.
 
@@ -249,6 +290,9 @@ p <- ggplot(data=exam_data,
     method = "histodot") +               
   scale_y_continuous(NULL,               
                      breaks = NULL)
+
+# Interactivity: Elements associated with a data_id (i.e CLASS) will be highlighted upon mouse over. At the same time, the tooltip will show the CLASS.
+
 girafe(                                  
   ggobj = p,                             
   width_svg = 6,                         
@@ -259,8 +303,6 @@ girafe(
   )                                        
 )                                        
 ```
-
-Interactivity: Elements associated with a data_id (i.e CLASS) will be highlighted upon mouse over. At the same time, the tooltip will show the CLASS.
 
 ## 3.6.6 Click effect with onclick
 
@@ -282,17 +324,50 @@ p <- ggplot(data=exam_data,
     method = "histodot") +               
   scale_y_continuous(NULL,               
                      breaks = NULL)
+# Interactivity: Web document link with a data object will be displayed on the web browser upon mouse click.
+
 girafe(                                  
   ggobj = p,                             
   width_svg = 6,                         
   height_svg = 6*0.618)                                        
 ```
 
-Interactivity: Web document link with a data object will be displayed on the web browser upon mouse click.
-
 ## 3.6.7 Coordinated Multiple Views with ggiraph
 
 Coordinated multiple views methods has been implemented in the data visualisation below.
+
+```{r echo=FALSE, eval=TRUE}
+p1 <- ggplot(data=exam_data, 
+       aes(x = MATHS)) +
+  geom_dotplot_interactive(              
+    aes(data_id = ID),              
+    stackgroups = TRUE,                  
+    binwidth = 1,                        
+    method = "histodot") +  
+  coord_cartesian(xlim=c(0,100)) + 
+  scale_y_continuous(NULL,               
+                     breaks = NULL)
+
+p2 <- ggplot(data=exam_data, 
+       aes(x = ENGLISH)) +
+  geom_dotplot_interactive(              
+    aes(data_id = ID),              
+    stackgroups = TRUE,                  
+    binwidth = 1,                        
+    method = "histodot") + 
+  coord_cartesian(xlim=c(0,100)) + 
+  scale_y_continuous(NULL,               
+                     breaks = NULL)
+
+girafe(code = print(p1 + p2), 
+       width_svg = 6,
+       height_svg = 3,
+       options = list(
+         opts_hover(css = "fill: #202020;"),
+         opts_hover_inv(css = "opacity:0.2;")
+         )
+       ) 
+```
 
 Notice that when a data point of one of the dotplot is selected, the corresponding data point ID on the second data visualisation will be highlighted too.
 
@@ -302,7 +377,7 @@ In order to build a coordinated multiple views as shown in the example above, th
 
 2.  patchwork function of patchwork package will be used inside girafe function to create the interactive coordinated multiple views.
 
-```{r}
+```{r echo=TRUE, eval=FALSE}
 p1 <- ggplot(data=exam_data, 
        aes(x = MATHS)) +
   geom_dotplot_interactive(              
@@ -460,35 +535,35 @@ Things to learn from the code chunk:
 
 ## 3.9.1 ggiraph
 
-This link provides online version of the reference guide and several useful articles. Use this link to download the pdf version of the reference guide.
+This [link](https://davidgohel.github.io/ggiraph/) provides online version of the reference guide and several useful articles. Use this [link](https://cran.r-project.org/web/packages/ggiraph/ggiraph.pdf) to download the pdf version of the reference guide.
 
--   How to Plot With Ggiraph
+-   [How to Plot With Ggiraph](https://www.r-bloggers.com/2018/04/how-to-plot-with-ggiraph/)
 
--   Interactive map of France with ggiraph
+-   [Interactive map of France with ggiraph](https://rstudio-pubs-static.s3.amazonaws.com/152833_56a4917734204de7b37881d164cf8051.html)
 
--   Custom interactive sunbursts with ggplot in R
+-   [Custom interactive sunbursts with ggplot in R](https://www.pipinghotdata.com/posts/2021-06-01-custom-interactive-sunbursts-with-ggplot-in-r/)
 
--   This link provides code example on how ggiraph is used to interactive graphs for Swiss Olympians - the solo specialists.
+-   This [link](https://github.com/d-qn/2016_08_02_rioOlympicsAthletes) provides code example on how ggiraph is used to interactive graphs for [Swiss Olympians - the solo specialists](https://www.swissinfo.ch/eng/rio-2016-_swiss-olympians---the-solo-specialists-/42349156).
 
 ## 3.9.2 plotly for R
 
--   Getting Started with Plotly in R
+-   [Getting Started with Plotly in R](https://plotly.com/r/getting-started/)
 
--   A collection of plotly R graphs are available via this link.
+-   A collection of plotly R graphs are available via this [link](https://plotly.com/r/).
 
--   Carson Sievert (2020) Interactive web-based data visualization with R, plotly, and shiny, Chapman and Hall/CRC is the best resource to learn plotly for R. The online version is available via this link
+-   Carson Sievert (2020) Interactive web-based data visualization with R, plotly, and shiny, Chapman and Hall/CRC is the best resource to learn plotly for R. The online version is available via this [link](https://plotly-r.com/)
 
--   Plotly R Figure Reference provides a comprehensive discussion of each visual representations.
+-   [Plotly R Figure Reference](https://plotly.com/r/reference/index/) provides a comprehensive discussion of each visual representations.
 
--   Plotly R Library Fundamentals is a good place to learn the fundamental features of Plotly’s R API.
+-   [Plotly R Library Fundamentals](https://plotly.com/r/plotly-fundamentals/) is a good place to learn the fundamental features of Plotly’s R API.
 
--   Getting Started
+-   [Getting Started](https://gganimate.com/articles/gganimate.html)
 
--   Visit this link for a very interesting implementation of gganimate by your senior.
+-   Visit this [link](https://rpubs.com/raymondteo/dataviz8) for a very interesting implementation of gganimate by your senior.
 
--   Building an animation step-by-step with gganimate.
+-   [Building an animation step-by-step with gganimate.](https://www.alexcookson.com/post/2020-10-18-building-an-animation-step-by-step-with-gganimate/)
 
--   Creating a composite gif with multiple gganimate panels
+-   [Creating a composite gif with multiple gganimate panels](https://solarchemist.se/2021/08/02/composite-gif-gganimate/)
 
 # 4 Programming Animated Statistical Graphics with R
 
@@ -567,13 +642,13 @@ globalPop <- read_xls("data/GlobalPopulation.xls",
 
 gganimate extends the grammar of graphics as implemented by ggplot2 to include the description of animation. It does this by providing a range of new grammar classes that can be added to the plot object in order to customise how it should change with time.
 
--   transition\_*() defines how the data should be spread out and how it relates to itself across time.*
+-   transition\_\**() defines how the data should be spread out and how it relates to itself across time.*
 
--   *view\_*() defines how the positional scales should change along the animation.
+-   *view\_\**() defines how the positional scales should change along the animation.
 
--   shadow\_*() defines how data from other points in time should be presented in the given point in time.*
+-   shadow\_\**() defines how data from other points in time should be presented in the given point in time.*
 
--   *enter\_*()/exit\_\*() defines how new data should appear and how old data should disappear during the course of the animation.
+-   *enter\_\**()/exit\_\*() defines how new data should appear and how old data should disappear during the course of the animation.
 
 -   ease_aes() defines how different aesthetics should be eased during transitions.
 
@@ -603,6 +678,7 @@ In the code chunk below,
 -   ease_aes() is used to control easing of aesthetics. The default is linear. Other methods are: quadratic, cubic, quartic, quintic, sine, circular, exponential, elastic, back, and bounce.
 
 ```{r}
+# The animated bubble chart
 ggplot(globalPop, aes(x = Old, y = Young, 
                       size = Population, 
                       colour = Country)) +
@@ -614,10 +690,9 @@ ggplot(globalPop, aes(x = Old, y = Young,
        x = '% Aged', 
        y = '% Young') +
   transition_time(Year) +       
-  ease_aes('linear')          
-```
+  ease_aes('linear')        
 
-The animated bubble chart
+```
 
 # 4.4 Animated Data Visualisation: plotly
 
@@ -688,10 +763,10 @@ bp
 
 # 4.5 Reference
 
--   Getting Started
+-   [Getting Started](https://gganimate.com/articles/gganimate.html)
 
--   Visit this link for a very interesting implementation of gganimate by your senior.
+-   Visit this [link](https://rpubs.com/raymondteo/dataviz8) for a very interesting implementation of gganimate by your senior.
 
--   Building an animation step-by-step with gganimate.
+-   [Building an animation step-by-step with gganimate](https://www.alexcookson.com/post/2020-10-18-building-an-animation-step-by-step-with-gganimate/)
 
--   Creating a composite gif with multiple gganimate panels
+-   [Creating a composite gif with multiple gganimate panels](https://solarchemist.se/2021/08/02/composite-gif-gganimate/)
