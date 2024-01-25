@@ -1,0 +1,198 @@
+---
+title: "Take-home Exercise 2"
+date: "January 25, 2024"
+date-modified: "last-modified"
+output: 
+  html_document:
+    css: styles.css 
+execute: 
+  eval: true
+  echo: true
+  warning: false
+---
+
+# Project Objectives
+
+In this Take-home Exercise 2, I have chosen one of my classmates' Take-home Exercise 1 submissions and analyzed the charts in terms of clarity and aesthetics. My task involves critically assessing the design and visual presentation of the chosen submission. Using the data visualization design principles and best practices learned in Lessons 1 and 2, I will create a sketch for an alternative design. Subsequently, I will remake the original design using the ggplot2, ggplot2 extensions, and tidyverse packages to enhance its visual effectiveness and clarity.
+
+# 1. Data Preparation
+
+## 1.1 Installing R packages
+
+pacman::p_load() function from the pacman package is used in the following code chunk to install and call the libraries of multiple R packages:
+
+```{r}
+pacman::p_load(tidyverse, haven, ggrepel, patchwork, 
+               ggthemes, hrbrthemes)
+```
+
+## 1.2 Importing Dataset
+
+“Student questionnaire data file” from the PISA 2022 database is provided for the task.
+
+The code chunk below uses read_sas() of haven to import PISA data into R environment.
+
+```{r}
+stu_qqq <- read_sas("data/STU_QQQ_SAS/cy08msp_stu_qqq.sas7bdat")
+```
+
+```{r}
+stu_qqq_SG <- stu_qqq %>%
+  filter(CNT == "SGP")
+```
+
+```{r}
+write_rds(stu_qqq_SG,
+          "data/STU_QQQ_SAS/stu_qqq_SG.rds")
+```
+
+We upload the file as stu_qqq_Sg.
+
+```{r}
+stu_qqq_Sg <-
+  read_rds("data/STU_QQQ_SAS/stu_qqq_SG.rds")
+```
+
+# 2. Critique 1
+
+## 2.1 Original Design
+
+The original design is shown below. ![](images/Image1.png)
+
+The use of histograms with median lines, is a good start for visualizing the distribution of plausible value (PV) scores across different subjects. However, there are several improvements that could be made.
+
+## 2.2 Enhancements for Clarity
+
+## (a) Main Graph Title Refinement
+
+The initial graph title 'Distributions of Maths/Reading/Science with Median Lines' lacked descriptive power. A revised title, 'Distribution of Average Plausible Values in Mathematics, Reading, and Science Among Singaporean Students,' provides a more detailed and informative overview of the data presented.
+
+## (b) X-axis Labeling
+
+The use of column names such as 'avg_pvMATH', 'avg_pvREAD', and 'avg_pvSCIE' as x-axis labels could lead to confusion due to their technical nature. A more accessible approach is to apply a unified label, 'Average Plausible Values,' which directly communicates the essence of the data to the reader.
+
+## (c) Y-axis Scale Uniformity
+
+It is imperative to synchronize the y-axis scales for all histograms to enable a fair and accurate comparative analysis. The current graphs exhibit varying y-axis scales, which could skew the interpretation of the data. By standardizing these scales, we establish a consistent metric for evaluating the distributions of student performance in the various subjects.
+
+## (d) Y-axis Label Simplification
+
+With the y-axis scales aligned, we can enhance the graphs' neatness by eliminating the 'Count' labels and the associated numerical values on the y-axis for the second and third histograms. This declutters the visual space and directs focus to the data itself.
+
+## (e) Titles for Individual Graphs
+
+The generic 'I', 'II', and 'III' designations for individual graph titles are less informative. These should be replaced with the subject names 'Mathematics', 'Reading', and 'Science' to immediately convey the content of each graph to the viewer.
+
+## (f) Median Annotation Clarity
+
+The current placement of the median value at the bottom intersects with the x-axis, which hampers legibility. Moving this annotation to the top of the median line within the graph area ensures it is unobstructed and easily readable.
+
+## 2.3 Aesthetic Improvements
+
+## (a) Centering the Main Graph Title
+
+A central alignment for the main graph title is aesthetically pleasing and anchors the viewer’s attention, compared to the original left-aligned positioning.
+
+## (b) Gridline and Background Differentiation
+
+The grey bars against a grey background, intersected by white gridlines, result in a low-contrast visual that can be difficult to interpret. By removing the grey background and recoloring the gridlines to grey, we create a stark contrast that allows the data bars to stand out sharply, enhancing the graph's readability.
+
+## 2.4 Sketch of Proposed Design
+
+## 2.5 Data Wrangling
+
+## 2.6 Final Design
+
+After performing necessary modifications, the final code and design are as follows.
+
+# 3. Critique 2
+
+## 3.1 Original Design
+
+The original design is shown below.
+
+![](images/Image2.png)
+
+## 3.2 Enhancements for Clarity
+
+## (a) Alternative chart type for better analysis
+
+Our primary objective is to analyze and compare the score distributions across genders. Given this focus, box plots or violin plots would serve as highly effective visual tools. These types of plots provide a clear representation of the distributions, highlighting differences in median scores and variability within each gender group. Consequently, I propose transitioning from histograms to violin plots to better facilitate this comparative analysis.
+
+## 3.3 Sketch of Proposed Design
+
+## 3.4 Data Wrangling
+
+## 3.4 Final Design
+
+# 4. Critique 3
+
+## 4.1 Original Design
+
+The original design is shown below.
+
+![](images/Image3.png)
+
+## 4.2 Enhancements for Clarity
+
+## (a) Main Graph Title Refinement
+
+The initial graph title 'The Relationship between School and Performances' lacked descriptive power. A more precise title, 'School Influence on Student Performance Across Subjects,' provides a comprehensive and informative overview of the data presented.
+
+## (b) X-axis Labeling Efficiency
+
+The repetition of 'School ID' on the x-axis is unnecessary. We will consolidate this label for a cleaner look and enhanced readability. Additionally, to prevent the overlapping of school IDs, we will extend the x-axis from one end of the chart to the other, utilizing the full width of the graph for a more spaced and legible display.
+
+## (c) Y-axis Scale and Representation Adjustment
+
+The y-axis currently does not start from zero, which may lead to a misinterpretation of the performance variances. To address this, we will standardize the y-axis across all scatterplots. By combining all subjects into one scatterplot, we'll differentiate them not with individual titles but with a coded color scheme for the dots and lines. The y-axis labels will be unified to 'Average Plausible Values,' simplifying the comparison across subjects.
+
+## 4.3 Aesthetic Improvements
+
+## (a) Centralized Main Graph Title
+
+We will shift the main graph title to a central position, enhancing the visual symmetry and appeal of the chart, thus drawing the viewer’s attention more effectively.
+
+## (b) Enhanced Legend and Color Differentiation
+
+To aid interpretation, we will introduce a legend that clearly links the color scheme to the respective subjects being displayed. This is not only visually appealing but also support the viewer in effortlessly decoding the information.
+
+## (c) Background and Gridline Adjustment
+To accommodate the various colors present in the graph and enhance visual clarity, we will remove the grey background. This simplification will reduce visual clutter and focus attention on the data points. Additionally, to maintain gridline visibility while ensuring they are not visually intrusive, we will change their color to a subtle grey. This adjustment will create a cleaner and more visually pleasing graph that is easier on the eyes.
+
+## 4.5 Sketch of Proposed Design
+
+## 4.5 Data Wrangling
+
+## 4.6 Final Design
+
+# 5. Critique 4
+
+## 5.1 Original Design
+
+The original design is shown below.
+
+![](images/Image4.png)
+
+## 5.2 Enhancements for Clarity
+## (a) X-axis and Main Title Labeling Correction
+The current x-axis title 'Socioeconomic Status (Lower values indicate higher status)' does not accurately reflect the data,which is based on the 'Parent_Edu_level' derived from our data wrangling process. We will update the x-axis label to 'Parental Education Level' to accurately describe the underlying data dimension. As well as the main title of the graph. 
+
+## (b) Legend Labeling Refinement
+The term 'colour' in the legend is superfluous and can lead to confusion. We will replace 'colour' with 'Subject' for clarity. Additionally, to ensure grammatical correctness and consistency, 'Read' will be updated to 'Reading', and 'Maths' will be expanded to 'Mathematics'.
+
+## (c) Axis Scale Adjustment
+Currently, the axes do not begin at zero, which can potentially misrepresent the data. We will adjust the axis scales to start at zero to provide a true-to-scale representation of the data points.
+
+## 5.3 Aesthetic Improvements
+## (a) Harmonizing Color Palette
+We will adopt a palette of soft, natural colors for the primary data display, reserving more vivid or darker shades for elements that require emphasis or immediate attention from the viewer.
+
+## (b) Enhancing Dot Visibility
+The overlapping dots can obscure individual data points. To mitigate this, we will increase the transparency of each dot. This will allow for the visualization of data overlap and individual points without visual clutter.
+
+## 5.4 Sketch of Proposed Design
+
+## 5.5 Data Wrangling
+
+## 5.6 Final Design
