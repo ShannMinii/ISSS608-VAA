@@ -243,63 +243,66 @@ Our primary objective is to analyze and compare the score distributions across g
 ## 3.4 Final Design
 ```{r}
 library(ggplot2)
-library(patchwork)
+library(dplyr)
+library(tidyr)
 
-# Function to create a boxplot for a given subject with the specified adjustments
-create_boxplot <- function(data, subject_column, subject_name, show_y_labels) {
-  p <- ggplot(data, aes(x = factor(ST004D01T), y = .data[[subject_column]], fill = factor(ST004D01T))) +
-    geom_boxplot(outlier.color = "black") + # Change outliers to black
-    labs(title = subject_name) + # Add title to each plot
-    theme_minimal(base_size = 15) +
-    theme(
-      panel.grid.major = element_line(color = "grey", size = 0.1), # Make gridlines thinner
-      panel.grid.minor = element_blank(),
-      panel.background = element_blank(),
-      axis.title.x = element_blank(),
-      axis.text.x = element_blank(),
-      axis.ticks.x = element_blank(),
-      plot.title = element_text(hjust = 0.5) # Ensure title is centered
-    )
-  
-  # Conditionally show the y-axis label
-  if (!show_y_labels) {
-    p <- p + theme(axis.text.y = element_blank(), axis.ticks.y = element_blank(), axis.title.y = element_blank())
-  } else {
-    p <- p + labs(y = 'Average Plausible Value')
-  }
-  
-  # Add the legend for the first plot only
-  if (subject_name == "Mathematics") {
-    p <- p + theme(legend.position = "right") + 
-      guides(fill=guide_legend(title="Gender")) # Add legend title
-  } else {
-    p <- p + theme(legend.position = "none")
-  }
-  
-  return(p)
-}
+# Assuming 'Related_math_read_scie_data' is your data frame
 
-# Define the max value for consistent y-axis scaling across boxplots
-max_y_value <- max(Related_math_read_scie_data$avg_pvMATH, Related_math_read_scie_data$avg_pvREAD, Related_math_read_scie_data$avg_pvSCIE, na.rm = TRUE)
+# Prepare the data with gender and average scores
+gender_scores <- Related_math_read_scie_data %>%
+  mutate(
+    Gender = ifelse(ST004D01T == 1, "Female", "Male"),
+    AvgMathPV = avg_pvMATH,
+    AvgReadPV = avg_pvREAD,
+    AvgSciePV = avg_pvSCIE
+  )
 
-# Create boxplots
-p1 <- create_boxplot(Related_math_read_scie_data, "avg_pvMATH", "Mathematics", TRUE) + 
-  ylim(0, max_y_value) # Set consistent y-limits
+# Reshape the data to long format
+long_format <- gender_scores %>%
+  select(Gender, AvgMathPV, AvgReadPV, AvgSciePV) %>%
+  pivot_longer(
+    cols = c(AvgMathPV, AvgReadPV, AvgSciePV),
+    names_to = "Subject",
+    values_to = "Score"
+  ) %>%
+  mutate(Subject = recode(Subject,
+                          AvgMathPV = "Mathematics",
+                          AvgReadPV = "Reading",
+                          AvgSciePV = "Science"))
 
-p2 <- create_boxplot(Related_math_read_scie_data, "avg_pvREAD", "Reading", FALSE) + 
-  ylim(0, max_y_value) # Set consistent y-limits
+# Calculate the average scores for each Subject and Gender
+avg_scores <- long_format %>%
+  group_by(Subject, Gender) %>%
+  summarize(AvgScore = mean(Score, na.rm = TRUE), .groups = 'keep')
 
-p3 <- create_boxplot(Related_math_read_scie_data, "avg_pvSCIE", "Science", FALSE) + 
-  ylim(0, max_y_value) # Set consistent y-limits
+# Create the boxplots with specified colors and apply a minimalistic theme
+boxplot <- ggplot(long_format, aes(x = Subject, y = Score, fill = Gender)) +
+  geom_boxplot(position = position_dodge(width = 0.75)) + # Dodge position for side-by-side
+  geom_point(data = avg_scores, aes(x = Subject, y = AvgScore, group = Gender), 
+             position = position_dodge(width = 0.75), color = "red", size = 3, show.legend = FALSE) +
+  geom_text(data = avg_scores, aes(x = Subject, y = AvgScore, label = paste("Avg =", round(AvgScore, 1))),
+            position = position_dodge(width = 0.75), vjust = -2, color = "black", size = 2.5, fontface = "bold", show.legend = FALSE) +
+  scale_fill_manual(values = c("Female" = "coral", "Male" = "skyblue")) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.05)), limits = c(0, NA)) + # Start y-axis at 0
+  labs(
+    title = "The Relationship between Gender and Performances",
+    x = "",
+    y = "Score"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom",
+    strip.text = element_text(size = 11, hjust = 0.5),
+    plot.title = element_text(size = 18, hjust = 0.5),
+    axis.text.x = element_text(size = 11, hjust = 0.5, vjust = 0.5),
+    axis.text.y = element_text(size = 11),
+    axis.title.y = element_text(size = 14),
+    panel.grid.major.x = element_blank(),  # Remove vertical gridlines
+    panel.grid.minor.x = element_blank()   # Remove vertical gridlines
+  )
 
-# Combine the boxplots
-combined_boxplots <- (p1 | p2 | p3) + 
-  plot_layout(guides = 'collect') +
-  plot_annotation(title = "The Relationship between Gender and Performances")
-
-# Display the combined plot
-combined_boxplots
-
+# Print the boxplot
+print(boxplot)
 ```
 
 # 4. Critique 3
