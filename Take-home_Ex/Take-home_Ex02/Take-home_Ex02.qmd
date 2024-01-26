@@ -151,7 +151,7 @@ create_histogram <- function(data, subject_column, subject_name, max_y_value, sh
                    fill="grey") +
     geom_vline(xintercept = median_value, color = "red", linetype = "dashed") +
     annotate("text", x = median_value, y = max_y_value * 0.9, 
-             label = paste("Median:", round(median_value, 2)), 
+             label = paste("Median = ", round(median_value, 2)), 
              vjust = 0, color = "red", size = 3) + # Adjusted placement for annotation
     theme_minimal() +
     theme(
@@ -442,3 +442,47 @@ The overlapping dots can obscure individual data points. To mitigate this, we wi
 ## 5.5 Data Wrangling
 
 ## 5.6 Final Design
+```{r}
+library(ggplot2)
+library(dplyr)
+
+# Assuming 'Related_math_read_scie_data' is your data frame and contains the necessary columns
+
+# Create a new column 'Parent_Edu_level' assuming ST005Q01JA and ST007Q01JA are coded appropriately
+Related_math_read_scie_data <- Related_math_read_scie_data %>%
+  mutate(Parent_Edu_level = ST005Q01JA + ST007Q01JA)
+
+# Create a dataframe for plotting
+df <- Related_math_read_scie_data
+
+# Plot the relationship between performance and socioeconomic status
+p_combined <- ggplot(df, aes(x = Parent_Edu_level)) +
+  geom_point(aes(y = avg_pvMATH, color = "Mathematics"), alpha = 1, size = 1.5, na.rm = TRUE) +
+  geom_smooth(aes(y = avg_pvMATH, color = "Mathematics"), method = "lm", se = FALSE, na.rm = TRUE) +
+  geom_point(aes(y = avg_pvREAD, color = "Reading"), alpha = 1, size = 1.5, na.rm = TRUE) +
+  geom_smooth(aes(y = avg_pvREAD, color = "Reading"), method = "lm", se = FALSE, na.rm = TRUE) +
+  geom_point(aes(y = avg_pvSCIE, color = "Science"), alpha = 1, size = 1.5, na.rm = TRUE) +
+  geom_smooth(aes(y = avg_pvSCIE, color = "Science"), method = "lm", se = FALSE, na.rm = TRUE) +
+  labs(
+    title = "Relationship between Parental Education Level and Student Performance",
+    x = "Parental Education Level (Lower values indicate higher status)",
+    y = "Average PV Score",
+    
+  ) +
+  scale_color_discrete() +  # Use default color scheme
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5, size = 12),
+    axis.title = element_text(size = 11),
+    axis.text.x = element_text(angle = 0, vjust = 0.5, size = 9),
+    axis.text.y = element_text(angle = 0, vjust = 0.5, size = 9),
+    legend.position = "bottom",
+    legend.title = element_blank(),
+    plot.margin = margin(t = 10, r = 10, b = 10, l = 10),
+    legend.text = element_text(size = 11)
+  ) +
+  expand_limits(y = 0)  # Ensure the y-axis starts at zero
+
+# Print the plot
+print(p_combined)
+```
