@@ -53,6 +53,25 @@ stu_qqq_Sg <-
   read_rds("data/STU_QQQ_SAS/stu_qqq_SG.rds")
 ```
 
+Following what my classmate did, he selected related to math, reading and science student performance data, as well as schools, gender, and socioeconomic status of related data.
+
+```{r}
+# eval: false
+Related_math_read_scie_data <- stu_qqq_SG %>%
+  select(contains(c("ID","ST004D01T","math", "read", "scie","ST259Q01JA","ST259Q02JA","ST005Q01JA","ST007Q01JA")))
+```
+
+```{r}
+# eval: false
+write_rds(Related_math_read_scie_data,
+          "data/Related_math_read_scie_data.rds")
+```
+
+```{r}
+Related_math_read_scie_data <- 
+read_rds("data/Related_math_read_scie_data.rds")
+```
+
 # 2. Critique 1
 
 ## 2.1 Original Design
@@ -100,11 +119,109 @@ The grey bars against a grey background, intersected by white gridlines, result 
 ## 2.4 Sketch of Proposed Design
 
 ## 2.5 Data Wrangling
+Calculate the average of PV1-10 Maths/Read/Science, representing each student’s ability to perform maths/Read/Science.
+
+```{r}
+Related_math_read_scie_data <- Related_math_read_scie_data %>%
+  mutate(avg_pvMATH = rowMeans(select(., ends_with("Math")), na.rm = TRUE))
+
+Related_math_read_scie_data <- Related_math_read_scie_data %>%
+  mutate(avg_pvREAD = rowMeans(select(., ends_with("READ")), na.rm = TRUE))
+
+Related_math_read_scie_data <- Related_math_read_scie_data %>%
+  mutate(avg_pvSCIE = rowMeans(select(., ends_with("SCIE")), na.rm = TRUE))
+
+Related_math_read_scie_data %>%
+  select(CNTSCHID, CNTSTUID,avg_pvMATH, avg_pvREAD, avg_pvSCIE) %>%
+  head(5)
+```
 
 ## 2.6 Final Design
 
 After performing necessary modifications, the final code and design are as follows.
 
+```{r}
+create_histogram <- function(data, subject_column, subject_name, max_y_value, show_labels = TRUE) {
+  median_value <- median(data[[subject_column]])
+  
+  p <- ggplot(data, aes_string(x = subject_column)) +
+    geom_histogram(bins = 10, 
+                   boundary = 100,
+                   color = "black", 
+                   fill="grey") +
+    geom_vline(xintercept = median_value, color = "red", linetype = "dashed") +
+    annotate("text", x = median_value, y = max_y_value * 0.9, 
+             label = paste("Median:", round(median_value, 2)), 
+             vjust = 0, color = "red", size = 3) + # Adjusted placement for annotation
+    theme_minimal() +
+    theme(
+      panel.grid.major = element_line(color = "grey", size = 0.1),
+      panel.grid.minor = element_blank(),
+      panel.background = element_blank(),
+      axis.text.y = element_text(color = "black"),
+      axis.text.x = element_text(color = "black"),
+      axis.title.x = element_blank(), # Remove x-axis title
+      plot.title = element_text(size = 14, face = "bold", hjust = 0.5)
+    ) +
+    coord_cartesian(ylim = c(0, max_y_value)) # Set y-axis limits
+  
+  if (!show_labels) {
+    p <- p + theme(
+      axis.title.y = element_blank(),
+      axis.text.y = element_blank(),
+      axis.ticks.y = element_blank()
+    )
+  } else {
+    p <- p + labs(y = "Count")
+  }
+  
+  p <- p + labs(title = subject_name)
+  
+  return(p)
+}
+
+# Calculate the maximum y-value to use as the y-axis limit
+max_y_value <- max(
+  max(table(cut(Related_math_read_scie_data$avg_pvMATH, breaks = 10))),
+  max(table(cut(Related_math_read_scie_data$avg_pvREAD, breaks = 10))),
+  max(table(cut(Related_math_read_scie_data$avg_pvSCIE, breaks = 10)))
+) * 1.3 # Extend y-axis to fit annotation
+
+# Create histograms with consistent y-axis limits
+p1 <- create_histogram(Related_math_read_scie_data, "avg_pvMATH", "Mathematics", max_y_value, TRUE)
+p2 <- create_histogram(Related_math_read_scie_data, "avg_pvREAD", "Reading", max_y_value, FALSE)
+p3 <- create_histogram(Related_math_read_scie_data, "avg_pvSCIE", "Science", max_y_value, FALSE)
+
+# The rest of your code for combining the plots stays the same
+# Create an empty plot with just the x-axis label
+x_axis_label <- ggplot() + 
+  theme_void() + 
+  labs(x = "Average Plausible Values") +
+  theme(
+    plot.margin = margin(t = 0, b = -1, l = 0, r = 0, unit = "cm"), # negative bottom margin to move up the x-axis title
+    axis.title.x = element_text(hjust = 0.5),
+    axis.ticks.length = unit(-2, "mm"), # negative tick length to move up the x-axis title
+    axis.text.x = element_text(margin = margin(t = -10, b = -15)) # negative margins to move up the x-axis values
+  ) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.05))) # reducing the expansion
+
+# Combine the plots with the x-axis label plot
+combined_plot <- (p1 | p2 | p3) / 
+  x_axis_label +
+  plot_layout(
+    guides = 'collect',
+    heights = c(1, 0.1) # Adjust these values as needed to control the space
+  ) +
+  plot_annotation(
+    title = 'Distribution of Average PV Across Subjects Among Singaporean Students'
+  ) &
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5) # Center the title
+  )
+
+# Display the combined plot
+combined_plot
+```
 # 3. Critique 2
 
 ## 3.1 Original Design
@@ -124,6 +241,66 @@ Our primary objective is to analyze and compare the score distributions across g
 ## 3.4 Data Wrangling
 
 ## 3.4 Final Design
+```{r}
+library(ggplot2)
+library(patchwork)
+
+# Function to create a boxplot for a given subject with the specified adjustments
+create_boxplot <- function(data, subject_column, subject_name, show_y_labels) {
+  p <- ggplot(data, aes(x = factor(ST004D01T), y = .data[[subject_column]], fill = factor(ST004D01T))) +
+    geom_boxplot(outlier.color = "black") + # Change outliers to black
+    labs(title = subject_name) + # Add title to each plot
+    theme_minimal(base_size = 15) +
+    theme(
+      panel.grid.major = element_line(color = "grey", size = 0.1), # Make gridlines thinner
+      panel.grid.minor = element_blank(),
+      panel.background = element_blank(),
+      axis.title.x = element_blank(),
+      axis.text.x = element_blank(),
+      axis.ticks.x = element_blank(),
+      plot.title = element_text(hjust = 0.5) # Ensure title is centered
+    )
+  
+  # Conditionally show the y-axis label
+  if (!show_y_labels) {
+    p <- p + theme(axis.text.y = element_blank(), axis.ticks.y = element_blank(), axis.title.y = element_blank())
+  } else {
+    p <- p + labs(y = 'Average Plausible Value')
+  }
+  
+  # Add the legend for the first plot only
+  if (subject_name == "Mathematics") {
+    p <- p + theme(legend.position = "right") + 
+      guides(fill=guide_legend(title="Gender")) # Add legend title
+  } else {
+    p <- p + theme(legend.position = "none")
+  }
+  
+  return(p)
+}
+
+# Define the max value for consistent y-axis scaling across boxplots
+max_y_value <- max(Related_math_read_scie_data$avg_pvMATH, Related_math_read_scie_data$avg_pvREAD, Related_math_read_scie_data$avg_pvSCIE, na.rm = TRUE)
+
+# Create boxplots
+p1 <- create_boxplot(Related_math_read_scie_data, "avg_pvMATH", "Mathematics", TRUE) + 
+  ylim(0, max_y_value) # Set consistent y-limits
+
+p2 <- create_boxplot(Related_math_read_scie_data, "avg_pvREAD", "Reading", FALSE) + 
+  ylim(0, max_y_value) # Set consistent y-limits
+
+p3 <- create_boxplot(Related_math_read_scie_data, "avg_pvSCIE", "Science", FALSE) + 
+  ylim(0, max_y_value) # Set consistent y-limits
+
+# Combine the boxplots
+combined_boxplots <- (p1 | p2 | p3) + 
+  plot_layout(guides = 'collect') +
+  plot_annotation(title = "The Relationship between Gender and Performances")
+
+# Display the combined plot
+combined_boxplots
+
+```
 
 # 4. Critique 3
 
