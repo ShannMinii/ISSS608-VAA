@@ -350,6 +350,68 @@ To accommodate the various colors present in the graph and enhance visual clarit
 
 ## 4.6 Final Design
 
+```{r}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+# Assuming 'Related_math_read_scie_data' is your data frame and contains columns: CNTSCHID, avg_pvMATH, avg_pvREAD, and avg_pvSCIE
+
+# Calculate the school-wise average scores for each subject
+Related_math_read_scie_data <- Related_math_read_scie_data %>%
+  group_by(CNTSCHID) %>%
+  mutate(
+    avg_pvMATH_school = mean(avg_pvMATH, na.rm = TRUE),
+    avg_pvREAD_school = mean(avg_pvREAD, na.rm = TRUE),
+    avg_pvSCIE_school = mean(avg_pvSCIE, na.rm = TRUE)
+  ) %>%
+  ungroup()
+
+# Reshape the data to long format for plotting
+long_format <- Related_math_read_scie_data %>%
+  select(CNTSCHID, avg_pvMATH_school, avg_pvREAD_school, avg_pvSCIE_school) %>%
+  pivot_longer(
+    cols = starts_with("avg_pv"),
+    names_to = "Subject",
+    values_to = "Score"
+  ) %>%
+  mutate(Subject = recode(Subject,
+                          "avg_pvMATH_school" = "Mathematics",
+                          "avg_pvREAD_school" = "Reading",
+                          "avg_pvSCIE_school" = "Science"))
+
+# Create the combined scatterplot
+p_combined <- ggplot(data = long_format, aes(x = CNTSCHID, y = Score, color = Subject)) +
+  geom_point() +
+  geom_smooth(aes(group = Subject), method = lm, se = FALSE) +
+  scale_color_discrete() +  # Use default color scheme
+  labs(
+    title = "School Influence on Student Performance Across Subjects",
+    x = "School ID",
+    y = "Average Plausible Values"
+  ) +
+  scale_x_continuous(expand = expansion(mult = c(0.01, 0.01))) +  # Adjust x-axis limits
+  scale_y_continuous(expand = expansion(mult = c(0.01, 0.01)), limits = c(0, NA)) +  # Start y-axis at 0, adjust if needed
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 14),
+    axis.title.x = element_text(size = 11),
+    axis.title.y = element_text(size = 11),
+    axis.text.x = element_text(hjust = 1, angle = 0),  # Horizontal x-axis text
+    axis.text.y = element_text(size = 11),
+    panel.grid.major.x = element_line(color = "grey90"), # Add vertical gridlines
+    panel.grid.minor.x = element_blank(),
+    panel.grid.major.y = element_line(color = "grey90"), # Add horizontal gridlines
+    legend.position = "bottom",
+    legend.title = element_blank(),
+    legend.text = element_text(size = 12)
+  ) +
+  guides(color = guide_legend(title = "Subject", override.aes = list(size = 4))) # Ensure legend is shown
+
+# Print the scatterplot
+print(p_combined)
+```
+
 # 5. Critique 4
 
 ## 5.1 Original Design

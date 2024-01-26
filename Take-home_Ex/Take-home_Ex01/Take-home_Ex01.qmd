@@ -168,6 +168,7 @@ To ensure our analysis is accurate, we're going to remove these incomplete rows 
 # 2. Data Wrangling
 
 ## 2.1 Calculate average plausible values for each student
+
 We calculate each student's average plausible values for each subject, condensing multiple data points into one representative score per subject. This simplification aids in analyzing the distribution of performances across different subjects in Singapore.
 
 ```{r}
@@ -245,6 +246,7 @@ print(gender_avg_scores)
 ```
 
 ## 2.4 Create clean HISEI and ESCS dataframes
+
 As mentioned earlier, we'll create a new dataframe for HISEI where any row with a missing HISEI value is removed. This will reduce our dataset by 310 rows.
 
 ```{r}
@@ -480,7 +482,7 @@ boxplot <- ggplot(long_format, aes(x = Gender, y = Score, fill = Gender)) +
 print(boxplot)
 ```
 
-The box plots illustrate the median scores (indicated by the line within each box), the interquartile range (the span of the box), and the range of the data (the "whiskers" extending from the boxes), which includes outliers (represented by the dots). 
+The box plots illustrate the median scores (indicated by the line within each box), the interquartile range (the span of the box), and the range of the data (the "whiskers" extending from the boxes), which includes outliers (represented by the dots).
 
 The red dots represent the mean scores and we can see that in Mathematics, male students have a slightly higher average score (579.5) compared to female students (568.2). The Reading scores show a more pronounced difference, with female students having a higher average score (552.9) than male students (532.4). In Science, the average scores are closer, with male students averaging 563.9 and female students averaging 558.
 
