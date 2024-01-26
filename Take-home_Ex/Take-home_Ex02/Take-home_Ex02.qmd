@@ -213,7 +213,7 @@ combined_plot <- (p1 | p2 | p3) /
     heights = c(1, 0.1) # Adjust these values as needed to control the space
   ) +
   plot_annotation(
-    title = 'Distribution of Average PV Across Subjects Among Singaporean Students'
+    title = 'Distribution of Average PV Among Students in Singapore'
   ) &
   theme(
     plot.title = element_text(face = "bold", hjust = 0.5) # Center the title
@@ -276,35 +276,39 @@ avg_scores <- long_format %>%
   summarize(AvgScore = mean(Score, na.rm = TRUE), .groups = 'keep')
 
 # Create the boxplots with specified colors and apply a minimalistic theme
-boxplot <- ggplot(long_format, aes(x = Subject, y = Score, fill = Gender)) +
-  geom_boxplot(position = position_dodge(width = 0.75)) + # Dodge position for side-by-side
-  geom_point(data = avg_scores, aes(x = Subject, y = AvgScore, group = Gender), 
+boxplot <- ggplot(long_format, aes(x = Gender, y = Score, fill = Gender)) +
+  geom_boxplot(position = position_dodge(width = 0.75)) + 
+  geom_point(data = avg_scores, aes(x = Gender, y = AvgScore, group = Gender), 
              position = position_dodge(width = 0.75), color = "red", size = 3, show.legend = FALSE) +
-  geom_text(data = avg_scores, aes(x = Subject, y = AvgScore, label = paste("Avg =", round(AvgScore, 1))),
+  geom_text(data = avg_scores, aes(x = Gender, y = AvgScore, label = paste("Avg =", round(AvgScore, 1))),
             position = position_dodge(width = 0.75), vjust = -2, color = "black", size = 2.5, fontface = "bold", show.legend = FALSE) +
-  scale_fill_manual(values = c("Female" = "coral", "Male" = "skyblue")) +
-  scale_y_continuous(expand = expansion(mult = c(0, 0.05)), limits = c(0, NA)) + # Start y-axis at 0
+  scale_fill_manual(values = c("Female" = "coral", "Male" = "skyblue")) +  # Added the missing `+` here
+  labs(fill = "") +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.05)), limits = c(0, NA)) +
   labs(
-    title = "The Relationship between Gender and Performances",
+    title = "Distribution of Average PV by Gender",
     x = "",
-    y = "Score"
+    y = "Average Plausible Values"
   ) +
+  facet_wrap(~Subject, strip.position = "top") +
   theme_minimal() +
   theme(
     legend.position = "bottom",
-    strip.text = element_text(size = 11, hjust = 0.5),
-    plot.title = element_text(size = 18, hjust = 0.5),
-    axis.text.x = element_text(size = 11, hjust = 0.5, vjust = 0.5),
+    legend.title = element_text(size = 11),
+    legend.text = element_text(size = 11),
+    strip.text = element_text(size = 14, hjust = 0.5, face = "bold"),
+    plot.title = element_text(size = 13, hjust = 0.5, face = "bold"),
+    axis.text.x = element_blank(),  # Remove x-axis text labels
     axis.text.y = element_text(size = 11),
-    axis.title.y = element_text(size = 14),
-    panel.grid.major.x = element_blank(),  # Remove vertical gridlines
-    panel.grid.minor.x = element_blank()   # Remove vertical gridlines
+    axis.title.y = element_text(size = 11),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    strip.background = element_blank()
   )
 
 # Print the boxplot
 print(boxplot)
 ```
-
 # 4. Critique 3
 
 ## 4.1 Original Design
