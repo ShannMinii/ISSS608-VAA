@@ -245,9 +245,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#c-axis-scale-adjustment" id="toc-c-axis-scale-adjustment" class="nav-link" data-scroll-target="#c-axis-scale-adjustment">(c) Axis Scale Adjustment</a></li>
   <li><a href="#aesthetic-improvements-2" id="toc-aesthetic-improvements-2" class="nav-link" data-scroll-target="#aesthetic-improvements-2">5.3 Aesthetic Improvements</a></li>
   <li><a href="#a-harmonizing-color-palette" id="toc-a-harmonizing-color-palette" class="nav-link" data-scroll-target="#a-harmonizing-color-palette">(a) Harmonizing Color Palette</a></li>
-  <li><a href="#b-enhancing-dot-visibility" id="toc-b-enhancing-dot-visibility" class="nav-link" data-scroll-target="#b-enhancing-dot-visibility">(b) Enhancing Dot Visibility</a></li>
   <li><a href="#sketch-of-proposed-design-3" id="toc-sketch-of-proposed-design-3" class="nav-link" data-scroll-target="#sketch-of-proposed-design-3">5.4 Sketch of Proposed Design</a></li>
   <li><a href="#final-design-3" id="toc-final-design-3" class="nav-link" data-scroll-target="#final-design-3">5.5 Final Design</a></li>
+  <li><a href="#learning-points" id="toc-learning-points" class="nav-link" data-scroll-target="#learning-points">6. Learning Points</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -318,16 +318,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>stu_qqq_Sg <span class="ot">&lt;-</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_rds</span>(<span class="st">"data/STU_QQQ_SAS/stu_qqq_SG.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Following what my classmate did, he selected related to math, reading and science student performance data, as well as schools, gender, and socioeconomic status of related data.</p>
+<p>The makeover is designed to refine the original visualization while staying true to the dataset’s range, as selected by my classmate. Therefore, I will be focusing on the same variables: student performance in mathematics, reading, and science, along with school identification, gender, and parental education levels.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># eval: false</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>Related_math_read_scie_data <span class="ot">&lt;-</span> stu_qqq_SG <span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="fu">c</span>(<span class="st">"ID"</span>,<span class="st">"ST004D01T"</span>,<span class="st">"math"</span>, <span class="st">"read"</span>, <span class="st">"scie"</span>,<span class="st">"ST259Q01JA"</span>,<span class="st">"ST259Q02JA"</span>,<span class="st">"ST005Q01JA"</span>,<span class="st">"ST007Q01JA"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>Related_math_read_scie_data <span class="ot">&lt;-</span> stu_qqq_SG <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="fu">c</span>(<span class="st">"ID"</span>,<span class="st">"ST004D01T"</span>,<span class="st">"math"</span>, <span class="st">"read"</span>, <span class="st">"scie"</span>,<span class="st">"ST259Q01JA"</span>,<span class="st">"ST259Q02JA"</span>,<span class="st">"ST005Q01JA"</span>,<span class="st">"ST007Q01JA"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># eval: false</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(Related_math_read_scie_data,</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>          <span class="st">"data/Related_math_read_scie_data.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(Related_math_read_scie_data,</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>          <span class="st">"data/Related_math_read_scie_data.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Related_math_read_scie_data <span class="ot">&lt;-</span> </span>
@@ -340,14 +338,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="original-design" class="level2">
 <h2 class="anchored" data-anchor-id="original-design">2.1 Original Design</h2>
 <p>The original design is shown below. <img src="images/Image1.png" class="img-fluid"></p>
-<p>The use of histograms with median lines, is a good start for visualizing the distribution of plausible value (PV) scores across different subjects. However, there are several improvements that could be made.</p>
+<p>The use of histograms with median lines, is a good start for visualizing the distribution of plausible values (PV) across different subjects. However, there are several improvements that could be made.</p>
 </section>
 <section id="enhancements-for-clarity" class="level2">
 <h2 class="anchored" data-anchor-id="enhancements-for-clarity">2.2 Enhancements for Clarity</h2>
 </section>
 <section id="a-main-graph-title-refinement" class="level2">
 <h2 class="anchored" data-anchor-id="a-main-graph-title-refinement">(a) Main Graph Title Refinement</h2>
-<p>The initial graph title ‘Distributions of Maths/Reading/Science with Median Lines’ lacked descriptive power. A revised title, ‘Distribution of Average Plausible Values in Mathematics, Reading, and Science Among Singaporean Students,’ provides a more detailed and informative overview of the data presented.</p>
+<p>The initial graph title ‘Distributions of Maths/Reading/Science with Median Lines’ lacked descriptive power. A revised title, ‘Distribution of Average Plausible Values in Among Students in Singapore,’ provides a more detailed and informative overview of the data presented.</p>
 </section>
 <section id="b-x-axis-labeling" class="level2">
 <h2 class="anchored" data-anchor-id="b-x-axis-labeling">(b) X-axis Labeling</h2>
@@ -363,11 +361,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="e-titles-for-individual-graphs" class="level2">
 <h2 class="anchored" data-anchor-id="e-titles-for-individual-graphs">(e) Titles for Individual Graphs</h2>
-<p>The generic ‘I’, ‘II’, and ‘III’ designations for individual graph titles are less informative. These should be replaced with the subject names ‘Mathematics’, ‘Reading’, and ‘Science’ to immediately convey the content of each graph to the viewer.</p>
+<p>The generic ‘I’, ‘II’, and ‘III’ designations for individual graph titles are less informative. These should be replaced with the subject names ‘Mathematics’, ‘Reading’, and ‘Science’ to convey the content of each graph to the viewer.</p>
 </section>
 <section id="f-median-annotation-clarity" class="level2">
 <h2 class="anchored" data-anchor-id="f-median-annotation-clarity">(f) Median Annotation Clarity</h2>
-<p>The current placement of the median value at the bottom intersects with the x-axis, which hampers legibility. Moving this annotation to the top of the median line within the graph area ensures it is unobstructed and easily readable.</p>
+<p>The current placement of the median value at the bottom intersects with the x-axis, which hampers legibility. Moving this annotation on top of the bars ensures it is unobstructed and easily readable.</p>
 </section>
 <section id="aesthetic-improvements" class="level2">
 <h2 class="anchored" data-anchor-id="aesthetic-improvements">2.3 Aesthetic Improvements</h2>
@@ -386,7 +384,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="data-wrangling" class="level2">
 <h2 class="anchored" data-anchor-id="data-wrangling">2.5 Data Wrangling</h2>
-<p>Calculate the average of PV1-10 Maths/Read/Science, representing each student’s ability to perform maths/Read/Science.</p>
+<p>Calculate the mean of Plausible Values 1 through 10 for Mathematics, Reading and Science respectively.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>Related_math_read_scie_data <span class="ot">&lt;-</span> Related_math_read_scie_data <span class="sc">%&gt;%</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">avg_pvMATH =</span> <span class="fu">rowMeans</span>(<span class="fu">select</span>(., <span class="fu">ends_with</span>(<span class="st">"Math"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
@@ -414,7 +412,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="final-design" class="level2">
 <h2 class="anchored" data-anchor-id="final-design">2.6 Final Design</h2>
-<p>After performing necessary modifications, the final code and design are as follows.</p>
+<p>After performing the necessary modifications, the final code and design are as follows.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>create_histogram <span class="ot">&lt;-</span> <span class="cf">function</span>(data, subject_column, subject_name, max_y_value, <span class="at">show_labels =</span> <span class="cn">TRUE</span>) {</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  median_value <span class="ot">&lt;-</span> <span class="fu">median</span>(data[[subject_column]])</span>
@@ -467,35 +465,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">create_histogram</span>(Related_math_read_scie_data, <span class="st">"avg_pvREAD"</span>, <span class="st">"Reading"</span>, max_y_value, <span class="cn">FALSE</span>)</span>
 <span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">create_histogram</span>(Related_math_read_scie_data, <span class="st">"avg_pvSCIE"</span>, <span class="st">"Science"</span>, max_y_value, <span class="cn">FALSE</span>)</span>
 <span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a><span class="co"># The rest of your code for combining the plots stays the same</span></span>
-<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an empty plot with just the x-axis label</span></span>
-<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a>x_axis_label <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span> </span>
-<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Average Plausible Values"</span>) <span class="sc">+</span></span>
-<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">l =</span> <span class="dv">0</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">unit =</span> <span class="st">"cm"</span>), <span class="co"># negative bottom margin to move up the x-axis title</span></span>
-<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
-<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks.length =</span> <span class="fu">unit</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="st">"mm"</span>), <span class="co"># negative tick length to move up the x-axis title</span></span>
-<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="sc">-</span><span class="dv">10</span>, <span class="at">b =</span> <span class="sc">-</span><span class="dv">15</span>)) <span class="co"># negative margins to move up the x-axis values</span></span>
-<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.05</span>))) <span class="co"># reducing the expansion</span></span>
-<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine the plots with the x-axis label plot</span></span>
-<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a>combined_plot <span class="ot">&lt;-</span> (p1 <span class="sc">|</span> p2 <span class="sc">|</span> p3) <span class="sc">/</span> </span>
-<span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a>  x_axis_label <span class="sc">+</span></span>
-<span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(</span>
-<span id="cb11-69"><a href="#cb11-69" aria-hidden="true" tabindex="-1"></a>    <span class="at">guides =</span> <span class="st">'collect'</span>,</span>
-<span id="cb11-70"><a href="#cb11-70" aria-hidden="true" tabindex="-1"></a>    <span class="at">heights =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">0.1</span>) <span class="co"># Adjust these values as needed to control the space</span></span>
-<span id="cb11-71"><a href="#cb11-71" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(</span>
-<span id="cb11-73"><a href="#cb11-73" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">'Distribution of Average PV Among Students in Singapore'</span></span>
-<span id="cb11-74"><a href="#cb11-74" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">&amp;</span></span>
-<span id="cb11-75"><a href="#cb11-75" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb11-76"><a href="#cb11-76" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>) <span class="co"># Center the title</span></span>
-<span id="cb11-77"><a href="#cb11-77" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb11-78"><a href="#cb11-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the combined plot</span></span>
-<span id="cb11-80"><a href="#cb11-80" aria-hidden="true" tabindex="-1"></a>combined_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an empty plot with just the x-axis label</span></span>
+<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a>x_axis_label <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span> </span>
+<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Average Plausible Values"</span>) <span class="sc">+</span></span>
+<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">l =</span> <span class="dv">0</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">unit =</span> <span class="st">"cm"</span>), <span class="co"># negative bottom margin to move up the x-axis title</span></span>
+<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks.length =</span> <span class="fu">unit</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="st">"mm"</span>), <span class="co"># negative tick length to move up the x-axis title</span></span>
+<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="sc">-</span><span class="dv">10</span>, <span class="at">b =</span> <span class="sc">-</span><span class="dv">15</span>)) <span class="co"># negative margins to move up the x-axis values</span></span>
+<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.05</span>))) <span class="co"># reducing the expansion</span></span>
+<span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine the plots with the x-axis label plot</span></span>
+<span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a>combined_plot <span class="ot">&lt;-</span> (p1 <span class="sc">|</span> p2 <span class="sc">|</span> p3) <span class="sc">/</span> </span>
+<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a>  x_axis_label <span class="sc">+</span></span>
+<span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(</span>
+<span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a>    <span class="at">guides =</span> <span class="st">'collect'</span>,</span>
+<span id="cb11-69"><a href="#cb11-69" aria-hidden="true" tabindex="-1"></a>    <span class="at">heights =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">0.1</span>) <span class="co"># Adjust these values as needed to control the space</span></span>
+<span id="cb11-70"><a href="#cb11-70" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-71"><a href="#cb11-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(</span>
+<span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">'Distribution of Average PV Among Students in Singapore'</span></span>
+<span id="cb11-73"><a href="#cb11-73" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">&amp;</span></span>
+<span id="cb11-74"><a href="#cb11-74" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb11-75"><a href="#cb11-75" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>) <span class="co"># Center the title</span></span>
+<span id="cb11-76"><a href="#cb11-76" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-77"><a href="#cb11-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-78"><a href="#cb11-78" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the combined plot</span></span>
+<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a>combined_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Take-home_Ex02_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -514,7 +511,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="a-alternative-chart-type-for-better-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="a-alternative-chart-type-for-better-analysis">(a) Alternative chart type for better analysis</h2>
-<p>Our primary objective is to analyze and compare the score distributions across genders. Given this focus, box plots or violin plots would serve as highly effective visual tools. These types of plots provide a clear representation of the distributions, highlighting differences in median scores and variability within each gender group. Consequently, I propose transitioning from histograms to violin plots to better facilitate this comparative analysis.</p>
+<p>Our primary objective is to analyze and compare the score distributions across genders. Given this focus, box plots or violin plots would serve as highly effective visual tools. These types of plots portrays distribution patterns, effectively revealing disparities in median scores and the extent of variation within each gender category. In contrast, histograms, while useful for depicting frequency distributions, fall short in offering a comprehensive view of the data’s spread and central tendencies, such as medians and quartiles. This limitation makes histograms less suitable for our purpose of detailed comparison. Therefore, to achieve a more nuanced and comparative analysis, I recommend transitioning from histograms to violin plots, as they not only highlight the central tendencies but also elegantly encapsulate the full distribution of scores across genders.</p>
 </section>
 <section id="sketch-of-proposed-design-1" class="level2">
 <h2 class="anchored" data-anchor-id="sketch-of-proposed-design-1">3.3 Sketch of Proposed Design</h2>
@@ -522,73 +519,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="final-design-1" class="level2">
 <h2 class="anchored" data-anchor-id="final-design-1">3.4 Final Design</h2>
+<p>After performing the necessary modifications, the final code and design are as follows.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming 'Related_math_read_scie_data' is your data frame</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare the data with gender and average scores</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>gender_scores <span class="ot">&lt;-</span> Related_math_read_scie_data <span class="sc">%&gt;%</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Gender =</span> <span class="fu">ifelse</span>(ST004D01T <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Female"</span>, <span class="st">"Male"</span>),</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">AvgMathPV =</span> avg_pvMATH,</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">AvgReadPV =</span> avg_pvREAD,</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">AvgSciePV =</span> avg_pvSCIE</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Reshape the data to long format</span></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>long_format <span class="ot">&lt;-</span> gender_scores <span class="sc">%&gt;%</span></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Gender, AvgMathPV, AvgReadPV, AvgSciePV) <span class="sc">%&gt;%</span></span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(AvgMathPV, AvgReadPV, AvgSciePV),</span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"Subject"</span>,</span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"Score"</span></span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Subject =</span> <span class="fu">recode</span>(Subject,</span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>                          <span class="at">AvgMathPV =</span> <span class="st">"Mathematics"</span>,</span>
-<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>                          <span class="at">AvgReadPV =</span> <span class="st">"Reading"</span>,</span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>                          <span class="at">AvgSciePV =</span> <span class="st">"Science"</span>))</span>
-<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the average scores for each Subject and Gender</span></span>
-<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>avg_scores <span class="ot">&lt;-</span> long_format <span class="sc">%&gt;%</span></span>
-<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Subject, Gender) <span class="sc">%&gt;%</span></span>
-<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">AvgScore =</span> <span class="fu">mean</span>(Score, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">'keep'</span>)</span>
-<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the boxplots with specified colors and apply a minimalistic theme</span></span>
-<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>boxplot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(long_format, <span class="fu">aes</span>(<span class="at">x =</span> Gender, <span class="at">y =</span> Score, <span class="at">fill =</span> Gender)) <span class="sc">+</span></span>
-<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.75</span>)) <span class="sc">+</span> </span>
-<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> avg_scores, <span class="fu">aes</span>(<span class="at">x =</span> Gender, <span class="at">y =</span> AvgScore, <span class="at">group =</span> Gender), </span>
-<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.75</span>), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> avg_scores, <span class="fu">aes</span>(<span class="at">x =</span> Gender, <span class="at">y =</span> AvgScore, <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">"Avg ="</span>, <span class="fu">round</span>(AvgScore, <span class="dv">1</span>))),</span>
-<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.75</span>), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">2.5</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Female"</span> <span class="ot">=</span> <span class="st">"coral"</span>, <span class="st">"Male"</span> <span class="ot">=</span> <span class="st">"skyblue"</span>)) <span class="sc">+</span>  <span class="co"># Added the missing `+` here</span></span>
-<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">""</span>) <span class="sc">+</span></span>
-<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.05</span>)), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="cn">NA</span>)) <span class="sc">+</span></span>
-<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution of Average PV by Gender"</span>,</span>
-<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">""</span>,</span>
-<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Plausible Values"</span></span>
-<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Subject, <span class="at">strip.position =</span> <span class="st">"top"</span>) <span class="sc">+</span></span>
-<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
-<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
-<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
-<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">13</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),  <span class="co"># Remove x-axis text labels</span></span>
-<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
-<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
-<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.background =</span> <span class="fu">element_blank</span>()</span>
-<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the boxplot</span></span>
-<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(boxplot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare the data with gender and average scores</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>gender_scores <span class="ot">&lt;-</span> Related_math_read_scie_data <span class="sc">%&gt;%</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Gender =</span> <span class="fu">ifelse</span>(ST004D01T <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Female"</span>, <span class="st">"Male"</span>),</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">AvgMathPV =</span> avg_pvMATH,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">AvgReadPV =</span> avg_pvREAD,</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">AvgSciePV =</span> avg_pvSCIE</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Reshape the data to long format</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>long_format <span class="ot">&lt;-</span> gender_scores <span class="sc">%&gt;%</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Gender, AvgMathPV, AvgReadPV, AvgSciePV) <span class="sc">%&gt;%</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(AvgMathPV, AvgReadPV, AvgSciePV),</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"Subject"</span>,</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"Score"</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Subject =</span> <span class="fu">recode</span>(Subject,</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>                          <span class="at">AvgMathPV =</span> <span class="st">"Mathematics"</span>,</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>                          <span class="at">AvgReadPV =</span> <span class="st">"Reading"</span>,</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>                          <span class="at">AvgSciePV =</span> <span class="st">"Science"</span>))</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the average scores for each Subject and Gender</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>avg_scores <span class="ot">&lt;-</span> long_format <span class="sc">%&gt;%</span></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Subject, Gender) <span class="sc">%&gt;%</span></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">AvgScore =</span> <span class="fu">mean</span>(Score, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">'keep'</span>)</span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the boxplots with specified colors and apply a minimalistic theme</span></span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>boxplot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(long_format, <span class="fu">aes</span>(<span class="at">x =</span> Gender, <span class="at">y =</span> Score, <span class="at">fill =</span> Gender)) <span class="sc">+</span></span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.75</span>)) <span class="sc">+</span> </span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> avg_scores, <span class="fu">aes</span>(<span class="at">x =</span> Gender, <span class="at">y =</span> AvgScore, <span class="at">group =</span> Gender), </span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.75</span>), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> avg_scores, <span class="fu">aes</span>(<span class="at">x =</span> Gender, <span class="at">y =</span> AvgScore, <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">"Avg ="</span>, <span class="fu">round</span>(AvgScore, <span class="dv">1</span>))),</span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.75</span>), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">2.5</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Female"</span> <span class="ot">=</span> <span class="st">"coral"</span>, <span class="st">"Male"</span> <span class="ot">=</span> <span class="st">"skyblue"</span>)) <span class="sc">+</span>  <span class="co"># Added the missing `+` here</span></span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.05</span>)), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="cn">NA</span>)) <span class="sc">+</span></span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution of Average PV by Gender"</span>,</span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">""</span>,</span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Plausible Values"</span></span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Subject, <span class="at">strip.position =</span> <span class="st">"top"</span>) <span class="sc">+</span></span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">13</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),  <span class="co"># Remove x-axis text labels</span></span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
+<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
+<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.background =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the boxplot</span></span>
+<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(boxplot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Take-home_Ex02_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -626,7 +622,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="b-enhanced-legend-and-color-differentiation" class="level2">
 <h2 class="anchored" data-anchor-id="b-enhanced-legend-and-color-differentiation">(b) Enhanced Legend and Color Differentiation</h2>
-<p>To aid interpretation, we will introduce a legend that clearly links the color scheme to the respective subjects being displayed. This is not only visually appealing but also support the viewer in effortlessly decoding the information.</p>
+<p>To aid interpretation, we will introduce a legend that clearly links the color scheme to the respective subjects being displayed. This is not only visually appealing but also support the viewer in decoding the information.</p>
 </section>
 <section id="c-background-and-gridline-adjustment" class="level2">
 <h2 class="anchored" data-anchor-id="c-background-and-gridline-adjustment">(c) Background and Gridline Adjustment</h2>
@@ -638,67 +634,66 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="final-design-2" class="level2">
 <h2 class="anchored" data-anchor-id="final-design-2">4.5 Final Design</h2>
+<p>After performing the necessary modifications, the final code and design are as follows.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming 'Related_math_read_scie_data' is your data frame and contains columns: CNTSCHID, avg_pvMATH, avg_pvREAD, and avg_pvSCIE</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the school-wise average scores for each subject</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>Related_math_read_scie_data <span class="ot">&lt;-</span> Related_math_read_scie_data <span class="sc">%&gt;%</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(CNTSCHID) <span class="sc">%&gt;%</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_pvMATH_school =</span> <span class="fu">mean</span>(avg_pvMATH, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_pvREAD_school =</span> <span class="fu">mean</span>(avg_pvREAD, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_pvSCIE_school =</span> <span class="fu">mean</span>(avg_pvSCIE, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Reshape the data to long format for plotting</span></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>long_format <span class="ot">&lt;-</span> Related_math_read_scie_data <span class="sc">%&gt;%</span></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(CNTSCHID, avg_pvMATH_school, avg_pvREAD_school, avg_pvSCIE_school) <span class="sc">%&gt;%</span></span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"avg_pv"</span>),</span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"Subject"</span>,</span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"Score"</span></span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Subject =</span> <span class="fu">recode</span>(Subject,</span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"avg_pvMATH_school"</span> <span class="ot">=</span> <span class="st">"Mathematics"</span>,</span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"avg_pvREAD_school"</span> <span class="ot">=</span> <span class="st">"Reading"</span>,</span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"avg_pvSCIE_school"</span> <span class="ot">=</span> <span class="st">"Science"</span>))</span>
-<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the combined scatterplot</span></span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>p_combined <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> long_format, <span class="fu">aes</span>(<span class="at">x =</span> CNTSCHID, <span class="at">y =</span> Score, <span class="at">color =</span> Subject)) <span class="sc">+</span></span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">group =</span> Subject), <span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>() <span class="sc">+</span>  <span class="co"># Use default color scheme</span></span>
-<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"School Influence on Student Performance Across Subjects"</span>,</span>
-<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"School ID"</span>,</span>
-<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Plausible Values"</span></span>
-<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="fl">0.01</span>, <span class="fl">0.01</span>))) <span class="sc">+</span>  <span class="co"># Adjust x-axis limits</span></span>
-<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="fl">0.01</span>, <span class="fl">0.01</span>)), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="cn">NA</span>)) <span class="sc">+</span>  <span class="co"># Start y-axis at 0, adjust if needed</span></span>
-<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>),</span>
-<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
-<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
-<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">angle =</span> <span class="dv">0</span>),  <span class="co"># Horizontal x-axis text</span></span>
-<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
-<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel.grid.major.x =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"grey90"</span>),  <span class="co"># Add vertical gridlines</span></span>
-<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>(),  <span class="co"># Remove minor vertical gridlines</span></span>
-<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel.grid.major.y =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"grey90"</span>),  <span class="co"># Add major horizontal gridlines</span></span>
-<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel.grid.minor.y =</span> <span class="fu">element_blank</span>(),  <span class="co"># Remove minor horizontal gridlines</span></span>
-<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
-<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>)</span>
-<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
-<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a><span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">title =</span> <span class="st">"Subject"</span>, <span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">4</span>))) <span class="co"># Ensure legend is shown correctly</span></span>
-<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the scatterplot</span></span>
-<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p_combined)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the school-wise average scores for each subject</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>Related_math_read_scie_data <span class="ot">&lt;-</span> Related_math_read_scie_data <span class="sc">%&gt;%</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(CNTSCHID) <span class="sc">%&gt;%</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_pvMATH_school =</span> <span class="fu">mean</span>(avg_pvMATH, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_pvREAD_school =</span> <span class="fu">mean</span>(avg_pvREAD, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_pvSCIE_school =</span> <span class="fu">mean</span>(avg_pvSCIE, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Reshape the data to long format for plotting</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>long_format <span class="ot">&lt;-</span> Related_math_read_scie_data <span class="sc">%&gt;%</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(CNTSCHID, avg_pvMATH_school, avg_pvREAD_school, avg_pvSCIE_school) <span class="sc">%&gt;%</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"avg_pv"</span>),</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"Subject"</span>,</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"Score"</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Subject =</span> <span class="fu">recode</span>(Subject,</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"avg_pvMATH_school"</span> <span class="ot">=</span> <span class="st">"Mathematics"</span>,</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"avg_pvREAD_school"</span> <span class="ot">=</span> <span class="st">"Reading"</span>,</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"avg_pvSCIE_school"</span> <span class="ot">=</span> <span class="st">"Science"</span>))</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the combined scatterplot</span></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>p_combined <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> long_format, <span class="fu">aes</span>(<span class="at">x =</span> CNTSCHID, <span class="at">y =</span> Score, <span class="at">color =</span> Subject)) <span class="sc">+</span></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">group =</span> Subject), <span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>() <span class="sc">+</span>  <span class="co"># Use default color scheme</span></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"School Influence on Student Performance Across Subjects"</span>,</span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"School ID"</span>,</span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Plausible Values"</span></span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="fl">0.01</span>, <span class="fl">0.01</span>))) <span class="sc">+</span>  <span class="co"># Adjust x-axis limits</span></span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="fl">0.01</span>, <span class="fl">0.01</span>)), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="cn">NA</span>)) <span class="sc">+</span>  <span class="co"># Start y-axis at 0, adjust if needed</span></span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">angle =</span> <span class="dv">0</span>),  <span class="co"># Horizontal x-axis text</span></span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel.grid.major.x =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"grey90"</span>),  <span class="co"># Add vertical gridlines</span></span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>(),  <span class="co"># Remove minor vertical gridlines</span></span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel.grid.major.y =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"grey90"</span>),  <span class="co"># Add major horizontal gridlines</span></span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel.grid.minor.y =</span> <span class="fu">element_blank</span>(),  <span class="co"># Remove minor horizontal gridlines</span></span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>)</span>
+<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a><span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">title =</span> <span class="st">"Subject"</span>, <span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">4</span>))) <span class="co"># Ensure legend is shown correctly</span></span>
+<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the scatterplot</span></span>
+<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p_combined)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Take-home_Ex02_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -717,11 +712,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="a-x-axis-and-main-title-labeling-correction" class="level2">
 <h2 class="anchored" data-anchor-id="a-x-axis-and-main-title-labeling-correction">(a) X-axis and Main Title Labeling Correction</h2>
-<p>The current x-axis title ‘Socioeconomic Status (Lower values indicate higher status)’ does not accurately reflect the data,which is based on the ‘Parent_Edu_level’ derived from our data wrangling process. We will update the x-axis label to ‘Parental Education Level’ to accurately describe the underlying data dimension. As well as the main title of the graph.</p>
+<p>The current x-axis title ‘Socioeconomic Status (Lower values indicate higher status)’ does not accurately reflect the data, which is based on the ‘Parent_Edu_level’ derived from our data wrangling process. We will update the x-axis label to ‘Parental Education Level’ to accurately describe the underlying data dimension. As well as the main title of the graph.</p>
 </section>
 <section id="b-legend-labeling-refinement" class="level2">
 <h2 class="anchored" data-anchor-id="b-legend-labeling-refinement">(b) Legend Labeling Refinement</h2>
-<p>The term ‘colour’ in the legend is superfluous and can lead to confusion. We will replace ‘colour’ with ‘Subject’ for clarity. Additionally, to ensure grammatical correctness and consistency, ‘Read’ will be updated to ‘Reading’, and ‘Maths’ will be expanded to ‘Mathematics’.</p>
+<p>The term ‘colour’ in the legend is superfluous and can lead to confusion. Additionally, to ensure grammatical correctness and consistency, ‘Read’ will be updated to ‘Reading’, and ‘Maths’ will be expanded to ‘Mathematics’.</p>
 </section>
 <section id="c-axis-scale-adjustment" class="level2">
 <h2 class="anchored" data-anchor-id="c-axis-scale-adjustment">(c) Axis Scale Adjustment</h2>
@@ -734,64 +729,63 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="a-harmonizing-color-palette">(a) Harmonizing Color Palette</h2>
 <p>We will adopt a palette of soft, natural colors for the primary data display, reserving more vivid or darker shades for elements that require emphasis or immediate attention from the viewer.</p>
 </section>
-<section id="b-enhancing-dot-visibility" class="level2">
-<h2 class="anchored" data-anchor-id="b-enhancing-dot-visibility">(b) Enhancing Dot Visibility</h2>
-<p>The overlapping dots can obscure individual data points. To mitigate this, we will increase the transparency of each dot. This will allow for the visualization of data overlap and individual points without visual clutter.</p>
-</section>
 <section id="sketch-of-proposed-design-3" class="level2">
 <h2 class="anchored" data-anchor-id="sketch-of-proposed-design-3">5.4 Sketch of Proposed Design</h2>
 <p><img src="images/Image8.jpg" class="img-fluid"></p>
 </section>
 <section id="final-design-3" class="level2">
 <h2 class="anchored" data-anchor-id="final-design-3">5.5 Final Design</h2>
+<p>After performing the necessary modifications, the final code and design are as follows.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming 'Related_math_read_scie_data' is your data frame and contains the necessary columns</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new column 'Parent_Edu_level' assuming ST005Q01JA and ST007Q01JA are coded appropriately</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>Related_math_read_scie_data <span class="ot">&lt;-</span> Related_math_read_scie_data <span class="sc">%&gt;%</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Parent_Edu_level =</span> ST005Q01JA <span class="sc">+</span> ST007Q01JA)</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dataframe for plotting</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> Related_math_read_scie_data</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the relationship between performance and socioeconomic status</span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>p_combined <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Parent_Edu_level)) <span class="sc">+</span></span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> avg_pvMATH, <span class="at">color =</span> <span class="st">"Mathematics"</span>), <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="fl">1.5</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">y =</span> avg_pvMATH, <span class="at">color =</span> <span class="st">"Mathematics"</span>), <span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> avg_pvREAD, <span class="at">color =</span> <span class="st">"Reading"</span>), <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="fl">1.5</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">y =</span> avg_pvREAD, <span class="at">color =</span> <span class="st">"Reading"</span>), <span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> avg_pvSCIE, <span class="at">color =</span> <span class="st">"Science"</span>), <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="fl">1.5</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">y =</span> avg_pvSCIE, <span class="at">color =</span> <span class="st">"Science"</span>), <span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Relationship between Parental Education Level and Student Performance"</span>,</span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Parental Education Level (Lower values indicate higher education levels)"</span>,</span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Plausible Values"</span>,</span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>() <span class="sc">+</span>  <span class="co"># Use default color scheme</span></span>
-<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
-<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">9</span>),</span>
-<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">9</span>),</span>
-<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
-<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">10</span>, <span class="at">r =</span> <span class="dv">10</span>, <span class="at">b =</span> <span class="dv">10</span>, <span class="at">l =</span> <span class="dv">10</span>),</span>
-<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
-<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor.y =</span> <span class="fu">element_blank</span>()</span>
-<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">y =</span> <span class="dv">0</span>)  <span class="co"># Ensure the y-axis starts at zero</span></span>
-<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the plot</span></span>
-<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p_combined)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new column 'Parent_Edu_level'</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>Related_math_read_scie_data <span class="ot">&lt;-</span> Related_math_read_scie_data <span class="sc">%&gt;%</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Parent_Edu_level =</span> ST005Q01JA <span class="sc">+</span> ST007Q01JA)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dataframe for plotting</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> Related_math_read_scie_data</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the relationship between performance and socioeconomic status</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>p_combined <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Parent_Edu_level)) <span class="sc">+</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> avg_pvMATH, <span class="at">color =</span> <span class="st">"Mathematics"</span>), <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="fl">1.5</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">y =</span> avg_pvMATH, <span class="at">color =</span> <span class="st">"Mathematics"</span>), <span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> avg_pvREAD, <span class="at">color =</span> <span class="st">"Reading"</span>), <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="fl">1.5</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">y =</span> avg_pvREAD, <span class="at">color =</span> <span class="st">"Reading"</span>), <span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> avg_pvSCIE, <span class="at">color =</span> <span class="st">"Science"</span>), <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="fl">1.5</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">y =</span> avg_pvSCIE, <span class="at">color =</span> <span class="st">"Science"</span>), <span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Relationship between Parental Education Level and Student Performance"</span>,</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Parental Education Level (Lower values indicate higher education levels)"</span>,</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Plausible Values"</span>,</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>() <span class="sc">+</span>  <span class="co"># Use default color scheme</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">9</span>),</span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">9</span>),</span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">10</span>, <span class="at">r =</span> <span class="dv">10</span>, <span class="at">b =</span> <span class="dv">10</span>, <span class="at">l =</span> <span class="dv">10</span>),</span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor.y =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">y =</span> <span class="dv">0</span>)  <span class="co"># Ensure the y-axis starts at zero</span></span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the plot</span></span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p_combined)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Take-home_Ex02_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+</section>
+<section id="learning-points" class="level2">
+<h2 class="anchored" data-anchor-id="learning-points">6. Learning Points</h2>
+<p>The Take Home Exercise 2 was instrumental in deepening my understanding of the importance of selecting appropriate visualizations and tailoring charts to the audience’s perspective. It was an enlightening experience to learn about efficient coding practices from my peers’ work. This exercise also afforded me the opportunity to delve deeper into ggplot, enhancing my ability to add layers and craft more insightful charts. It was a valuable exercise in not just honing technical skills but also in appreciating the nuances of effective data visualization.</p>
 
 
 </section>

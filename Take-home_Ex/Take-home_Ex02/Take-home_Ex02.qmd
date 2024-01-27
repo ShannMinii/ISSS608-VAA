@@ -53,16 +53,14 @@ stu_qqq_Sg <-
   read_rds("data/STU_QQQ_SAS/stu_qqq_SG.rds")
 ```
 
-Following what my classmate did, he selected related to math, reading and science student performance data, as well as schools, gender, and socioeconomic status of related data.
+The makeover is designed to refine the original visualization while staying true to the dataset's range, as selected by my classmate. Therefore, I will be focusing on the same variables: student performance in mathematics, reading, and science, along with school identification, gender, and parental education levels.
 
 ```{r}
-# eval: false
 Related_math_read_scie_data <- stu_qqq_SG %>%
   select(contains(c("ID","ST004D01T","math", "read", "scie","ST259Q01JA","ST259Q02JA","ST005Q01JA","ST007Q01JA")))
 ```
 
 ```{r}
-# eval: false
 write_rds(Related_math_read_scie_data,
           "data/Related_math_read_scie_data.rds")
 ```
@@ -78,13 +76,13 @@ read_rds("data/Related_math_read_scie_data.rds")
 
 The original design is shown below. ![](images/Image1.png)
 
-The use of histograms with median lines, is a good start for visualizing the distribution of plausible value (PV) scores across different subjects. However, there are several improvements that could be made.
+The use of histograms with median lines, is a good start for visualizing the distribution of plausible values (PV) across different subjects. However, there are several improvements that could be made.
 
 ## 2.2 Enhancements for Clarity
 
 ## (a) Main Graph Title Refinement
 
-The initial graph title 'Distributions of Maths/Reading/Science with Median Lines' lacked descriptive power. A revised title, 'Distribution of Average Plausible Values in Mathematics, Reading, and Science Among Singaporean Students,' provides a more detailed and informative overview of the data presented.
+The initial graph title 'Distributions of Maths/Reading/Science with Median Lines' lacked descriptive power. A revised title, 'Distribution of Average Plausible Values in Among Students in Singapore,' provides a more detailed and informative overview of the data presented.
 
 ## (b) X-axis Labeling
 
@@ -100,11 +98,11 @@ With the y-axis scales aligned, we can enhance the graphs' neatness by eliminati
 
 ## (e) Titles for Individual Graphs
 
-The generic 'I', 'II', and 'III' designations for individual graph titles are less informative. These should be replaced with the subject names 'Mathematics', 'Reading', and 'Science' to immediately convey the content of each graph to the viewer.
+The generic 'I', 'II', and 'III' designations for individual graph titles are less informative. These should be replaced with the subject names 'Mathematics', 'Reading', and 'Science' to convey the content of each graph to the viewer.
 
 ## (f) Median Annotation Clarity
 
-The current placement of the median value at the bottom intersects with the x-axis, which hampers legibility. Moving this annotation to the top of the median line within the graph area ensures it is unobstructed and easily readable.
+The current placement of the median value at the bottom intersects with the x-axis, which hampers legibility. Moving this annotation on top of the bars ensures it is unobstructed and easily readable.
 
 ## 2.3 Aesthetic Improvements
 
@@ -122,7 +120,7 @@ The grey bars against a grey background, intersected by white gridlines, result 
 
 ## 2.5 Data Wrangling
 
-Calculate the average of PV1-10 Maths/Read/Science, representing each student’s ability to perform maths/Read/Science.
+Calculate the mean of Plausible Values 1 through 10 for Mathematics, Reading and Science respectively.
 
 ```{r}
 Related_math_read_scie_data <- Related_math_read_scie_data %>%
@@ -141,7 +139,7 @@ Related_math_read_scie_data %>%
 
 ## 2.6 Final Design
 
-After performing necessary modifications, the final code and design are as follows.
+After performing the necessary modifications, the final code and design are as follows.
 
 ```{r}
 create_histogram <- function(data, subject_column, subject_name, max_y_value, show_labels = TRUE) {
@@ -195,7 +193,6 @@ p1 <- create_histogram(Related_math_read_scie_data, "avg_pvMATH", "Mathematics",
 p2 <- create_histogram(Related_math_read_scie_data, "avg_pvREAD", "Reading", max_y_value, FALSE)
 p3 <- create_histogram(Related_math_read_scie_data, "avg_pvSCIE", "Science", max_y_value, FALSE)
 
-# The rest of your code for combining the plots stays the same
 # Create an empty plot with just the x-axis label
 x_axis_label <- ggplot() + 
   theme_void() + 
@@ -238,7 +235,7 @@ The original design is shown below.
 
 ## (a) Alternative chart type for better analysis
 
-Our primary objective is to analyze and compare the score distributions across genders. Given this focus, box plots or violin plots would serve as highly effective visual tools. These types of plots provide a clear representation of the distributions, highlighting differences in median scores and variability within each gender group. Consequently, I propose transitioning from histograms to violin plots to better facilitate this comparative analysis.
+Our primary objective is to analyze and compare the score distributions across genders. Given this focus, box plots or violin plots would serve as highly effective visual tools. These types of plots portrays distribution patterns, effectively revealing disparities in median scores and the extent of variation within each gender category. In contrast, histograms, while useful for depicting frequency distributions, fall short in offering a comprehensive view of the data's spread and central tendencies, such as medians and quartiles. This limitation makes histograms less suitable for our purpose of detailed comparison. Therefore, to achieve a more nuanced and comparative analysis, I recommend transitioning from histograms to violin plots, as they not only highlight the central tendencies but also elegantly encapsulate the full distribution of scores across genders.
 
 ## 3.3 Sketch of Proposed Design
 
@@ -246,12 +243,12 @@ Our primary objective is to analyze and compare the score distributions across g
 
 ## 3.4 Final Design
 
+After performing the necessary modifications, the final code and design are as follows.
+
 ```{r}
 library(ggplot2)
 library(dplyr)
 library(tidyr)
-
-# Assuming 'Related_math_read_scie_data' is your data frame
 
 # Prepare the data with gender and average scores
 gender_scores <- Related_math_read_scie_data %>%
@@ -345,7 +342,7 @@ We will shift the main graph title to a central position, enhancing the visual s
 
 ## (b) Enhanced Legend and Color Differentiation
 
-To aid interpretation, we will introduce a legend that clearly links the color scheme to the respective subjects being displayed. This is not only visually appealing but also support the viewer in effortlessly decoding the information.
+To aid interpretation, we will introduce a legend that clearly links the color scheme to the respective subjects being displayed. This is not only visually appealing but also support the viewer in decoding the information.
 
 ## (c) Background and Gridline Adjustment
 
@@ -357,12 +354,12 @@ To accommodate the various colors present in the graph and enhance visual clarit
 
 ## 4.5 Final Design
 
+After performing the necessary modifications, the final code and design are as follows.
+
 ```{r}
 library(ggplot2)
 library(dplyr)
 library(tidyr)
-
-# Assuming 'Related_math_read_scie_data' is your data frame and contains columns: CNTSCHID, avg_pvMATH, avg_pvREAD, and avg_pvSCIE
 
 # Calculate the school-wise average scores for each subject
 Related_math_read_scie_data <- Related_math_read_scie_data %>%
@@ -432,11 +429,11 @@ The original design is shown below.
 
 ## (a) X-axis and Main Title Labeling Correction
 
-The current x-axis title 'Socioeconomic Status (Lower values indicate higher status)' does not accurately reflect the data,which is based on the 'Parent_Edu_level' derived from our data wrangling process. We will update the x-axis label to 'Parental Education Level' to accurately describe the underlying data dimension. As well as the main title of the graph.
+The current x-axis title 'Socioeconomic Status (Lower values indicate higher status)' does not accurately reflect the data, which is based on the 'Parent_Edu_level' derived from our data wrangling process. We will update the x-axis label to 'Parental Education Level' to accurately describe the underlying data dimension. As well as the main title of the graph.
 
 ## (b) Legend Labeling Refinement
 
-The term 'colour' in the legend is superfluous and can lead to confusion. We will replace 'colour' with 'Subject' for clarity. Additionally, to ensure grammatical correctness and consistency, 'Read' will be updated to 'Reading', and 'Maths' will be expanded to 'Mathematics'.
+The term 'colour' in the legend is superfluous and can lead to confusion. Additionally, to ensure grammatical correctness and consistency, 'Read' will be updated to 'Reading', and 'Maths' will be expanded to 'Mathematics'.
 
 ## (c) Axis Scale Adjustment
 
@@ -448,23 +445,19 @@ Currently, the axes do not begin at zero, which can potentially misrepresent the
 
 We will adopt a palette of soft, natural colors for the primary data display, reserving more vivid or darker shades for elements that require emphasis or immediate attention from the viewer.
 
-## (b) Enhancing Dot Visibility
-
-The overlapping dots can obscure individual data points. To mitigate this, we will increase the transparency of each dot. This will allow for the visualization of data overlap and individual points without visual clutter.
-
 ## 5.4 Sketch of Proposed Design
 
 ![](images/Image8.jpg)
 
 ## 5.5 Final Design
 
+After performing the necessary modifications, the final code and design are as follows.
+
 ```{r}
 library(ggplot2)
 library(dplyr)
 
-# Assuming 'Related_math_read_scie_data' is your data frame and contains the necessary columns
-
-# Create a new column 'Parent_Edu_level' assuming ST005Q01JA and ST007Q01JA are coded appropriately
+# Create a new column 'Parent_Edu_level'
 Related_math_read_scie_data <- Related_math_read_scie_data %>%
   mutate(Parent_Edu_level = ST005Q01JA + ST007Q01JA)
 
@@ -503,3 +496,6 @@ p_combined <- ggplot(df, aes(x = Parent_Edu_level)) +
 # Print the plot
 print(p_combined)
 ```
+
+## 6. Learning Points
+The Take Home Exercise 2 was instrumental in deepening my understanding of the importance of selecting appropriate visualizations and tailoring charts to the audience's perspective. It was an enlightening experience to learn about efficient coding practices from my peers' work. This exercise also afforded me the opportunity to delve deeper into ggplot, enhancing my ability to add layers and craft more insightful charts. It was a valuable exercise in not just honing technical skills but also in appreciating the nuances of effective data visualization.
