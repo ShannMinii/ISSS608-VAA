@@ -72,7 +72,7 @@ Related_math_read_scie_data <-
 read_rds("data/Related_math_read_scie_data.rds")
 ```
 
-# 2. Critique 1
+# 2. Critique I
 
 ## 2.1 Original Design
 
@@ -118,7 +118,10 @@ The grey bars against a grey background, intersected by white gridlines, result 
 
 ## 2.4 Sketch of Proposed Design
 
+![](images/Image5.jpg)
+
 ## 2.5 Data Wrangling
+
 Calculate the average of PV1-10 Maths/Read/Science, representing each student’s ability to perform maths/Read/Science.
 
 ```{r}
@@ -222,7 +225,8 @@ combined_plot <- (p1 | p2 | p3) /
 # Display the combined plot
 combined_plot
 ```
-# 3. Critique 2
+
+# 3. Critique II
 
 ## 3.1 Original Design
 
@@ -238,9 +242,10 @@ Our primary objective is to analyze and compare the score distributions across g
 
 ## 3.3 Sketch of Proposed Design
 
-## 3.4 Data Wrangling
+![](images/Image6.jpg)
 
 ## 3.4 Final Design
+
 ```{r}
 library(ggplot2)
 library(dplyr)
@@ -309,7 +314,8 @@ boxplot <- ggplot(long_format, aes(x = Gender, y = Score, fill = Gender)) +
 # Print the boxplot
 print(boxplot)
 ```
-# 4. Critique 3
+
+# 4. Critique III
 
 ## 4.1 Original Design
 
@@ -342,13 +348,14 @@ We will shift the main graph title to a central position, enhancing the visual s
 To aid interpretation, we will introduce a legend that clearly links the color scheme to the respective subjects being displayed. This is not only visually appealing but also support the viewer in effortlessly decoding the information.
 
 ## (c) Background and Gridline Adjustment
+
 To accommodate the various colors present in the graph and enhance visual clarity, we will remove the grey background. This simplification will reduce visual clutter and focus attention on the data points. Additionally, to maintain gridline visibility while ensuring they are not visually intrusive, we will change their color to a subtle grey. This adjustment will create a cleaner and more visually pleasing graph that is easier on the eyes.
 
-## 4.5 Sketch of Proposed Design
+## 4.4 Sketch of Proposed Design
 
-## 4.5 Data Wrangling
+![](images/Image7.jpg)
 
-## 4.6 Final Design
+## 4.5 Final Design
 
 ```{r}
 library(ggplot2)
@@ -394,25 +401,26 @@ p_combined <- ggplot(data = long_format, aes(x = CNTSCHID, y = Score, color = Su
   scale_y_continuous(expand = expansion(mult = c(0.01, 0.01)), limits = c(0, NA)) +  # Start y-axis at 0, adjust if needed
   theme_minimal() +
   theme(
-    plot.title = element_text(hjust = 0.5, face = "bold", size = 14),
-    axis.title.x = element_text(size = 11),
-    axis.title.y = element_text(size = 11),
-    axis.text.x = element_text(hjust = 1, angle = 0),  # Horizontal x-axis text
-    axis.text.y = element_text(size = 11),
-    panel.grid.major.x = element_line(color = "grey90"), # Add vertical gridlines
-    panel.grid.minor.x = element_blank(),
-    panel.grid.major.y = element_line(color = "grey90"), # Add horizontal gridlines
-    legend.position = "bottom",
-    legend.title = element_blank(),
-    legend.text = element_text(size = 12)
-  ) +
-  guides(color = guide_legend(title = "Subject", override.aes = list(size = 4))) # Ensure legend is shown
+  plot.title = element_text(hjust = 0.5, face = "bold", size = 14),
+  axis.title.x = element_text(size = 11),
+  axis.title.y = element_text(size = 11),
+  axis.text.x = element_text(hjust = 1, angle = 0),  # Horizontal x-axis text
+  axis.text.y = element_text(size = 11),
+  panel.grid.major.x = element_line(color = "grey90"),  # Add vertical gridlines
+  panel.grid.minor.x = element_blank(),  # Remove minor vertical gridlines
+  panel.grid.major.y = element_line(color = "grey90"),  # Add major horizontal gridlines
+  panel.grid.minor.y = element_blank(),  # Remove minor horizontal gridlines
+  legend.position = "bottom",
+  legend.title = element_blank(),
+  legend.text = element_text(size = 12)
+) +
+guides(color = guide_legend(title = "Subject", override.aes = list(size = 4))) # Ensure legend is shown correctly
 
 # Print the scatterplot
 print(p_combined)
 ```
 
-# 5. Critique 4
+# 5. Critique IV
 
 ## 5.1 Original Design
 
@@ -421,27 +429,35 @@ The original design is shown below.
 ![](images/Image4.png)
 
 ## 5.2 Enhancements for Clarity
+
 ## (a) X-axis and Main Title Labeling Correction
-The current x-axis title 'Socioeconomic Status (Lower values indicate higher status)' does not accurately reflect the data,which is based on the 'Parent_Edu_level' derived from our data wrangling process. We will update the x-axis label to 'Parental Education Level' to accurately describe the underlying data dimension. As well as the main title of the graph. 
+
+The current x-axis title 'Socioeconomic Status (Lower values indicate higher status)' does not accurately reflect the data,which is based on the 'Parent_Edu_level' derived from our data wrangling process. We will update the x-axis label to 'Parental Education Level' to accurately describe the underlying data dimension. As well as the main title of the graph.
 
 ## (b) Legend Labeling Refinement
+
 The term 'colour' in the legend is superfluous and can lead to confusion. We will replace 'colour' with 'Subject' for clarity. Additionally, to ensure grammatical correctness and consistency, 'Read' will be updated to 'Reading', and 'Maths' will be expanded to 'Mathematics'.
 
 ## (c) Axis Scale Adjustment
+
 Currently, the axes do not begin at zero, which can potentially misrepresent the data. We will adjust the axis scales to start at zero to provide a true-to-scale representation of the data points.
 
 ## 5.3 Aesthetic Improvements
+
 ## (a) Harmonizing Color Palette
+
 We will adopt a palette of soft, natural colors for the primary data display, reserving more vivid or darker shades for elements that require emphasis or immediate attention from the viewer.
 
 ## (b) Enhancing Dot Visibility
+
 The overlapping dots can obscure individual data points. To mitigate this, we will increase the transparency of each dot. This will allow for the visualization of data overlap and individual points without visual clutter.
 
 ## 5.4 Sketch of Proposed Design
 
-## 5.5 Data Wrangling
+![](images/Image8.jpg)
 
-## 5.6 Final Design
+## 5.5 Final Design
+
 ```{r}
 library(ggplot2)
 library(dplyr)
@@ -465,8 +481,8 @@ p_combined <- ggplot(df, aes(x = Parent_Edu_level)) +
   geom_smooth(aes(y = avg_pvSCIE, color = "Science"), method = "lm", se = FALSE, na.rm = TRUE) +
   labs(
     title = "Relationship between Parental Education Level and Student Performance",
-    x = "Parental Education Level (Lower values indicate higher status)",
-    y = "Average PV Score",
+    x = "Parental Education Level (Lower values indicate higher education levels)",
+    y = "Average Plausible Values",
     
   ) +
   scale_color_discrete() +  # Use default color scheme
@@ -479,7 +495,8 @@ p_combined <- ggplot(df, aes(x = Parent_Edu_level)) +
     legend.position = "bottom",
     legend.title = element_blank(),
     plot.margin = margin(t = 10, r = 10, b = 10, l = 10),
-    legend.text = element_text(size = 11)
+    legend.text = element_text(size = 11),
+    panel.grid.minor.y = element_blank()
   ) +
   expand_limits(y = 0)  # Ensure the y-axis starts at zero
 
