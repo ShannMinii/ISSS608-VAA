@@ -48,9 +48,9 @@ Ridgeline plot (sometimes called Joyplot) is a data visualisation technique for 
 
 Figure below is a ridgelines plot showing the distribution of English score by class.
 
-![](Image/Screenshot%202024-01-30%20at%203.36.01%20PM.png)
+![](Image/picture1.png)
 
-## 9.3.1 Plotting ridgeline graph: ggridges method
+9.3.1 Plotting ridgeline graph: ggridges method
 
 There are several ways to plot ridgeline plot with R. In this section, you will learn how to plot ridgeline plot by using ggridges package.
 
