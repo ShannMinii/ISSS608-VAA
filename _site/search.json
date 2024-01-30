@@ -1,5 +1,313 @@
 [
   {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#installing-and-loading-the-packages",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#installing-and-loading-the-packages",
+    "title": "Hands-on Exercise 4",
+    "section": "9.2.1 Installing and loading the packages",
+    "text": "9.2.1 Installing and loading the packages\nFor the purpose of this exercise, the following R packages will be used, they are:\n\ntidyverse, a family of R packages for data science process,\nggridges, a ggplot2 extension specially designed for plotting ridgeline plots, and\nggdist for visualising distribution and uncertainty.\n\n\npacman::p_load(ggdist, ggridges, ggthemes,\n               colorspace, tidyverse)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#data-import",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#data-import",
+    "title": "Hands-on Exercise 4",
+    "section": "9.2.2 Data import",
+    "text": "9.2.2 Data import\nFor the purpose of this exercise, Exam_data.csv will be used.\n\nexam &lt;- read_csv(\"data/Exam_data.csv\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#plotting-ridgeline-graph-ggridges-method",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#plotting-ridgeline-graph-ggridges-method",
+    "title": "Hands-on Exercise 4",
+    "section": "9.3.1 Plotting ridgeline graph: ggridges method",
+    "text": "9.3.1 Plotting ridgeline graph: ggridges method\nThere are several ways to plot ridgeline plot with R. In this section, you will learn how to plot ridgeline plot by using ggridges package.\nggridges package provides two main geom to plot gridgeline plots, they are: geom_ridgeline() and geom_density_ridges(). The former takes height values directly to draw the ridgelines, and the latter first estimates data densities and then draws those using ridgelines.\nThe ridgeline plot below is plotted by using geom_density_ridges().\n\nggplot(exam, \n       aes(x = ENGLISH, \n           y = CLASS)) +\n  geom_density_ridges(\n    scale = 3,\n    rel_min_height = 0.01,\n    bandwidth = 3.4,\n    fill = lighten(\"#7097BB\", .3),\n    color = \"white\"\n  ) +\n  scale_x_continuous(\n    name = \"English grades\",\n    expand = c(0, 0)\n    ) +\n  scale_y_discrete(name = NULL, expand = expansion(add = c(0.2, 2.6))) +\n  theme_ridges()"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#varying-fill-colors-along-the-x-axis",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#varying-fill-colors-along-the-x-axis",
+    "title": "Hands-on Exercise 4",
+    "section": "9.3.2 Varying fill colors along the x axis",
+    "text": "9.3.2 Varying fill colors along the x axis\nSometimes we would like to have the area under a ridgeline not filled with a single solid color but rather with colors that vary in some form along the x axis. This effect can be achieved by using either geom_ridgeline_gradient() or geom_density_ridges_gradient(). Both geoms work just like geom_ridgeline() and geom_density_ridges(), except that they allow for varying fill colors. However, they do not allow for alpha transparency in the fill. For technical reasons, we can have changing fill colors or transparency but not both.\n\nggplot(exam, \n       aes(x = ENGLISH, \n           y = CLASS,\n           fill = stat(x))) +\n  geom_density_ridges_gradient(\n    scale = 3,\n    rel_min_height = 0.01) +\n  scale_fill_viridis_c(name = \"Temp. [F]\",\n                       option = \"C\") +\n  scale_x_continuous(\n    name = \"English grades\",\n    expand = c(0, 0)\n  ) +\n  scale_y_discrete(name = NULL, expand = expansion(add = c(0.2, 2.6))) +\n  theme_ridges()"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#mapping-the-probabilities-directly-onto-colour",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#mapping-the-probabilities-directly-onto-colour",
+    "title": "Hands-on Exercise 4",
+    "section": "9.3.3 Mapping the probabilities directly onto colour",
+    "text": "9.3.3 Mapping the probabilities directly onto colour\nBeside providing additional geom objects to support the need to plot ridgeline plot, ggridges package also provides a stat function called stat_density_ridges() that replaces stat_density() of ggplot2.\nFigure below is plotted by mapping the probabilities calculated by using stat(ecdf) which represent the empirical cumulative density function for the distribution of English score.\n\nggplot(exam,\n       aes(x = ENGLISH, \n           y = CLASS, \n           fill = 0.5 - abs(0.5-stat(ecdf)))) +\n  stat_density_ridges(geom = \"density_ridges_gradient\", \n                      calc_ecdf = TRUE) +\n  scale_fill_viridis_c(name = \"Tail probability\",\n                       direction = -1) +\n  theme_ridges()"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#ridgeline-plots-with-quantile-lines",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#ridgeline-plots-with-quantile-lines",
+    "title": "Hands-on Exercise 4",
+    "section": "9.3.4 Ridgeline plots with quantile lines",
+    "text": "9.3.4 Ridgeline plots with quantile lines\nBy using geom_density_ridges_gradient(), we can colour the ridgeline plot by quantile, via the calculated stat(quantile) aesthetic as shown in the figure below.\n\nggplot(exam,\n       aes(x = ENGLISH, \n           y = CLASS, \n           fill = factor(stat(quantile))\n           )) +\n  stat_density_ridges(\n    geom = \"density_ridges_gradient\",\n    calc_ecdf = TRUE, \n    quantiles = 4,\n    quantile_lines = TRUE) +\n  scale_fill_viridis_d(name = \"Quartiles\") +\n  theme_ridges()\n\n\n\n\nInstead of using number to define the quantiles, we can also specify quantiles by cut points such as 2.5% and 97.5% tails to colour the ridgeline plot as shown in the figure below.\n\nggplot(exam,\n       aes(x = ENGLISH, \n           y = CLASS, \n           fill = factor(stat(quantile))\n           )) +\n  stat_density_ridges(\n    geom = \"density_ridges_gradient\",\n    calc_ecdf = TRUE, \n    quantiles = c(0.025, 0.975)\n    ) +\n  scale_fill_manual(\n    name = \"Probability\",\n    values = c(\"#FF0000A0\", \"#A0A0A0A0\", \"#0000FFA0\"),\n    labels = c(\"(0, 0.025]\", \"(0.025, 0.975]\", \"(0.975, 1]\")\n  ) +\n  theme_ridges()"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#plotting-a-half-eye-graph",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#plotting-a-half-eye-graph",
+    "title": "Hands-on Exercise 4",
+    "section": "9.4.1 Plotting a Half Eye graph",
+    "text": "9.4.1 Plotting a Half Eye graph\nFirst, we will plot a Half-Eye graph by using stat_halfeye() of ggdist package.\nThis produces a Half Eye visualization, which is contains a half-density and a slab-interval.\n\nggplot(exam, \n       aes(x = RACE, \n           y = ENGLISH)) +\n  stat_halfeye(adjust = 0.5,\n               justification = -0.2,\n               .width = 0,\n               point_colour = NA)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#adding-the-boxplot-with-geom_boxplot",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#adding-the-boxplot-with-geom_boxplot",
+    "title": "Hands-on Exercise 4",
+    "section": "9.4.2 Adding the boxplot with geom_boxplot()",
+    "text": "9.4.2 Adding the boxplot with geom_boxplot()\nNext, we will add the second geometry layer using geom_boxplot() of ggplot2. This produces a narrow boxplot. We reduce the width and adjust the opacity.\n\nggplot(exam, \n       aes(x = RACE, \n           y = ENGLISH)) +\n  stat_halfeye(adjust = 0.5,\n               justification = -0.2,\n               .width = 0,\n               point_colour = NA) +\n  geom_boxplot(width = .20,\n               outlier.shape = NA)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#adding-the-dot-plots-with-stat_dots",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#adding-the-dot-plots-with-stat_dots",
+    "title": "Hands-on Exercise 4",
+    "section": "9.4.3 Adding the Dot Plots with stat_dots()",
+    "text": "9.4.3 Adding the Dot Plots with stat_dots()\nNext, we will add the third geometry layer using stat_dots() of ggdist package. This produces a half-dotplot, which is similar to a histogram that indicates the number of samples (number of dots) in each bin. We select side = “left” to indicate we want it on the left-hand side.\n\nggplot(exam, \n       aes(x = RACE, \n           y = ENGLISH)) +\n  stat_halfeye(adjust = 0.5,\n               justification = -0.2,\n               .width = 0,\n               point_colour = NA) +\n  geom_boxplot(width = .20,\n               outlier.shape = NA) +\n  stat_dots(side = \"left\", \n            justification = 1.2, \n            binwidth = .5,\n            dotsize = 2)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#finishing-touch",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#finishing-touch",
+    "title": "Hands-on Exercise 4",
+    "section": "9.4.4 Finishing touch",
+    "text": "9.4.4 Finishing touch\nLastly, coord_flip() of ggplot2 package will be used to flip the raincloud chart horizontally to give it the raincloud appearance. At the same time, theme_economist() of ggthemes package is used to give the raincloud chart a professional publishing standard look.\n\nggplot(exam, \n       aes(x = RACE, \n           y = ENGLISH)) +\n  stat_halfeye(adjust = 0.5,\n               justification = -0.2,\n               .width = 0,\n               point_colour = NA) +\n  geom_boxplot(width = .20,\n               outlier.shape = NA) +\n  stat_dots(side = \"left\", \n            justification = 1.2, \n            binwidth = .5,\n            dotsize = 1.5) +\n  coord_flip() +\n  theme_economist()"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#installing-and-launching-r-packages",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#installing-and-launching-r-packages",
+    "title": "Hands-on Exercise 4",
+    "section": "10.3.1 Installing and launching R packages",
+    "text": "10.3.1 Installing and launching R packages\nIn this exercise, ggstatsplot and tidyverse will be used.\n\npacman::p_load(ggstatsplot, tidyverse)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#importing-data",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#importing-data",
+    "title": "Hands-on Exercise 4",
+    "section": "10.3.2 Importing data",
+    "text": "10.3.2 Importing data\n\nexam &lt;- read_csv(\"data/Exam_data.csv\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#one-sample-test-gghistostats-method",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#one-sample-test-gghistostats-method",
+    "title": "Hands-on Exercise 4",
+    "section": "10.3.3 One-sample test: gghistostats() method",
+    "text": "10.3.3 One-sample test: gghistostats() method\nIn the code chunk below, gghistostats() is used to to build an visual of one-sample test on English scores.\n\nset.seed(1234)\n\ngghistostats(\n  data = exam,\n  x = ENGLISH,\n  type = \"bayes\",\n  test.value = 60,\n  xlab = \"English scores\"\n)\n\n\n\n\nDefault information: - statistical details - Bayes Factor - sample sizes - distribution summary"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#unpacking-the-bayes-factor",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#unpacking-the-bayes-factor",
+    "title": "Hands-on Exercise 4",
+    "section": "10.3.4 Unpacking the Bayes Factor",
+    "text": "10.3.4 Unpacking the Bayes Factor\n\nA Bayes factor is the ratio of the likelihood of one particular hypothesis to the likelihood of another. It can be interpreted as a measure of the strength of evidence in favor of one theory among two competing theories.\nThat’s because the Bayes factor gives us a way to evaluate the data in favor of a null hypothesis, and to use external information to do so. It tells us what the weight of the evidence is in favor of a given hypothesis.\nWhen we are comparing two hypotheses, H1 (the alternate hypothesis) and H0 (the null hypothesis), the Bayes Factor is often written as B10.\nThe Schwarz criterion is one of the easiest ways to calculate rough approximation of the Bayes Factor."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#how-to-interpret-bayes-factor",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#how-to-interpret-bayes-factor",
+    "title": "Hands-on Exercise 4",
+    "section": "10.3.5 How to interpret Bayes Factor",
+    "text": "10.3.5 How to interpret Bayes Factor\nA Bayes Factor can be any positive number. One of the most common interpretations is this one—first proposed by Harold Jeffereys (1961) and slightly modified by Lee and Wagenmakers in 2013"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#two-sample-mean-test-ggbetweenstats",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#two-sample-mean-test-ggbetweenstats",
+    "title": "Hands-on Exercise 4",
+    "section": "10.3.6 Two-sample mean test: ggbetweenstats()",
+    "text": "10.3.6 Two-sample mean test: ggbetweenstats()\nIn the code chunk below, ggbetweenstats() is used to build a visual for two-sample mean test of Maths scores by gender.\n\nggbetweenstats(\n  data = exam,\n  x = GENDER, \n  y = MATHS,\n  type = \"np\",\n  messages = FALSE\n)\n\n\n\n\nDefault information: - statistical details - Bayes Factor - sample sizes - distribution summary"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#oneway-anova-test-ggbetweenstats-method",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#oneway-anova-test-ggbetweenstats-method",
+    "title": "Hands-on Exercise 4",
+    "section": "10.3.7 Oneway ANOVA Test: ggbetweenstats() method",
+    "text": "10.3.7 Oneway ANOVA Test: ggbetweenstats() method\nIn the code chunk below, ggbetweenstats() is used to build a visual for One-way ANOVA test on English score by race.\n\nggbetweenstats(\n  data = exam,\n  x = RACE, \n  y = ENGLISH,\n  type = \"p\",\n  mean.ci = TRUE, \n  pairwise.comparisons = TRUE, \n  pairwise.display = \"s\",\n  p.adjust.method = \"fdr\",\n  messages = FALSE\n)\n\n\n\n\n\n“ns” → only non-significant\n“s” → only significant\n“all” → everything"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#significant-test-of-correlation-ggscatterstats",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#significant-test-of-correlation-ggscatterstats",
+    "title": "Hands-on Exercise 4",
+    "section": "10.3.8 Significant Test of Correlation: ggscatterstats()",
+    "text": "10.3.8 Significant Test of Correlation: ggscatterstats()\nIn the code chunk below, ggscatterstats() is used to build a visual for Significant Test of Correlation between Maths scores and English scores.\n\nggscatterstats(\n  data = exam,\n  x = MATHS,\n  y = ENGLISH,\n  marginal = FALSE,\n  )"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#significant-test-of-association-depedence-ggbarstats-methods",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#significant-test-of-association-depedence-ggbarstats-methods",
+    "title": "Hands-on Exercise 4",
+    "section": "10.3.9 Significant Test of Association (Depedence) : ggbarstats() methods",
+    "text": "10.3.9 Significant Test of Association (Depedence) : ggbarstats() methods\nIn the code chunk below, the Maths scores is binned into a 4-class variable by using cut().\n\nexam1 &lt;- exam %&gt;% \n  mutate(MATHS_bins = \n           cut(MATHS, \n               breaks = c(0,60,75,85,100))\n)\n\nIn this code chunk below ggbarstats() is used to build a visual for Significant Test of Association.\n\nggbarstats(exam1, \n           x = MATHS_bins, \n           y = GENDER)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#importing-excel-file-readxl-methods",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#importing-excel-file-readxl-methods",
+    "title": "Hands-on Exercise 4",
+    "section": "10.6.1 Importing Excel file: readxl methods",
+    "text": "10.6.1 Importing Excel file: readxl methods\nIn the code chunk below, read_xls() of readxl package is used to import the data worksheet of ToyotaCorolla.xls workbook into R.\n\ncar_resale &lt;- read_xls(\"data/ToyotaCorolla.xls\", \n                       \"data\")\ncar_resale\n\n# A tibble: 1,436 × 38\n      Id Model    Price Age_08_04 Mfg_Month Mfg_Year     KM Quarterly_Tax Weight\n   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;         &lt;dbl&gt;  &lt;dbl&gt;\n 1    81 TOYOTA … 18950        25         8     2002  20019           100   1180\n 2     1 TOYOTA … 13500        23        10     2002  46986           210   1165\n 3     2 TOYOTA … 13750        23        10     2002  72937           210   1165\n 4     3  TOYOTA… 13950        24         9     2002  41711           210   1165\n 5     4 TOYOTA … 14950        26         7     2002  48000           210   1165\n 6     5 TOYOTA … 13750        30         3     2002  38500           210   1170\n 7     6 TOYOTA … 12950        32         1     2002  61000           210   1170\n 8     7  TOYOTA… 16900        27         6     2002  94612           210   1245\n 9     8 TOYOTA … 18600        30         3     2002  75889           210   1245\n10    44 TOYOTA … 16950        27         6     2002 110404           234   1255\n# ℹ 1,426 more rows\n# ℹ 29 more variables: Guarantee_Period &lt;dbl&gt;, HP_Bin &lt;chr&gt;, CC_bin &lt;chr&gt;,\n#   Doors &lt;dbl&gt;, Gears &lt;dbl&gt;, Cylinders &lt;dbl&gt;, Fuel_Type &lt;chr&gt;, Color &lt;chr&gt;,\n#   Met_Color &lt;dbl&gt;, Automatic &lt;dbl&gt;, Mfr_Guarantee &lt;dbl&gt;,\n#   BOVAG_Guarantee &lt;dbl&gt;, ABS &lt;dbl&gt;, Airbag_1 &lt;dbl&gt;, Airbag_2 &lt;dbl&gt;,\n#   Airco &lt;dbl&gt;, Automatic_airco &lt;dbl&gt;, Boardcomputer &lt;dbl&gt;, CD_Player &lt;dbl&gt;,\n#   Central_Lock &lt;dbl&gt;, Powered_Windows &lt;dbl&gt;, Power_Steering &lt;dbl&gt;, …\n\n\nNotice that the output object car_resale is a tibble data frame."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#multiple-regression-model-using-lm",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#multiple-regression-model-using-lm",
+    "title": "Hands-on Exercise 4",
+    "section": "10.6.2 Multiple Regression Model using lm()",
+    "text": "10.6.2 Multiple Regression Model using lm()\nThe code chunk below is used to calibrate a multiple linear regression model by using lm() of Base Stats of R.\n\nmodel &lt;- lm(Price ~ Age_08_04 + Mfg_Year + KM + \n              Weight + Guarantee_Period, data = car_resale)\nmodel\n\n\nCall:\nlm(formula = Price ~ Age_08_04 + Mfg_Year + KM + Weight + Guarantee_Period, \n    data = car_resale)\n\nCoefficients:\n     (Intercept)         Age_08_04          Mfg_Year                KM  \n      -2.637e+06        -1.409e+01         1.315e+03        -2.323e-02  \n          Weight  Guarantee_Period  \n       1.903e+01         2.770e+01"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#model-diagnostic-checking-for-multicolinearity",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#model-diagnostic-checking-for-multicolinearity",
+    "title": "Hands-on Exercise 4",
+    "section": "10.6.3 Model Diagnostic: checking for multicolinearity:",
+    "text": "10.6.3 Model Diagnostic: checking for multicolinearity:\nIn the code chunk, check_collinearity() of performance package.\n\ncheck_collinearity(model)\n\n# Check for Multicollinearity\n\nLow Correlation\n\n             Term  VIF     VIF 95% CI Increased SE Tolerance Tolerance 95% CI\n               KM 1.46 [ 1.37,  1.57]         1.21      0.68     [0.64, 0.73]\n           Weight 1.41 [ 1.32,  1.51]         1.19      0.71     [0.66, 0.76]\n Guarantee_Period 1.04 [ 1.01,  1.17]         1.02      0.97     [0.86, 0.99]\n\nHigh Correlation\n\n      Term   VIF     VIF 95% CI Increased SE Tolerance Tolerance 95% CI\n Age_08_04 31.07 [28.08, 34.38]         5.57      0.03     [0.03, 0.04]\n  Mfg_Year 31.16 [28.16, 34.48]         5.58      0.03     [0.03, 0.04]\n\n\n\ncheck_c &lt;- check_collinearity(model)\nplot(check_c)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#model-diagnostic-checking-normality-assumption",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#model-diagnostic-checking-normality-assumption",
+    "title": "Hands-on Exercise 4",
+    "section": "10.6.4 Model Diagnostic: checking normality assumption",
+    "text": "10.6.4 Model Diagnostic: checking normality assumption\nIn the code chunk, check_normality() of performance package.\n\nmodel1 &lt;- lm(Price ~ Age_08_04 + KM + \n              Weight + Guarantee_Period, data = car_resale)\n\n\ncheck_n &lt;- check_normality(model1)\n\n\nplot(check_n)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#model-diagnostic-check-model-for-homogeneity-of-variances",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#model-diagnostic-check-model-for-homogeneity-of-variances",
+    "title": "Hands-on Exercise 4",
+    "section": "10.6.5 Model Diagnostic: Check model for homogeneity of variances",
+    "text": "10.6.5 Model Diagnostic: Check model for homogeneity of variances\nIn the code chunk, check_heteroscedasticity() of performance package.\n\ncheck_h &lt;- check_heteroscedasticity(model1)\n\n\nplot(check_h)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#model-diagnostic-complete-check",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#model-diagnostic-complete-check",
+    "title": "Hands-on Exercise 4",
+    "section": "10.6.6 Model Diagnostic: Complete check",
+    "text": "10.6.6 Model Diagnostic: Complete check\nWe can also perform the complete by using check_model().\n\ncheck_model(model1)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#visualising-regression-parameters-see-methods",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#visualising-regression-parameters-see-methods",
+    "title": "Hands-on Exercise 4",
+    "section": "10.6.7 Visualising Regression Parameters: see methods",
+    "text": "10.6.7 Visualising Regression Parameters: see methods\nIn the code below, plot() of see package and parameters() of parameters package is used to visualise the parameters of a regression model.\n\nplot(parameters(model1))"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#visualising-regression-parameters-ggcoefstats-methods",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#visualising-regression-parameters-ggcoefstats-methods",
+    "title": "Hands-on Exercise 4",
+    "section": "10.6.8 Visualising Regression Parameters: ggcoefstats() methods",
+    "text": "10.6.8 Visualising Regression Parameters: ggcoefstats() methods\nIn the code below, ggcoefstats() of ggstatsplot package to visualise the parameters of a regression model.\n\nggcoefstats(model1, \n            output = \"plot\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#installing-and-loading-the-packages-1",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#installing-and-loading-the-packages-1",
+    "title": "Hands-on Exercise 4",
+    "section": "11.2.1 Installing and loading the packages",
+    "text": "11.2.1 Installing and loading the packages\nFor the purpose of this exercise, the following R packages will be used, they are:\n\ntidyverse, a family of R packages for data science process,\nplotly for creating interactive plot,\ngganimate for creating animation plot,\nDT for displaying interactive html table,\ncrosstalk for for implementing cross-widget interactions (currently, linked brushing and filtering), and\nggdist for visualising distribution and uncertainty.\n\n\ndevtools::install_github(\"wilkelab/ungeviz\")\n\n\npacman::p_load(ungeviz, plotly, crosstalk,\n               DT, ggdist, ggridges,\n               colorspace, gganimate, tidyverse)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#data-import-1",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#data-import-1",
+    "title": "Hands-on Exercise 4",
+    "section": "11.2.2 Data import",
+    "text": "11.2.2 Data import\nFor the purpose of this exercise, Exam_data.csv will be used.\n\nexam &lt;- read_csv(\"data/Exam_data.csv\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#plotting-standard-error-bars-of-point-estimates",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#plotting-standard-error-bars-of-point-estimates",
+    "title": "Hands-on Exercise 4",
+    "section": "11.3.1 Plotting standard error bars of point estimates",
+    "text": "11.3.1 Plotting standard error bars of point estimates\nNow we are ready to plot the standard error bars of mean maths score by race as shown below.\n\nggplot(my_sum) +\n  geom_errorbar(\n    aes(x=RACE, \n        ymin=mean-se, \n        ymax=mean+se), \n    width=0.2, \n    colour=\"black\", \n    alpha=0.9, \n    size=0.5) +\n  geom_point(aes\n           (x=RACE, \n            y=mean), \n           stat=\"identity\", \n           color=\"red\",\n           size = 1.5,\n           alpha=1) +\n  ggtitle(\"Standard error of mean maths score by rac\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#plotting-confidence-interval-of-point-estimates",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#plotting-confidence-interval-of-point-estimates",
+    "title": "Hands-on Exercise 4",
+    "section": "11.3.2 Plotting confidence interval of point estimates",
+    "text": "11.3.2 Plotting confidence interval of point estimates\nInstead of plotting the standard error bar of point estimates, we can also plot the confidence intervals of mean maths score by race.\n\nggplot(my_sum) +\n  geom_errorbar(\n    aes(x=reorder(RACE, -mean), \n        ymin=mean-1.96*se, \n        ymax=mean+1.96*se), \n    width=0.2, \n    colour=\"black\", \n    alpha=0.9, \n    size=0.5) +\n  geom_point(aes\n           (x=RACE, \n            y=mean), \n           stat=\"identity\", \n           color=\"red\",\n           size = 1.5,\n           alpha=1) +\n  labs(x = \"Maths score\",\n       title = \"95% confidence interval of mean maths score by race\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#visualizing-the-uncertainty-of-point-estimates-with-interactive-error-bars",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#visualizing-the-uncertainty-of-point-estimates-with-interactive-error-bars",
+    "title": "Hands-on Exercise 4",
+    "section": "11.3.3 Visualizing the uncertainty of point estimates with interactive error bars",
+    "text": "11.3.3 Visualizing the uncertainty of point estimates with interactive error bars\nIn this section, you will learn how to plot interactive error bars for the 99% confidence interval of mean maths score by race as shown in the figure below.\n\nshared_df = SharedData$new(my_sum)\n\nbscols(widths = c(4,8),\n       ggplotly((ggplot(shared_df) +\n                   geom_errorbar(aes(\n                     x=reorder(RACE, -mean),\n                     ymin=mean-2.58*se, \n                     ymax=mean+2.58*se), \n                     width=0.2, \n                     colour=\"black\", \n                     alpha=0.9, \n                     size=0.5) +\n                   geom_point(aes(\n                     x=RACE, \n                     y=mean, \n                     text = paste(\"Race:\", `RACE`, \n                                  \"&lt;br&gt;N:\", `n`,\n                                  \"&lt;br&gt;Avg. Scores:\", round(mean, digits = 2),\n                                  \"&lt;br&gt;95% CI:[\", \n                                  round((mean-2.58*se), digits = 2), \",\",\n                                  round((mean+2.58*se), digits = 2),\"]\")),\n                     stat=\"identity\", \n                     color=\"red\", \n                     size = 1.5, \n                     alpha=1) + \n                   xlab(\"Race\") + \n                   ylab(\"Average Scores\") + \n                   theme_minimal() + \n                   theme(axis.text.x = element_text(\n                     angle = 45, vjust = 0.5, hjust=1)) +\n                   ggtitle(\"99% Confidence interval of average /&lt;br&gt;maths scores by race\")), \n                tooltip = \"text\"), \n       DT::datatable(shared_df, \n                     rownames = FALSE, \n                     class=\"compact\", \n                     width=\"100%\", \n                     options = list(pageLength = 10,\n                                    scrollX=T), \n                     colnames = c(\"No. of pupils\", \n                                  \"Avg Scores\",\n                                  \"Std Dev\",\n                                  \"Std Error\")) %&gt;%\n         formatRound(columns=c('mean', 'sd', 'se'),\n                     digits=2))"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#visualizing-the-uncertainty-of-point-estimates-ggdist-methods",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#visualizing-the-uncertainty-of-point-estimates-ggdist-methods",
+    "title": "Hands-on Exercise 4",
+    "section": "11.4.1 Visualizing the uncertainty of point estimates: ggdist methods",
+    "text": "11.4.1 Visualizing the uncertainty of point estimates: ggdist methods\nIn the code chunk below, stat_pointinterval() of ggdist is used to build a visual for displaying distribution of maths scores by race.\n\nexam %&gt;%\n  ggplot(aes(x = RACE, \n             y = MATHS)) +\n  stat_pointinterval() +\n  labs(\n    title = \"Visualising confidence intervals of mean math score\",\n    subtitle = \"Mean Point + Multiple-interval plot\")\n\n\n\n\nThis function comes with many arguments. For example, in the code chunk below the following arguments are used:\n.width = 0.95 .point = median .interval = qi\n\nexam %&gt;%\n  ggplot(aes(x = RACE, y = MATHS)) +\n  stat_pointinterval(.width = 0.95,\n  .point = median,\n  .interval = qi) +\n  labs(\n    title = \"Visualising confidence intervals of median math score\",\n    subtitle = \"Median Point + Multiple-interval plot\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#visualizing-the-uncertainty-of-point-estimates-ggdist-methods-1",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#visualizing-the-uncertainty-of-point-estimates-ggdist-methods-1",
+    "title": "Hands-on Exercise 4",
+    "section": "11.4.2 Visualizing the uncertainty of point estimates: ggdist methods",
+    "text": "11.4.2 Visualizing the uncertainty of point estimates: ggdist methods\n\nexam %&gt;%\n  ggplot(aes(x = RACE, \n             y = MATHS)) +\n  stat_pointinterval(\n    show.legend = FALSE) +   \n  labs(\n    title = \"Visualising confidence intervals of mean math score\",\n    subtitle = \"Mean Point + Multiple-interval plot\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#visualizing-the-uncertainty-of-point-estimates-ggdist-methods-2",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#visualizing-the-uncertainty-of-point-estimates-ggdist-methods-2",
+    "title": "Hands-on Exercise 4",
+    "section": "11.4.3 Visualizing the uncertainty of point estimates: ggdist methods",
+    "text": "11.4.3 Visualizing the uncertainty of point estimates: ggdist methods\nIn the code chunk below, stat_gradientinterval() of ggdist is used to build a visual for displaying distribution of maths scores by race.\n\nexam %&gt;%\n  ggplot(aes(x = RACE, \n             y = MATHS)) +\n  stat_gradientinterval(   \n    fill = \"skyblue\",      \n    show.legend = TRUE     \n  ) +                        \n  labs(\n    title = \"Visualising confidence intervals of mean math score\",\n    subtitle = \"Gradient + interval plot\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#funnelplotr-methods-makeover-1",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#funnelplotr-methods-makeover-1",
+    "title": "Hands-on Exercise 4",
+    "section": "12.4.2 FunnelPlotR methods: Makeover 1",
+    "text": "12.4.2 FunnelPlotR methods: Makeover 1\nThe code chunk below plots a funnel plot.\n\nfunnel_plot(\n  numerator = covid19$Death,\n  denominator = covid19$Positive,\n  group = covid19$`Sub-district`,\n  data_type = \"PR\",     #&lt;&lt;\n  xrange = c(0, 6500),  #&lt;&lt;\n  yrange = c(0, 0.05)   #&lt;&lt;\n)\n\n\n\n\nA funnel plot object with 267 points of which 7 are outliers. \nPlot is adjusted for overdispersion. \n\n\nThings to learn from the code chunk above. + data_type argument is used to change from default “SR” to “PR” (i.e. proportions). + xrange and yrange are used to set the range of x-axis and y-axis"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#funnelplotr-methods-makeover-2",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#funnelplotr-methods-makeover-2",
+    "title": "Hands-on Exercise 4",
+    "section": "12.4.3 FunnelPlotR methods: Makeover 2",
+    "text": "12.4.3 FunnelPlotR methods: Makeover 2\nThe code chunk below plots a funnel plot.\n\nfunnel_plot(\n  numerator = covid19$Death,\n  denominator = covid19$Positive,\n  group = covid19$`Sub-district`,\n  data_type = \"PR\",   \n  xrange = c(0, 6500),  \n  yrange = c(0, 0.05),\n  label = NA,\n  title = \"Cumulative COVID-19 Fatality Rate by Cumulative Total Number of COVID-19 Positive Cases\", #&lt;&lt;           \n  x_label = \"Cumulative COVID-19 Positive Cases\", #&lt;&lt;\n  y_label = \"Cumulative Fatality Rate\"  #&lt;&lt;\n)\n\n\n\n\nA funnel plot object with 267 points of which 7 are outliers. \nPlot is adjusted for overdispersion. \n\n\nThings to learn from the code chunk above.\n\nlabel = NA argument is to removed the default label outliers feature.\ntitle argument is used to add plot title.\nx_label and y_label arguments are used to add/edit x-axis and y-axis titles."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#computing-the-basic-derived-fields",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#computing-the-basic-derived-fields",
+    "title": "Hands-on Exercise 4",
+    "section": "12.5.1 Computing the basic derived fields",
+    "text": "12.5.1 Computing the basic derived fields\nTo plot the funnel plot from scratch, we need to derive cumulative death rate and standard error of cumulative death rate.\n\ndf &lt;- covid19 %&gt;%\n  mutate(rate = Death / Positive) %&gt;%\n  mutate(rate.se = sqrt((rate*(1-rate)) / (Positive))) %&gt;%\n  filter(rate &gt; 0)\n\nNext, the fit.mean is computed by using the code chunk below.\n\nfit.mean &lt;- weighted.mean(df$rate, 1/df$rate.se^2)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#calculate-lower-and-upper-limits-for-95-and-99.9-ci",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#calculate-lower-and-upper-limits-for-95-and-99.9-ci",
+    "title": "Hands-on Exercise 4",
+    "section": "12.5.2 Calculate lower and upper limits for 95% and 99.9% CI",
+    "text": "12.5.2 Calculate lower and upper limits for 95% and 99.9% CI\nThe code chunk below is used to compute the lower and upper limits for 95% confidence interval.\n\nnumber.seq &lt;- seq(1, max(df$Positive), 1)\nnumber.ll95 &lt;- fit.mean - 1.96 * sqrt((fit.mean*(1-fit.mean)) / (number.seq)) \nnumber.ul95 &lt;- fit.mean + 1.96 * sqrt((fit.mean*(1-fit.mean)) / (number.seq)) \nnumber.ll999 &lt;- fit.mean - 3.29 * sqrt((fit.mean*(1-fit.mean)) / (number.seq)) \nnumber.ul999 &lt;- fit.mean + 3.29 * sqrt((fit.mean*(1-fit.mean)) / (number.seq)) \ndfCI &lt;- data.frame(number.ll95, number.ul95, number.ll999, \n                   number.ul999, number.seq, fit.mean)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#plotting-a-static-funnel-plot",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#plotting-a-static-funnel-plot",
+    "title": "Hands-on Exercise 4",
+    "section": "12.5.3 Plotting a static funnel plot",
+    "text": "12.5.3 Plotting a static funnel plot\nIn the code chunk below, ggplot2 functions are used to plot a static funnel plot.\n\np &lt;- ggplot(df, aes(x = Positive, y = rate)) +\n  geom_point(aes(label=`Sub-district`), \n             alpha=0.4) +\n  geom_line(data = dfCI, \n            aes(x = number.seq, \n                y = number.ll95), \n            size = 0.4, \n            colour = \"grey40\", \n            linetype = \"dashed\") +\n  geom_line(data = dfCI, \n            aes(x = number.seq, \n                y = number.ul95), \n            size = 0.4, \n            colour = \"grey40\", \n            linetype = \"dashed\") +\n  geom_line(data = dfCI, \n            aes(x = number.seq, \n                y = number.ll999), \n            size = 0.4, \n            colour = \"grey40\") +\n  geom_line(data = dfCI, \n            aes(x = number.seq, \n                y = number.ul999), \n            size = 0.4, \n            colour = \"grey40\") +\n  geom_hline(data = dfCI, \n             aes(yintercept = fit.mean), \n             size = 0.4, \n             colour = \"grey40\") +\n  coord_cartesian(ylim=c(0,0.05)) +\n  annotate(\"text\", x = 1, y = -0.13, label = \"95%\", size = 3, colour = \"grey40\") + \n  annotate(\"text\", x = 4.5, y = -0.18, label = \"99%\", size = 3, colour = \"grey40\") + \n  ggtitle(\"Cumulative Fatality Rate by Cumulative Number of COVID-19 Cases\") +\n  xlab(\"Cumulative Number of COVID-19 Cases\") + \n  ylab(\"Cumulative Fatality Rate\") +\n  theme_light() +\n  theme(plot.title = element_text(size=12),\n        legend.position = c(0.91,0.85), \n        legend.title = element_text(size=7),\n        legend.text = element_text(size=7),\n        legend.background = element_rect(colour = \"grey60\", linetype = \"dotted\"),\n        legend.key.height = unit(0.3, \"cm\"))\np"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#interactive-funnel-plot-plotly-ggplot2",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html#interactive-funnel-plot-plotly-ggplot2",
+    "title": "Hands-on Exercise 4",
+    "section": "12.5.4 Interactive Funnel Plot: plotly + ggplot2",
+    "text": "12.5.4 Interactive Funnel Plot: plotly + ggplot2\nThe funnel plot created using ggplot2 functions can be made interactive with ggplotly() of plotly r package.\n\nfp_ggplotly &lt;- ggplotly(p,\n  tooltip = c(\"label\", \n              \"x\", \n              \"y\"))\nfp_ggplotly"
+  },
+  {
+    "objectID": "In-class_Ex/In-class_Ex01/In-class_Ex01.html",
+    "href": "In-class_Ex/In-class_Ex01/In-class_Ex01.html",
+    "title": "In-class Exercise 1: Now you see it!",
+    "section": "",
+    "text": "In this hands-on exercise, two R packages will be used. They are:\n\ntidyverse, and\nhaven\n\nThe code chunk used is as follows:\n\npacman::p_load(tidyverse, haven)"
+  },
+  {
+    "objectID": "In-class_Ex/In-class_Ex01/In-class_Ex01.html#loading-r-packages",
+    "href": "In-class_Ex/In-class_Ex01/In-class_Ex01.html#loading-r-packages",
+    "title": "In-class Exercise 1: Now you see it!",
+    "section": "",
+    "text": "In this hands-on exercise, two R packages will be used. They are:\n\ntidyverse, and\nhaven\n\nThe code chunk used is as follows:\n\npacman::p_load(tidyverse, haven)"
+  },
+  {
+    "objectID": "In-class_Ex/In-class_Ex01/In-class_Ex01.html#importing-pisa-data",
+    "href": "In-class_Ex/In-class_Ex01/In-class_Ex01.html#importing-pisa-data",
+    "title": "In-class Exercise 1: Now you see it!",
+    "section": "Importing PISA data",
+    "text": "Importing PISA data\nThe code chunk below uses read_sas() of haven to import PISA data into R environment.\n\nstu_qqq &lt;- read_sas(\"data/STU_QQQ_SAS/cy08msp_stu_qqq.sas7bdat\")\n\n\nstu_qqq_SG &lt;- stu_qqq %&gt;%\n  filter(CNT == \"SGP\")\n\n\nwrite_rds(stu_qqq_SG,\n          \"data/STU_QQQ_SAS/stu_qqq_SG.rds\")\n\n\nstu_qqq_Sg &lt;-\n  read_rds(\"data/STU_QQQ_SAS/stu_qqq_SG.rds\")"
+  },
+  {
     "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html",
     "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html",
     "title": "Take-home Exercise 2",
@@ -147,13 +455,6 @@
     "text": "3.3 Sketch of Proposed Design"
   },
   {
-    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#data-wrangling-1",
-    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#data-wrangling-1",
-    "title": "Take-home Exercise 2",
-    "section": "3.4 Data Wrangling",
-    "text": "3.4 Data Wrangling"
-  },
-  {
     "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#final-design-1",
     "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#final-design-1",
     "title": "Take-home Exercise 2",
@@ -231,13 +532,6 @@
     "text": "4.4 Sketch of Proposed Design"
   },
   {
-    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#data-wrangling-2",
-    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#data-wrangling-2",
-    "title": "Take-home Exercise 2",
-    "section": "4.5 Data Wrangling",
-    "text": "4.5 Data Wrangling"
-  },
-  {
     "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#final-design-2",
     "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#final-design-2",
     "title": "Take-home Exercise 2",
@@ -294,25 +588,11 @@
     "text": "(a) Harmonizing Color Palette\nWe will adopt a palette of soft, natural colors for the primary data display, reserving more vivid or darker shades for elements that require emphasis or immediate attention from the viewer."
   },
   {
-    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#b-enhancing-dot-visibility",
-    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#b-enhancing-dot-visibility",
-    "title": "Take-home Exercise 2",
-    "section": "(b) Enhancing Dot Visibility",
-    "text": "(b) Enhancing Dot Visibility\nThe overlapping dots can obscure individual data points. To mitigate this, we will increase the transparency of each dot. This will allow for the visualization of data overlap and individual points without visual clutter."
-  },
-  {
     "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#sketch-of-proposed-design-3",
     "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#sketch-of-proposed-design-3",
     "title": "Take-home Exercise 2",
     "section": "5.4 Sketch of Proposed Design",
     "text": "5.4 Sketch of Proposed Design"
-  },
-  {
-    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#data-wrangling-3",
-    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#data-wrangling-3",
-    "title": "Take-home Exercise 2",
-    "section": "5.5 Data Wrangling",
-    "text": "5.5 Data Wrangling"
   },
   {
     "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#final-design-3",
@@ -322,25 +602,536 @@
     "text": "5.5 Final Design\nAfter performing the necessary modifications, the final code and design are as follows.\n\nlibrary(ggplot2)\nlibrary(dplyr)\n\n# Create a new column 'Parent_Edu_level'\nRelated_math_read_scie_data &lt;- Related_math_read_scie_data %&gt;%\n  mutate(Parent_Edu_level = ST005Q01JA + ST007Q01JA)\n\n# Create a dataframe for plotting\ndf &lt;- Related_math_read_scie_data\n\n# Plot the relationship between performance and socioeconomic status\np_combined &lt;- ggplot(df, aes(x = Parent_Edu_level)) +\n  geom_point(aes(y = avg_pvMATH, color = \"Mathematics\"), alpha = 1, size = 1.5, na.rm = TRUE) +\n  geom_smooth(aes(y = avg_pvMATH, color = \"Mathematics\"), method = \"lm\", se = FALSE, na.rm = TRUE) +\n  geom_point(aes(y = avg_pvREAD, color = \"Reading\"), alpha = 1, size = 1.5, na.rm = TRUE) +\n  geom_smooth(aes(y = avg_pvREAD, color = \"Reading\"), method = \"lm\", se = FALSE, na.rm = TRUE) +\n  geom_point(aes(y = avg_pvSCIE, color = \"Science\"), alpha = 1, size = 1.5, na.rm = TRUE) +\n  geom_smooth(aes(y = avg_pvSCIE, color = \"Science\"), method = \"lm\", se = FALSE, na.rm = TRUE) +\n  labs(\n    title = \"Relationship between Parental Education Level and Student Performance\",\n    x = \"Parental Education Level (Lower values indicate higher education levels)\",\n    y = \"Average Plausible Values\",\n    \n  ) +\n  scale_color_discrete() +  # Use default color scheme\n  theme_minimal() +\n  theme(\n    plot.title = element_text(face = \"bold\", hjust = 0.5, size = 12),\n    axis.title = element_text(size = 11),\n    axis.text.x = element_text(angle = 0, vjust = 0.5, size = 9),\n    axis.text.y = element_text(angle = 0, vjust = 0.5, size = 9),\n    legend.position = \"bottom\",\n    legend.title = element_blank(),\n    plot.margin = margin(t = 10, r = 10, b = 10, l = 10),\n    legend.text = element_text(size = 11),\n    panel.grid.minor.y = element_blank()\n  ) +\n  expand_limits(y = 0)  # Ensure the y-axis starts at zero\n\n# Print the plot\nprint(p_combined)"
   },
   {
-    "objectID": "In-class_Ex/In-class_Ex01/In-class_Ex01.html",
-    "href": "In-class_Ex/In-class_Ex01/In-class_Ex01.html",
-    "title": "In-class Exercise 1: Now you see it!",
-    "section": "",
-    "text": "In this hands-on exercise, two R packages will be used. They are:\n\ntidyverse, and\nhaven\n\nThe code chunk used is as follows:\n\npacman::p_load(tidyverse, haven)"
+    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#learning-points",
+    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#learning-points",
+    "title": "Take-home Exercise 2",
+    "section": "6. Learning Points",
+    "text": "6. Learning Points\nThe Take Home Exercise 2 was instrumental in deepening my understanding of the importance of selecting appropriate visualizations and tailoring charts to the audience’s perspective. It was an enlightening experience to learn about efficient coding practices from my peers’ work. This exercise also afforded me the opportunity to delve deeper into ggplot, enhancing my ability to add layers and craft more insightful charts. It was a valuable exercise in not just honing technical skills but also in appreciating the nuances of effective data visualization."
   },
   {
-    "objectID": "In-class_Ex/In-class_Ex01/In-class_Ex01.html#loading-r-packages",
-    "href": "In-class_Ex/In-class_Ex01/In-class_Ex01.html#loading-r-packages",
-    "title": "In-class Exercise 1: Now you see it!",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
     "section": "",
-    "text": "In this hands-on exercise, two R packages will be used. They are:\n\ntidyverse, and\nhaven\n\nThe code chunk used is as follows:\n\npacman::p_load(tidyverse, haven)"
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
   },
   {
-    "objectID": "In-class_Ex/In-class_Ex01/In-class_Ex01.html#importing-pisa-data",
-    "href": "In-class_Ex/In-class_Ex01/In-class_Ex01.html#importing-pisa-data",
-    "title": "In-class Exercise 1: Now you see it!",
-    "section": "Importing PISA data",
-    "text": "Importing PISA data\nThe code chunk below uses read_sas() of haven to import PISA data into R environment.\n\nstu_qqq &lt;- read_sas(\"data/STU_QQQ_SAS/cy08msp_stu_qqq.sas7bdat\")\n\n\nstu_qqq_SG &lt;- stu_qqq %&gt;%\n  filter(CNT == \"SGP\")\n\n\nwrite_rds(stu_qqq_SG,\n          \"data/STU_QQQ_SAS/stu_qqq_SG.rds\")\n\n\nstu_qqq_Sg &lt;-\n  read_rds(\"data/STU_QQQ_SAS/stu_qqq_SG.rds\")"
+    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html",
+    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html",
+    "title": "Hands-on Exercise 2",
+    "section": "",
+    "text": "In this chapter, you will be introduced to several ggplot2 extensions for creating more elegant and effective statistical graphics. By the end of this exercise, you will be able to:\n\ncontrol the placement of annotation on a graph by using functions provided in ggrepel package,\ncreate professional publication quality figure by using functions provided in ggthemes and hrbrthemes packages,\nplot composite figure by combining ggplot2 graphs by using patchwork package."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#installing-and-loading-the-required-libraries",
+    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#installing-and-loading-the-required-libraries",
+    "title": "Hands-on Exercise 2",
+    "section": "2.2.1 Installing and loading the required libraries",
+    "text": "2.2.1 Installing and loading the required libraries\nIn this exercise, beside tidyverse, four R packages will be used. They are:\n\nggrepel: an R package provides geoms for ggplot2 to repel overlapping text labels.\nggthemes: an R package provides some extra themes, geoms, and scales for ‘ggplot2’.\nhrbrthemes: an R package provides typography-centric themes and theme components for ggplot2.\npatchwork: an R package for preparing composite figure created using ggplot2.\n\nCode chunk below will be used to check if these packages have been installed and also will load them onto your working R environment.\n\npacman::p_load(ggrepel, patchwork, \n               ggthemes, hrbrthemes,\n               tidyverse)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#importing-data",
+    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#importing-data",
+    "title": "Hands-on Exercise 2",
+    "section": "2.2.2 Importing data",
+    "text": "2.2.2 Importing data\n\nexam_data &lt;- read_csv(\"data/Exam_data.csv\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#working-with-ggrepel",
+    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#working-with-ggrepel",
+    "title": "Hands-on Exercise 2",
+    "section": "2.3.1 Working with ggrepel",
+    "text": "2.3.1 Working with ggrepel\n\nggplot(data=exam_data, \n       aes(x= MATHS, \n           y=ENGLISH)) +\n  geom_point() +\n  geom_smooth(method=lm, \n              size=0.5) +  \n  geom_label_repel(aes(label = ID), \n                   fontface = \"bold\") +\n  coord_cartesian(xlim=c(0,100),\n                  ylim=c(0,100)) +\n  ggtitle(\"English scores versus Maths scores for Primary 3\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#working-with-ggtheme-package",
+    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#working-with-ggtheme-package",
+    "title": "Hands-on Exercise 2",
+    "section": "2.4.1 Working with ggtheme package",
+    "text": "2.4.1 Working with ggtheme package\nggthemes provides ‘ggplot2’ themes that replicate the look of plots by Edward Tufte, Stephen Few, Fivethirtyeight, The Economist, ‘Stata’, ‘Excel’, and The Wall Street Journal, among others.\nIn the example below, The Economist theme is used.\n\nggplot(data=exam_data, \n             aes(x = MATHS)) +\n  geom_histogram(bins=20, \n                 boundary = 100,\n                 color=\"grey25\", \n                 fill=\"grey90\") +\n  ggtitle(\"Distribution of Maths scores\") +\n  theme_economist()"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#working-with-hrbthems-package",
+    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#working-with-hrbthems-package",
+    "title": "Hands-on Exercise 2",
+    "section": "2.4.2 Working with hrbthems package",
+    "text": "2.4.2 Working with hrbthems package\nhrbrthemes package provides a base theme that focuses on typographic elements, including where various labels are placed as well as the fonts that are used.\n\nggplot(data=exam_data, \n             aes(x = MATHS)) +\n  geom_histogram(bins=20, \n                 boundary = 100,\n                 color=\"grey25\", \n                 fill=\"grey90\") +\n  ggtitle(\"Distribution of Maths scores\") +\n  theme_ipsum()\n\n\n\n\nThe second goal centers around productivity for a production workflow. In fact, this “production workflow” is the context for where the elements of hrbrthemes should be used.\n\nggplot(data=exam_data, \n             aes(x = MATHS)) +\n  geom_histogram(bins=20, \n                 boundary = 100,\n                 color=\"grey25\", \n                 fill=\"grey90\") +\n  ggtitle(\"Distribution of Maths scores\") +\n  theme_ipsum(axis_title_size = 18,\n              base_size = 15,\n              grid = \"Y\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#creating-composite-graphics-pathwork-methods",
+    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#creating-composite-graphics-pathwork-methods",
+    "title": "Hands-on Exercise 2",
+    "section": "2.5.1 Creating Composite Graphics: pathwork methods",
+    "text": "2.5.1 Creating Composite Graphics: pathwork methods\nThere are several ggplot2 extension’s functions support the needs to prepare composite figure by combining several graphs such as grid.arrange() of gridExtra package and plot_grid() of cowplot package. In this section, I am going to shared with you an ggplot2 extension called patchwork which is specially designed for combining separate ggplot2 graphs into a single figure.\nPatchwork package has a very simple syntax where we can create layouts super easily. Here’s the general syntax that combines:\n\nTwo-Column Layout using the Plus Sign +.\nParenthesis () to create a subplot group.\nTwo-Row Layout using the Division Sign /"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#combining-two-ggplot2-graphs",
+    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#combining-two-ggplot2-graphs",
+    "title": "Hands-on Exercise 2",
+    "section": "2.5.2 Combining two ggplot2 graphs",
+    "text": "2.5.2 Combining two ggplot2 graphs\nFigure in the tabset below shows a composite of two histograms created using patchwork. Note how simple the syntax used to create the plot!\n\np1 + p2"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#combining-three-ggplot2-graphs",
+    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#combining-three-ggplot2-graphs",
+    "title": "Hands-on Exercise 2",
+    "section": "2.5.3 Combining three ggplot2 graphs",
+    "text": "2.5.3 Combining three ggplot2 graphs\nWe can plot more complex composite by using appropriate operators. For example, the composite figure below is plotted by using:\n\n“|” operator to stack two ggplot2 graphs,\n“/” operator to place the plots beside each other,\n“()” operator the define the sequence of the plotting.\n\n\n(p1 / p2) | p3"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#creating-a-composite-figure-with-tag",
+    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#creating-a-composite-figure-with-tag",
+    "title": "Hands-on Exercise 2",
+    "section": "2.5.4 Creating a composite figure with tag",
+    "text": "2.5.4 Creating a composite figure with tag\nIn order to identify subplots in text, patchwork also provides auto-tagging capabilities as shown in the figure below.\n\n((p1 / p2) | p3) + \n  plot_annotation(tag_levels = 'I')"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#creating-figure-with-insert",
+    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#creating-figure-with-insert",
+    "title": "Hands-on Exercise 2",
+    "section": "2.5.5 Creating figure with insert",
+    "text": "2.5.5 Creating figure with insert\nBeside providing functions to place plots next to each other based on the provided layout. With inset_element() of patchwork, we can place one or several plots or graphic elements freely on top or below another plot.\n\np3 + inset_element(p2, \n                   left = 0.02, \n                   bottom = 0.7, \n                   right = 0.5, \n                   top = 1)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#creating-a-composite-figure-by-using-patchwork-and-ggtheme",
+    "href": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html#creating-a-composite-figure-by-using-patchwork-and-ggtheme",
+    "title": "Hands-on Exercise 2",
+    "section": "2.5.6 Creating a composite figure by using patchwork and ggtheme",
+    "text": "2.5.6 Creating a composite figure by using patchwork and ggtheme\nFigure below is created by combining patchwork and theme_economist() of ggthemes package discussed earlier.\n\npatchwork &lt;- (p1 / p2) | p3\npatchwork & theme_economist()"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#tooltip-effect-with-tooltip-aesthetic",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#tooltip-effect-with-tooltip-aesthetic",
+    "title": "Hands-on Exercise 3",
+    "section": "3.4.1 Tooltip effect with tooltip aesthetic",
+    "text": "3.4.1 Tooltip effect with tooltip aesthetic\nBelow shows a typical code chunk to plot an interactive statistical graph by using ggiraph package. Notice that the code chunk consists of two parts. First, an ggplot object will be created. Next, girafe() of ggiraph will be used to create an interactive svg object.\n\np &lt;- ggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot_interactive(\n    aes(tooltip = ID),\n    stackgroups = TRUE, \n    binwidth = 1, \n    method = \"histodot\") +\n  scale_y_continuous(NULL, \n                     breaks = NULL)\ngirafe(\n  ggobj = p,\n  width_svg = 6,\n  height_svg = 6*0.618\n)\n\nNotice that two steps are involved. First, an interactive version of ggplot2 geom (i.e. geom_dotplot_interactive()) will be used to create the basic graph. Then, girafe() will be used to generate an svg object to be displayed on an html page."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#displaying-multiple-information-on-tooltip",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#displaying-multiple-information-on-tooltip",
+    "title": "Hands-on Exercise 3",
+    "section": "3.5.1 Displaying multiple information on tooltip",
+    "text": "3.5.1 Displaying multiple information on tooltip\nThe content of the tooltip can be customised by including a list object as shown in the code chunk below.\n\nexam_data$tooltip &lt;- c(paste0(     \n  \"Name = \", exam_data$ID,         \n  \"\\n Class = \", exam_data$CLASS)) \n\np &lt;- ggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot_interactive(\n    aes(tooltip = exam_data$tooltip), \n    stackgroups = TRUE,\n    binwidth = 1,\n    method = \"histodot\") +\n  scale_y_continuous(NULL,               \n                     breaks = NULL)\ngirafe(\n  ggobj = p,\n  width_svg = 8,\n  height_svg = 8*0.618\n)\n\nThe first three lines of codes in the code chunk create a new field called tooltip. At the same time, it populates text in ID and CLASS fields into the newly created field. Next, this newly created field is used as tooltip field as shown in the code of line 7."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#customising-tooltip-style",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#customising-tooltip-style",
+    "title": "Hands-on Exercise 3",
+    "section": "3.6.1 Customising Tooltip style",
+    "text": "3.6.1 Customising Tooltip style\nCode chunk below uses opts_tooltip() of ggiraph to customize tooltip rendering by add css declarations.\n\ntooltip_css &lt;- \"background-color:white; #&lt;&lt;\nfont-style:bold; color:black;\" #&lt;&lt;\n\np &lt;- ggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot_interactive(              \n    aes(tooltip = ID),                   \n    stackgroups = TRUE,                  \n    binwidth = 1,                        \n    method = \"histodot\") +               \n  scale_y_continuous(NULL,               \n                     breaks = NULL)\n\n# Notice that the background colour of the tooltip is black and the font colour is white and bold.\n\ngirafe(                                  \n  ggobj = p,                             \n  width_svg = 6,                         \n  height_svg = 6*0.618,\n  options = list(    #&lt;&lt;\n    opts_tooltip(    #&lt;&lt;\n      css = tooltip_css)) #&lt;&lt;\n)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#displaying-statistics-on-tooltip",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#displaying-statistics-on-tooltip",
+    "title": "Hands-on Exercise 3",
+    "section": "3.6.2 Displaying statistics on tooltip",
+    "text": "3.6.2 Displaying statistics on tooltip\nCode chunk below shows an advanced way to customise tooltip. In this example, a function is used to compute 90% confident interval of the mean. The derived statistics are then displayed in the tooltip.\n\ntooltip &lt;- function(y, ymax, accuracy = .01) {\n  mean &lt;- scales::number(y, accuracy = accuracy)\n  sem &lt;- scales::number(ymax - y, accuracy = accuracy)\n  paste(\"Mean maths scores:\", mean, \"+/-\", sem)\n}\n\ngg_point &lt;- ggplot(data=exam_data, \n                   aes(x = RACE),\n) +\n  stat_summary(aes(y = MATHS, \n                   tooltip = after_stat(  \n                     tooltip(y, ymax))),  \n    fun.data = \"mean_se\", \n    geom = GeomInteractiveCol,  \n    fill = \"light blue\"\n  ) +\n  stat_summary(aes(y = MATHS),\n    fun.data = mean_se,\n    geom = \"errorbar\", width = 0.2, size = 0.2\n  )\n\ngirafe(ggobj = gg_point,\n       width_svg = 8,\n       height_svg = 8*0.618)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#hover-effect-with-data_id-aesthetic",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#hover-effect-with-data_id-aesthetic",
+    "title": "Hands-on Exercise 3",
+    "section": "3.6.3 Hover effect with data_id aesthetic",
+    "text": "3.6.3 Hover effect with data_id aesthetic\nCode chunk below shows the second interactive feature of ggiraph, namely data_id.\n\np &lt;- ggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot_interactive(           \n    aes(data_id = CLASS),             \n    stackgroups = TRUE,               \n    binwidth = 1,                        \n    method = \"histodot\") +               \n  scale_y_continuous(NULL,               \n                     breaks = NULL)\n\n# Interactivity: Elements associated with a data_id (i.e CLASS) will be highlighted upon mouse over.\n\ngirafe(                                  \n  ggobj = p,                             \n  width_svg = 6,                         \n  height_svg = 6*0.618                      \n)                                        \n\n\n\n\n\nNote that the default value of the hover css is hover_css = “fill:orange;”."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#styling-hover-effect",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#styling-hover-effect",
+    "title": "Hands-on Exercise 3",
+    "section": "3.6.4 Styling hover effect",
+    "text": "3.6.4 Styling hover effect\nIn the code chunk below, css codes are used to change the highlighting effect.\n\np &lt;- ggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot_interactive(              \n    aes(data_id = CLASS),              \n    stackgroups = TRUE,                  \n    binwidth = 1,                        \n    method = \"histodot\") +               \n  scale_y_continuous(NULL,               \n                     breaks = NULL)\n\n# Interactivity: Elements associated with a data_id (i.e CLASS) will be highlighted upon mouse over.\n\ngirafe(                                  \n  ggobj = p,                             \n  width_svg = 6,                         \n  height_svg = 6*0.618,\n  options = list(                        \n    opts_hover(css = \"fill: #202020;\"),  \n    opts_hover_inv(css = \"opacity:0.2;\") \n  )                                        \n)                                        \n\n\n\n\n\nNote: Different from previous example, in this example the ccs customisation request are encoded directly."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#combining-tooltip-and-hover-effect",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#combining-tooltip-and-hover-effect",
+    "title": "Hands-on Exercise 3",
+    "section": "3.6.5 Combining tooltip and hover effect",
+    "text": "3.6.5 Combining tooltip and hover effect\nThere are time that we want to combine tooltip and hover effect on the interactive statistical graph as shown in the code chunk below.\n\np &lt;- ggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot_interactive(              \n    aes(tooltip = CLASS, \n        data_id = CLASS),              \n    stackgroups = TRUE,                  \n    binwidth = 1,                        \n    method = \"histodot\") +               \n  scale_y_continuous(NULL,               \n                     breaks = NULL)\n\n# Interactivity: Elements associated with a data_id (i.e CLASS) will be highlighted upon mouse over. At the same time, the tooltip will show the CLASS.\n\ngirafe(                                  \n  ggobj = p,                             \n  width_svg = 6,                         \n  height_svg = 6*0.618,\n  options = list(                        \n    opts_hover(css = \"fill: #202020;\"),  \n    opts_hover_inv(css = \"opacity:0.2;\") \n  )                                        \n)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#click-effect-with-onclick",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#click-effect-with-onclick",
+    "title": "Hands-on Exercise 3",
+    "section": "3.6.6 Click effect with onclick",
+    "text": "3.6.6 Click effect with onclick\nonclick argument of ggiraph provides hotlink interactivity on the web.\nThe code chunk below shown an example of onclick.\n\nexam_data$onclick &lt;- sprintf(\"window.open(\\\"%s%s\\\")\",\n\"https://www.moe.gov.sg/schoolfinder?journey=Primary%20school\",\nas.character(exam_data$ID))\n\np &lt;- ggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot_interactive(              \n    aes(onclick = onclick),              \n    stackgroups = TRUE,                  \n    binwidth = 1,                        \n    method = \"histodot\") +               \n  scale_y_continuous(NULL,               \n                     breaks = NULL)\n# Interactivity: Web document link with a data object will be displayed on the web browser upon mouse click.\n\ngirafe(                                  \n  ggobj = p,                             \n  width_svg = 6,                         \n  height_svg = 6*0.618)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#coordinated-multiple-views-with-ggiraph",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#coordinated-multiple-views-with-ggiraph",
+    "title": "Hands-on Exercise 3",
+    "section": "3.6.7 Coordinated Multiple Views with ggiraph",
+    "text": "3.6.7 Coordinated Multiple Views with ggiraph\nCoordinated multiple views methods has been implemented in the data visualisation below.\n\n\n\n\n\n\nNotice that when a data point of one of the dotplot is selected, the corresponding data point ID on the second data visualisation will be highlighted too.\nIn order to build a coordinated multiple views as shown in the example above, the following programming strategy will be used:\n\nAppropriate interactive functions of ggiraph will be used to create the multiple views.\npatchwork function of patchwork package will be used inside girafe function to create the interactive coordinated multiple views.\n\n\np1 &lt;- ggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot_interactive(              \n    aes(data_id = ID),              \n    stackgroups = TRUE,                  \n    binwidth = 1,                        \n    method = \"histodot\") +  \n  coord_cartesian(xlim=c(0,100)) + \n  scale_y_continuous(NULL,               \n                     breaks = NULL)\n\np2 &lt;- ggplot(data=exam_data, \n       aes(x = ENGLISH)) +\n  geom_dotplot_interactive(              \n    aes(data_id = ID),              \n    stackgroups = TRUE,                  \n    binwidth = 1,                        \n    method = \"histodot\") + \n  coord_cartesian(xlim=c(0,100)) + \n  scale_y_continuous(NULL,               \n                     breaks = NULL)\n\ngirafe(code = print(p1 + p2), \n       width_svg = 6,\n       height_svg = 3,\n       options = list(\n         opts_hover(css = \"fill: #202020;\"),\n         opts_hover_inv(css = \"opacity:0.2;\")\n         )\n       ) \n\nThe data_id aesthetic is critical to link observations between plots and the tooltip aesthetic is optional but nice to have when mouse over a point."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#creating-an-interactive-scatter-plot-plot_ly-method",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#creating-an-interactive-scatter-plot-plot_ly-method",
+    "title": "Hands-on Exercise 3",
+    "section": "3.7.1 Creating an interactive scatter plot: plot_ly() method",
+    "text": "3.7.1 Creating an interactive scatter plot: plot_ly() method\nThe tabset below shows an example a basic interactive plot created by using plot_ly().\n\nplot_ly(data = exam_data, \n             x = ~MATHS, \n             y = ~ENGLISH)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#working-with-visual-variable-plot_ly-method",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#working-with-visual-variable-plot_ly-method",
+    "title": "Hands-on Exercise 3",
+    "section": "3.7.2 Working with visual variable: plot_ly() method",
+    "text": "3.7.2 Working with visual variable: plot_ly() method\nIn the code chunk below, color argument is mapped to a qualitative visual variable (i.e. RACE).\n\nplot_ly(data = exam_data, \n        x = ~ENGLISH, \n        y = ~MATHS, \n        color = ~RACE)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#creating-an-interactive-scatter-plot-ggplotly-method",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#creating-an-interactive-scatter-plot-ggplotly-method",
+    "title": "Hands-on Exercise 3",
+    "section": "3.7.3 Creating an interactive scatter plot: ggplotly() method",
+    "text": "3.7.3 Creating an interactive scatter plot: ggplotly() method\nThe code chunk below plots an interactive scatter plot by using ggplotly().\n\np &lt;- ggplot(data=exam_data, \n            aes(x = MATHS,\n                y = ENGLISH)) +\n  geom_point(size=1) +\n  coord_cartesian(xlim=c(0,100),\n                  ylim=c(0,100))\nggplotly(p)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#coordinated-multiple-views-with-plotly",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#coordinated-multiple-views-with-plotly",
+    "title": "Hands-on Exercise 3",
+    "section": "3.7.4 Coordinated Multiple Views with plotly",
+    "text": "3.7.4 Coordinated Multiple Views with plotly\nThe creation of a coordinated linked plot by using plotly involves three steps:\n\nhighlight_key() of plotly package is used as shared data.\ntwo scatterplots will be created by using ggplot2 functions.\nlastly, subplot() of plotly package is used to place them next to each other side-by-side.\n\n\nd &lt;- highlight_key(exam_data)\np1 &lt;- ggplot(data=d, \n            aes(x = MATHS,\n                y = ENGLISH)) +\n  geom_point(size=1) +\n  coord_cartesian(xlim=c(0,100),\n                  ylim=c(0,100))\n\np2 &lt;- ggplot(data=d, \n            aes(x = MATHS,\n                y = SCIENCE)) +\n  geom_point(size=1) +\n  coord_cartesian(xlim=c(0,100),\n                  ylim=c(0,100))\nsubplot(ggplotly(p1),\n        ggplotly(p2))\n\n\n\n\n\nThing to learn from the code chunk:\n\nhighlight_key() simply creates an object of class crosstalk::SharedData."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#interactive-data-table-dt-package",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#interactive-data-table-dt-package",
+    "title": "Hands-on Exercise 3",
+    "section": "3.8.1 Interactive Data Table: DT package",
+    "text": "3.8.1 Interactive Data Table: DT package\n\nA wrapper of the JavaScript Library DataTables\nData objects in R can be rendered as HTML tables using the JavaScript library ‘DataTables’ (typically via R Markdown or Shiny).\n\n\nDT::datatable(exam_data, class= \"compact\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#linked-brushing-crosstalk-method",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#linked-brushing-crosstalk-method",
+    "title": "Hands-on Exercise 3",
+    "section": "3.8.2 Linked brushing: crosstalk method",
+    "text": "3.8.2 Linked brushing: crosstalk method\nCode chunk below is used to implement the coordinated brushing shown below.\n\nd &lt;- highlight_key(exam_data) \np &lt;- ggplot(d, \n            aes(ENGLISH, \n                MATHS)) + \n  geom_point(size=1) +\n  coord_cartesian(xlim=c(0,100),\n                  ylim=c(0,100))\n\ngg &lt;- highlight(ggplotly(p),        \n                \"plotly_selected\")  \n\ncrosstalk::bscols(gg,               \n                  DT::datatable(d), \n                  widths = 5)        \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThings to learn from the code chunk:\n\nhighlight() is a function of plotly package. It sets a variety of options for brushing (i.e., highlighting) multiple plots. These options are primarily designed for linking multiple plotly graphs, and may not behave as expected when linking plotly to another htmlwidget package via crosstalk. In some cases, other htmlwidgets will respect these options, such as persistent selection in leaflet.\nbscols() is a helper function of crosstalk package. It makes it easy to put HTML elements side by side. It can be called directly from the console but is especially designed to work in an R Markdown document. Warning: This will bring in all of Bootstrap!"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#ggiraph",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#ggiraph",
+    "title": "Hands-on Exercise 3",
+    "section": "3.9.1 ggiraph",
+    "text": "3.9.1 ggiraph\nThis link provides online version of the reference guide and several useful articles. Use this link to download the pdf version of the reference guide.\n\nHow to Plot With Ggiraph\nInteractive map of France with ggiraph\nCustom interactive sunbursts with ggplot in R\nThis link provides code example on how ggiraph is used to interactive graphs for Swiss Olympians - the solo specialists."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#plotly-for-r",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#plotly-for-r",
+    "title": "Hands-on Exercise 3",
+    "section": "3.9.2 plotly for R",
+    "text": "3.9.2 plotly for R\n\nGetting Started with Plotly in R\nA collection of plotly R graphs are available via this link.\nCarson Sievert (2020) Interactive web-based data visualization with R, plotly, and shiny, Chapman and Hall/CRC is the best resource to learn plotly for R. The online version is available via this link\nPlotly R Figure Reference provides a comprehensive discussion of each visual representations.\nPlotly R Library Fundamentals is a good place to learn the fundamental features of Plotly’s R API.\nGetting Started\nVisit this link for a very interesting implementation of gganimate by your senior.\nBuilding an animation step-by-step with gganimate.\nCreating a composite gif with multiple gganimate panels"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#basic-concepts-of-animation",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#basic-concepts-of-animation",
+    "title": "Hands-on Exercise 3",
+    "section": "4.1.1 Basic concepts of animation",
+    "text": "4.1.1 Basic concepts of animation\nWhen creating animations, the plot does not actually move. Instead, many individual plots are built and then stitched together as movie frames, just like an old-school flip book or cartoon. Each frame is a different plot when conveying motion, which is built using some relevant subset of the aggregate data. The subset drives the flow of the animation when stitched back together."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#terminology",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#terminology",
+    "title": "Hands-on Exercise 3",
+    "section": "4.1.2 Terminology",
+    "text": "4.1.2 Terminology\nBefore we dive into the steps for creating an animated statistical graph, it’s important to understand some of the key concepts and terminology related to this type of visualization.\n\nFrame: In an animated line graph, each frame represents a different point in time or a different category. When the frame changes, the data points on the graph are updated to reflect the new data.\nAnimation Attributes: The animation attributes are the settings that control how the animation behaves. For example, you can specify the duration of each frame, the easing function used to transition between frames, and whether to start the animation from the current frame or from the beginning."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#loading-the-r-packages",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#loading-the-r-packages",
+    "title": "Hands-on Exercise 3",
+    "section": "4.2.1 Loading the R packages",
+    "text": "4.2.1 Loading the R packages\nFirst, write a code chunk to check, install and load the following R packages:\n\nplotly, R library for plotting interactive statistical graphs.\ngganimate, an ggplot extension for creating animated statistical graphs.\ngifski converts video frames to GIF animations using pngquant’s fancy features for efficient cross-frame palettes and temporal dithering. It produces animated GIFs that use thousands of colors per frame.\ngapminder: An excerpt of the data available at Gapminder.org. We just want to use its country_colors scheme.\ntidyverse, a family of modern R packages specially designed to support data science, analysis and communication task including creating static statistical graphs.\n\n\npacman::p_load(readxl, gifski, gapminder,\n               plotly, gganimate, tidyverse)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#importing-the-data",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#importing-the-data",
+    "title": "Hands-on Exercise 3",
+    "section": "4.2.2 Importing the data",
+    "text": "4.2.2 Importing the data\nIn this hands-on exercise, the Data worksheet from GlobalPopulation Excel workbook will be used.\nWrite a code chunk to import Data worksheet from GlobalPopulation Excel workbook by using appropriate R package from tidyverse family.\n\ncol &lt;- c(\"Country\", \"Continent\")\nglobalPop &lt;- read_xls(\"data/GlobalPopulation.xls\",\n                      sheet=\"Data\") %&gt;%\n  mutate_each_(funs(factor(.)), col) %&gt;%\n  mutate(Year = as.integer(Year))\n\nUnfortunately, mutate_each_() was deprecated in dplyr 0.7.0. and funs() was deprecated in dplyr 0.8.0. In view of this, we will re-write the code by using mutate_at() as shown in the code chunk below.\n\ncol &lt;- c(\"Country\", \"Continent\")\nglobalPop &lt;- read_xls(\"data/GlobalPopulation.xls\",\n                      sheet=\"Data\") %&gt;%\n  mutate_at(col, as.factor) %&gt;%\n  mutate(Year = as.integer(Year))\n\nInstead of using mutate_at(), across() can be used to derive the same outputs.\n\ncol &lt;- c(\"Country\", \"Continent\")\nglobalPop &lt;- read_xls(\"data/GlobalPopulation.xls\",\n                      sheet=\"Data\") %&gt;%\n  mutate(across(col, as.factor)) %&gt;%\n  mutate(Year = as.integer(Year))"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#building-a-static-population-bubble-plot",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#building-a-static-population-bubble-plot",
+    "title": "Hands-on Exercise 3",
+    "section": "4.3.1 Building a static population bubble plot",
+    "text": "4.3.1 Building a static population bubble plot\nIn the code chunk below, the basic ggplot2 functions are used to create a static bubble plot.\n\nggplot(globalPop, aes(x = Old, y = Young, \n                      size = Population, \n                      colour = Country)) +\n  geom_point(alpha = 0.7, \n             show.legend = FALSE) +\n  scale_colour_manual(values = country_colors) +\n  scale_size(range = c(2, 12)) +\n  labs(title = 'Year: {frame_time}', \n       x = '% Aged', \n       y = '% Young')"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#building-the-animated-bubble-plot",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#building-the-animated-bubble-plot",
+    "title": "Hands-on Exercise 3",
+    "section": "4.3.2 Building the animated bubble plot",
+    "text": "4.3.2 Building the animated bubble plot\nIn the code chunk below,\n\ntransition_time() of gganimate is used to create transition through distinct states in time (i.e. Year).\nease_aes() is used to control easing of aesthetics. The default is linear. Other methods are: quadratic, cubic, quartic, quintic, sine, circular, exponential, elastic, back, and bounce.\n\n\n# The animated bubble chart\nggplot(globalPop, aes(x = Old, y = Young, \n                      size = Population, \n                      colour = Country)) +\n  geom_point(alpha = 0.7, \n             show.legend = FALSE) +\n  scale_colour_manual(values = country_colors) +\n  scale_size(range = c(2, 12)) +\n  labs(title = 'Year: {frame_time}', \n       x = '% Aged', \n       y = '% Young') +\n  transition_time(Year) +       \n  ease_aes('linear')"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#building-an-animated-bubble-plot-ggplotly-method",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#building-an-animated-bubble-plot-ggplotly-method",
+    "title": "Hands-on Exercise 3",
+    "section": "4.4.1 Building an animated bubble plot: ggplotly() method",
+    "text": "4.4.1 Building an animated bubble plot: ggplotly() method\nIn this sub-section, you will learn how to create an animated bubble plot by using ggplotly() method.\n\ngg &lt;- ggplot(globalPop, \n       aes(x = Old, \n           y = Young, \n           size = Population, \n           colour = Country)) +\n  geom_point(aes(size = Population,\n                 frame = Year),\n             alpha = 0.7, \n             show.legend = FALSE) +\n  scale_colour_manual(values = country_colors) +\n  scale_size(range = c(2, 12)) +\n  labs(x = '% Aged', \n       y = '% Young')\n\nggplotly(gg)\n\n\n\n\n\nNotice that although show.legend = FALSE argument was used, the legend still appears on the plot. To overcome this problem, theme(legend.position=‘none’) should be used as shown in the plot and code chunk below.\n\ngg &lt;- ggplot(globalPop, \n       aes(x = Old, \n           y = Young, \n           size = Population, \n           colour = Country)) +\n  geom_point(aes(size = Population,\n                 frame = Year),\n             alpha = 0.7) +\n  scale_colour_manual(values = country_colors) +\n  scale_size(range = c(2, 12)) +\n  labs(x = '% Aged', \n       y = '% Young') + \n  theme(legend.position='none')\n\nggplotly(gg)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#building-an-animated-bubble-plot-plot_ly-method",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html#building-an-animated-bubble-plot-plot_ly-method",
+    "title": "Hands-on Exercise 3",
+    "section": "4.4.2 Building an animated bubble plot: plot_ly() method",
+    "text": "4.4.2 Building an animated bubble plot: plot_ly() method\nIn this sub-section, you will learn how to create an animated bubble plot by using plot_ly() method.\n\nbp &lt;- globalPop %&gt;%\n  plot_ly(x = ~Old, \n          y = ~Young, \n          size = ~Population, \n          color = ~Continent,\n          sizes = c(2, 100),\n          frame = ~Year, \n          text = ~Country, \n          hoverinfo = \"text\",\n          type = 'scatter',\n          mode = 'markers'\n          ) %&gt;%\n  layout(showlegend = FALSE)\nbp"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html",
+    "title": "Hands-on Exercise 1",
+    "section": "",
+    "text": "In this chapter, you will learn the basic principles and essential components of ggplot2. At the same time, you will gain hands-on experience on using these components to plot statistical graphics based on the principle of Layered Grammar of Graphics. By then end of this chapter you will be able to apply the essential graphical elements provided by ggplot2 to create elegant and yet functional statistical graphics."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#installing-and-loading-the-required-libraries",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#installing-and-loading-the-required-libraries",
+    "title": "Hands-on Exercise 1",
+    "section": "1.2.1 Installing and loading the required libraries",
+    "text": "1.2.1 Installing and loading the required libraries\nThe code chunk below uses p_load() of pacman package to check if tidyverse packages are installed in the computer. If they are, then they will be launched into R.\n\npacman::p_load(tidyverse)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#importing-data",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#importing-data",
+    "title": "Hands-on Exercise 1",
+    "section": "1.2.2 Importing data",
+    "text": "1.2.2 Importing data\n\nexam_data &lt;- read_csv(\"data/Exam_data.csv\")\n\nRows: 322 Columns: 7\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (4): ID, CLASS, GENDER, RACE\ndbl (3): ENGLISH, MATHS, SCIENCE\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#r-graphics-vs-ggplot",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#r-graphics-vs-ggplot",
+    "title": "Hands-on Exercise 1",
+    "section": "1.3.1 R Graphics VS ggplot",
+    "text": "1.3.1 R Graphics VS ggplot\n\nR Graphics\n\nhist(exam_data$MATHS)\n\n\n\n\n\n\nggplot2\n\nggplot(data=exam_data, aes(x = MATHS)) +\n  geom_histogram(bins=10, \n                 boundary = 100,\n                 color=\"black\", \n                 fill=\"grey\") +\n  ggtitle(\"Distribution of Maths scores\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#a-layered-grammar-of-graphics",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#a-layered-grammar-of-graphics",
+    "title": "Hands-on Exercise 1",
+    "section": "1.4.1 A Layered Grammar of Graphics",
+    "text": "1.4.1 A Layered Grammar of Graphics\nA short description of each building block are as follows:\n\nData: The dataset being plotted.\nAesthetics take attributes of the data and use them to influence visual characteristics, such as position, colours, size, shape, or transparency.\nGeometrics: The visual elements used for our data, such as point, bar or line.\nFacets split the data into subsets to create multiple variations of the same graph (paneling, multiple plots).\nStatistics, statiscal transformations that summarise data (e.g. mean, confidence intervals).\nCoordinate systems define the plane on which data are mapped on the graphic.\nThemes modify all non-data components of a plot, such as main title, sub-title, y-aixs title, or legend background."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom_bar",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom_bar",
+    "title": "Hands-on Exercise 1",
+    "section": "1.7.1 Geometric Objects: geom_bar",
+    "text": "1.7.1 Geometric Objects: geom_bar\n\nggplot(data=exam_data, \n       aes(x=RACE)) +\n  geom_bar()"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom_dotplot",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom_dotplot",
+    "title": "Hands-on Exercise 1",
+    "section": "1.7.2 Geometric Objects: geom_dotplot",
+    "text": "1.7.2 Geometric Objects: geom_dotplot\n\nggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot(dotsize = 0.5)\n\nBin width defaults to 1/30 of the range of the data. Pick better value with\n`binwidth`.\n\n\n\n\n\nThe y scale is not very useful, in fact it is very misleading.\nThe code chunk below performs the following two steps:\n\nscale_y_continuous() is used to turn off the y-axis, and\nbinwidth argument is used to change the binwidth to 2.5.\n\n\nggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot(binwidth=2.5,         \n               dotsize = 0.5) +      \n  scale_y_continuous(NULL,           \n                     breaks = NULL)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom_histogram",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom_histogram",
+    "title": "Hands-on Exercise 1",
+    "section": "1.7.3 Geometric Objects: geom_histogram()",
+    "text": "1.7.3 Geometric Objects: geom_histogram()\n\nggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_histogram()       \n\n`stat_bin()` using `bins = 30`. Pick better value with `binwidth`."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#modifying-a-geometric-object-by-changing-geom",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#modifying-a-geometric-object-by-changing-geom",
+    "title": "Hands-on Exercise 1",
+    "section": "1.7.4 Modifying a geometric object by changing geom()",
+    "text": "1.7.4 Modifying a geometric object by changing geom()\n\nggplot(data=exam_data, \n       aes(x= MATHS)) +\n  geom_histogram(bins=20,            \n                 color=\"black\",      \n                 fill=\"light blue\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#modifying-a-geometric-object-by-changing-aes",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#modifying-a-geometric-object-by-changing-aes",
+    "title": "Hands-on Exercise 1",
+    "section": "1.7.5 Modifying a geometric object by changing aes()",
+    "text": "1.7.5 Modifying a geometric object by changing aes()\n\nggplot(data=exam_data, \n       aes(x= MATHS, \n           fill = GENDER)) +\n  geom_histogram(bins=20, \n                 color=\"grey30\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom-density",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom-density",
+    "title": "Hands-on Exercise 1",
+    "section": "1.7.6 Geometric Objects: geom-density()",
+    "text": "1.7.6 Geometric Objects: geom-density()\n\nggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_density()           \n\n\n\n\nThe code chunk below plots two kernel density lines by using colour or fill arguments of aes()\n\nggplot(data=exam_data, \n       aes(x = MATHS, \n           colour = GENDER)) +\n  geom_density()"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom_boxplot",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom_boxplot",
+    "title": "Hands-on Exercise 1",
+    "section": "1.7.7 Geometric Objects: geom_boxplot",
+    "text": "1.7.7 Geometric Objects: geom_boxplot\n\nggplot(data=exam_data, \n       aes(y = MATHS,       \n           x= GENDER)) +    \n  geom_boxplot()            \n\n\n\n\nNotches are used in box plots to help visually assess whether the medians of distributions differ. If the notches do not overlap, this is evidence that the medians are different.\nThe code chunk below plots the distribution of Maths scores by gender in notched plot instead of boxplot.\n\nggplot(data=exam_data, \n       aes(y = MATHS, \n           x= GENDER)) +\n  geom_boxplot(notch=TRUE)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom_violin",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom_violin",
+    "title": "Hands-on Exercise 1",
+    "section": "1.7.8 Geometric Objects: geom_violin",
+    "text": "1.7.8 Geometric Objects: geom_violin\n\nggplot(data=exam_data, \n       aes(y = MATHS, \n           x= GENDER)) +\n  geom_violin()"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom_point",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geometric-objects-geom_point",
+    "title": "Hands-on Exercise 1",
+    "section": "1.7.9 Geometric Objects: geom_point()",
+    "text": "1.7.9 Geometric Objects: geom_point()\n\nggplot(data=exam_data, \n       aes(x= MATHS, \n           y=ENGLISH)) +\n  geom_point()"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom-objects-can-be-combined",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#geom-objects-can-be-combined",
+    "title": "Hands-on Exercise 1",
+    "section": "1.7.10 geom objects can be combined",
+    "text": "1.7.10 geom objects can be combined\n\nggplot(data=exam_data, \n       aes(y = MATHS, \n           x= GENDER)) +\n  geom_boxplot() +                    \n  geom_point(position=\"jitter\", \n             size = 0.5)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#working-with-stat",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#working-with-stat",
+    "title": "Hands-on Exercise 1",
+    "section": "1.8.1 Working with stat()",
+    "text": "1.8.1 Working with stat()\n\nggplot(data=exam_data, \n       aes(y = MATHS, x= GENDER)) +\n  geom_boxplot()"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#working-with-stat---the-stat_summary-method",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#working-with-stat---the-stat_summary-method",
+    "title": "Hands-on Exercise 1",
+    "section": "1.8.2 Working with stat - the stat_summary() method",
+    "text": "1.8.2 Working with stat - the stat_summary() method\n\nggplot(data=exam_data, \n       aes(y = MATHS, x= GENDER)) +\n  geom_boxplot() +\n  stat_summary(geom = \"point\",       \n               fun.y=\"mean\",         \n               colour =\"red\",        \n               size=4)               \n\nWarning: The `fun.y` argument of `stat_summary()` is deprecated as of ggplot2 3.3.0.\nℹ Please use the `fun` argument instead."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#working-with-stat---the-geom-method",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#working-with-stat---the-geom-method",
+    "title": "Hands-on Exercise 1",
+    "section": "1.8.3 Working with stat - the geom() method",
+    "text": "1.8.3 Working with stat - the geom() method\n\nggplot(data=exam_data, \n       aes(y = MATHS, x= GENDER)) +\n  geom_boxplot() +\n  geom_point(stat=\"summary\",        \n             fun.y=\"mean\",           \n             colour =\"red\",          \n             size=4)          \n\nWarning in geom_point(stat = \"summary\", fun.y = \"mean\", colour = \"red\", :\nIgnoring unknown parameters: `fun.y`\n\n\nNo summary function supplied, defaulting to `mean_se()`"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#adding-a-best-fit-curve-on-a-scatterplot",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#adding-a-best-fit-curve-on-a-scatterplot",
+    "title": "Hands-on Exercise 1",
+    "section": "1.8.4 Adding a best fit curve on a scatterplot?",
+    "text": "1.8.4 Adding a best fit curve on a scatterplot?\nIn the code chunk below, geom_smooth() is used to plot a best fit curve on the scatterplot.\n\nggplot(data=exam_data, \n       aes(x= MATHS, y=ENGLISH)) +\n  geom_point() +\n  geom_smooth(size=0.5)\n\nWarning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.\nℹ Please use `linewidth` instead.\n\n\n`geom_smooth()` using method = 'loess' and formula = 'y ~ x'\n\n\n\n\n\nThe default smoothing method can be overridden as shown below.\n\nggplot(data=exam_data, \n       aes(x= MATHS, \n           y=ENGLISH)) +\n  geom_point() +\n  geom_smooth(method=lm, \n              size=0.5)\n\n`geom_smooth()` using formula = 'y ~ x'"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#working-with-facet_wrap",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#working-with-facet_wrap",
+    "title": "Hands-on Exercise 1",
+    "section": "1.9.1 Working with facet_wrap()",
+    "text": "1.9.1 Working with facet_wrap()\n\nggplot(data=exam_data, \n       aes(x= MATHS)) +\n  geom_histogram(bins=20) +\n    facet_wrap(~ CLASS)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#facet_grid-function",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#facet_grid-function",
+    "title": "Hands-on Exercise 1",
+    "section": "1.9.2 facet_grid() function",
+    "text": "1.9.2 facet_grid() function\n\nggplot(data=exam_data, \n       aes(x= MATHS)) +\n  geom_histogram(bins=20) +\n    facet_grid(~ CLASS)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#working-with-coordinate",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#working-with-coordinate",
+    "title": "Hands-on Exercise 1",
+    "section": "1.10.1 Working with Coordinate",
+    "text": "1.10.1 Working with Coordinate\n\nggplot(data=exam_data, \n       aes(x=RACE)) +\n  geom_bar()\n\n\n\n\nThe code chunk below flips the horizontal bar chart into vertical bar chart by using coord_flip().\n\nggplot(data=exam_data, \n       aes(x=RACE)) +\n  geom_bar() +\n  coord_flip()"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#changing-the-y--and-x-axis-range",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#changing-the-y--and-x-axis-range",
+    "title": "Hands-on Exercise 1",
+    "section": "1.10.2 Changing the y- and x-axis range",
+    "text": "1.10.2 Changing the y- and x-axis range\n\nggplot(data=exam_data, \n       aes(x= MATHS, y=ENGLISH)) +\n  geom_point() +\n  geom_smooth(method=lm, size=0.5)\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\nThe code chunk below fixed both the y-axis and x-axis range from 0-100.\n\nggplot(data=exam_data, \n       aes(x= MATHS, y=ENGLISH)) +\n  geom_point() +\n  geom_smooth(method=lm, \n              size=0.5) +  \n  coord_cartesian(xlim=c(0,100),\n                  ylim=c(0,100))\n\n`geom_smooth()` using formula = 'y ~ x'"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#working-with-theme",
+    "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#working-with-theme",
+    "title": "Hands-on Exercise 1",
+    "section": "1.11.1 Working with theme",
+    "text": "1.11.1 Working with theme\n\nggplot(data=exam_data, \n       aes(x=RACE)) +\n  geom_bar() +\n  coord_flip() +\n  theme_gray()\n\n\n\n\nA horizontal bar chart plotted using theme_classic().\n\nggplot(data=exam_data, \n       aes(x=RACE)) +\n  geom_bar() +\n  coord_flip() +\n  theme_classic()"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html",
+    "title": "Take-home Exercise 1",
+    "section": "",
+    "text": "OECD education director Andreas Schleicher shared in a BBC article that “Singapore managed to achieve excellence without wide differences between children from wealthy and disadvantaged families.” (2016) Furthermore, several Singapore’s Minister for Education also started an “every school a good school” slogan.\nThe general public, however, strongly belief that there are still disparities that exist, especially between the elite schools and neighborhood school, between students from families with higher socioeconomic status and those with relatively lower socioeconomic status and immigration and non-immigration families."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#installing-r-packages",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#installing-r-packages",
+    "title": "Take-home Exercise 1",
+    "section": "1.1 Installing R packages",
+    "text": "1.1 Installing R packages\npacman::p_load() function from the pacman package is used in the following code chunk to install and call the libraries of multiple R packages:\n\npacman::p_load(tidyverse, haven, ggrepel, patchwork, \n               ggthemes, hrbrthemes)"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#importing-dataset",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#importing-dataset",
+    "title": "Take-home Exercise 1",
+    "section": "1.2 Importing Dataset",
+    "text": "1.2 Importing Dataset\n“Student questionnaire data file” from the PISA 2022 database is provided for the task.\nThe code chunk below uses read_sas() of haven to import PISA data into R environment.\n\nstu_qqq &lt;- read_sas(\"data/STU_QQQ_SAS/cy08msp_stu_qqq.sas7bdat\")\n\n\nstu_qqq_SG &lt;- stu_qqq %&gt;%\n  filter(CNT == \"SGP\")\n\n\nwrite_rds(stu_qqq_SG,\n          \"data/STU_QQQ_SAS/stu_qqq_SG.rds\")\n\nWe upload the file as stu_qqq_Sg.\n\nstu_qqq_Sg &lt;-\n  read_rds(\"data/STU_QQQ_SAS/stu_qqq_SG.rds\")"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#summary-statistics",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#summary-statistics",
+    "title": "Take-home Exercise 1",
+    "section": "1.3 Summary Statistics",
+    "text": "1.3 Summary Statistics\nWe first display first 5 rows using head().\n\nhead(stu_qqq_Sg, 5)\n\n# A tibble: 5 × 1,279\n  CNT   CNTRYID CNTSCHID CNTSTUID CYC   NatCen STRATUM SUBNATIO REGION  OECD\n  &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;\n1 SGP       702 70200052 70200001 08MS  070200 SGP01   7020000   70200     0\n2 SGP       702 70200134 70200002 08MS  070200 SGP01   7020000   70200     0\n3 SGP       702 70200112 70200003 08MS  070200 SGP01   7020000   70200     0\n4 SGP       702 70200004 70200004 08MS  070200 SGP01   7020000   70200     0\n5 SGP       702 70200152 70200005 08MS  070200 SGP01   7020000   70200     0\n# ℹ 1,269 more variables: ADMINMODE &lt;dbl&gt;, LANGTEST_QQQ &lt;dbl&gt;,\n#   LANGTEST_COG &lt;dbl&gt;, LANGTEST_PAQ &lt;dbl&gt;, Option_CT &lt;dbl&gt;, Option_FL &lt;dbl&gt;,\n#   Option_ICTQ &lt;dbl&gt;, Option_WBQ &lt;dbl&gt;, Option_PQ &lt;dbl&gt;, Option_TQ &lt;dbl&gt;,\n#   Option_UH &lt;dbl&gt;, BOOKID &lt;dbl&gt;, ST001D01T &lt;dbl&gt;, ST003D02T &lt;dbl&gt;,\n#   ST003D03T &lt;dbl&gt;, ST004D01T &lt;dbl&gt;, ST250Q01JA &lt;dbl&gt;, ST250Q02JA &lt;dbl&gt;,\n#   ST250Q03JA &lt;dbl&gt;, ST250Q04JA &lt;dbl&gt;, ST250Q05JA &lt;dbl&gt;, ST250D06JA &lt;chr&gt;,\n#   ST250D07JA &lt;chr&gt;, ST251Q01JA &lt;dbl&gt;, ST251Q02JA &lt;dbl&gt;, ST251Q03JA &lt;dbl&gt;, …\n\n\nThen, we check the structure of stu_qqq_Sg.\n\nstr(stu_qqq_Sg)\n\ntibble [6,606 × 1,279] (S3: tbl_df/tbl/data.frame)\n $ CNT         : chr [1:6606] \"SGP\" \"SGP\" \"SGP\" \"SGP\" ...\n  ..- attr(*, \"label\")= chr \"Country code 3-character\"\n $ CNTRYID     : num [1:6606] 702 702 702 702 702 702 702 702 702 702 ...\n  ..- attr(*, \"label\")= chr \"Country Identifier\"\n $ CNTSCHID    : num [1:6606] 70200052 70200134 70200112 70200004 70200152 ...\n  ..- attr(*, \"label\")= chr \"Intl. School ID\"\n $ CNTSTUID    : num [1:6606] 70200001 70200002 70200003 70200004 70200005 ...\n  ..- attr(*, \"label\")= chr \"Intl. Student ID\"\n $ CYC         : chr [1:6606] \"08MS\" \"08MS\" \"08MS\" \"08MS\" ...\n  ..- attr(*, \"label\")= chr \"PISA Assessment Cycle (2 digits + 2 character Assessment type - MS/FT)\"\n $ NatCen      : chr [1:6606] \"070200\" \"070200\" \"070200\" \"070200\" ...\n  ..- attr(*, \"label\")= chr \"National Centre 6-digit Code\"\n $ STRATUM     : chr [1:6606] \"SGP01\" \"SGP01\" \"SGP01\" \"SGP01\" ...\n  ..- attr(*, \"label\")= chr \"Stratum ID 5-character (cnt + original stratum ID)\"\n $ SUBNATIO    : chr [1:6606] \"7020000\" \"7020000\" \"7020000\" \"7020000\" ...\n  ..- attr(*, \"label\")= chr \"Adjudicated sub-region code 7-digit code (3-digit country code + region ID + stratum ID)\"\n $ REGION      : num [1:6606] 70200 70200 70200 70200 70200 70200 70200 70200 70200 70200 ...\n  ..- attr(*, \"label\")= chr \"REGION\"\n $ OECD        : num [1:6606] 0 0 0 0 0 0 0 0 0 0 ...\n  ..- attr(*, \"label\")= chr \"OECD country\"\n $ ADMINMODE   : num [1:6606] 2 2 2 2 2 2 2 2 2 2 ...\n  ..- attr(*, \"label\")= chr \"Mode of Respondent\"\n $ LANGTEST_QQQ: num [1:6606] 313 313 313 313 313 313 313 313 313 313 ...\n  ..- attr(*, \"label\")= chr \"Language of Questionnaire\"\n $ LANGTEST_COG: num [1:6606] 313 313 313 313 313 313 313 313 313 313 ...\n  ..- attr(*, \"label\")= chr \"Language of Assessment\"\n $ LANGTEST_PAQ: num [1:6606] NA NA NA NA NA NA NA NA NA NA ...\n  ..- attr(*, \"label\")= chr \"Language of Parent Questionnaire\"\n $ Option_CT   : num [1:6606] NA NA NA NA NA NA NA NA NA NA ...\n  ..- attr(*, \"label\")= chr \"Creative Thinking Option\"\n $ Option_FL   : num [1:6606] NA NA NA NA NA NA NA NA NA NA ...\n  ..- attr(*, \"label\")= chr \"Financial Literacy Option\"\n $ Option_ICTQ : num [1:6606] 1 1 1 1 1 1 1 1 1 1 ...\n  ..- attr(*, \"label\")= chr \"ICT Questionnaire Option\"\n $ Option_WBQ  : num [1:6606] 0 0 0 0 0 0 0 0 0 0 ...\n  ..- attr(*, \"label\")= chr \"Well-Being Questionnaire Option\"\n $ Option_PQ   : num [1:6606] 0 0 0 0 0 0 0 0 0 0 ...\n  ..- attr(*, \"label\")= chr \"Parent Questionnaire Option\"\n $ Option_TQ   : num [1:6606] 0 0 0 0 0 0 0 0 0 0 ...\n  ..- attr(*, \"label\")= chr \"Teacher Questionnaire Option\"\n $ Option_UH   : num [1:6606] 0 0 0 0 0 0 0 0 0 0 ...\n  ..- attr(*, \"label\")= chr \"Une Heure Option\"\n $ BOOKID      : num [1:6606] 4 45 8 40 42 15 13 39 14 7 ...\n  ..- attr(*, \"label\")= chr \"Form Identifier\"\n $ ST001D01T   : num [1:6606] 10 10 10 10 10 10 10 10 10 10 ...\n  ..- attr(*, \"label\")= chr \"Student International Grade (Derived)\"\n $ ST003D02T   : num [1:6606] 10 6 7 2 9 9 3 4 8 6 ...\n  ..- attr(*, \"label\")= chr \"Student (Standardized) Birth - Month\"\n $ ST003D03T   : num [1:6606] 2006 2006 2006 2006 2006 ...\n  ..- attr(*, \"label\")= chr \"Student (Standardized) Birth -Year\"\n $ ST004D01T   : num [1:6606] 1 2 2 2 1 1 2 2 1 2 ...\n  ..- attr(*, \"label\")= chr \"Student (Standardized) Gender\"\n $ ST250Q01JA  : num [1:6606] 2 1 1 2 2 2 1 1 2 2 ...\n  ..- attr(*, \"label\")= chr \"Which of the following are in your [home]: A room of your own\"\n $ ST250Q02JA  : num [1:6606] 1 1 1 1 1 1 1 1 1 1 ...\n  ..- attr(*, \"label\")= chr \"Which of the following are in your [home]: A computer (laptop, desktop, or tablet) that you can use for school work\"\n $ ST250Q03JA  : num [1:6606] 1 1 2 1 1 1 1 1 1 1 ...\n  ..- attr(*, \"label\")= chr \"Which of the following are in your [home]: Educational Software or Apps\"\n $ ST250Q04JA  : num [1:6606] 1 1 1 1 1 1 1 1 1 1 ...\n  ..- attr(*, \"label\")= chr \"Which of the following are in your [home]: Your own [cell phone] with Internet access (e.g. smartphone)\"\n $ ST250Q05JA  : num [1:6606] 1 1 1 1 1 1 1 1 1 1 ...\n  ..- attr(*, \"label\")= chr \"Which of the following are in your [home]: Internet access (e.g. Wi-fi) (excluding through smartphones)\"\n $ ST250D06JA  : chr [1:6606] \"7020002\" \"7020001\" \"7020001\" \"7020002\" ...\n  ..- attr(*, \"label\")= chr \"Which of the following are in your home? &lt;Country-specific item 1&gt;\"\n $ ST250D07JA  : chr [1:6606] \"7020002\" \"7020001\" \"7020002\" \"7020002\" ...\n  ..- attr(*, \"label\")= chr \"Which of the following are in your home? &lt;Country-specific item 2&gt;\"\n $ ST251Q01JA  : num [1:6606] 2 1 2 1 2 2 2 1 3 3 ...\n  ..- attr(*, \"label\")= chr \"How many of these items are there at your [home]: Cars, vans, or trucks\"\n $ ST251Q02JA  : num [1:6606] 1 4 1 2 2 1 1 1 1 1 ...\n  ..- attr(*, \"label\")= chr \"How many of these items are there at your [home]: Mopeds or motorcycles\"\n $ ST251Q03JA  : num [1:6606] 3 3 3 3 2 2 3 3 4 3 ...\n  ..- attr(*, \"label\")= chr \"How many of these items are there at your [home]: Rooms with a bath or shower\"\n $ ST251Q04JA  : num [1:6606] 3 3 3 3 2 3 3 3 4 3 ...\n  ..- attr(*, \"label\")= chr \"How many of these items are there at your [home]: Rooms with a [flush toilet]\"\n $ ST251Q06JA  : num [1:6606] 3 4 2 2 1 2 2 3 4 1 ...\n  ..- attr(*, \"label\")= chr \"How many of these items are there at your [home]: Musical instruments (e.g. guitar, piano, [country-specific example])\"\n $ ST251Q07JA  : num [1:6606] 3 2 1 1 4 1 4 1 4 3 ...\n  ..- attr(*, \"label\")= chr \"How many of these items are there at your [home]: Works of art (e.g. paintings, sculptures, [country-specific example])\"\n $ ST251D08JA  : chr [1:6606] \"9999997\" \"9999997\" \"9999997\" \"9999997\" ...\n  ..- attr(*, \"label\")= chr \"How many of these items are there at your home? &lt;Country-specific item 1&gt;\"\n $ ST251D09JA  : chr [1:6606] \"9999997\" \"9999997\" \"9999997\" \"9999997\" ...\n  ..- attr(*, \"label\")= chr \"How many of these items are there at your home? &lt;Country-specific item 2&gt;\"\n $ ST253Q01JA  : num [1:6606] 7 8 7 6 7 7 8 8 8 7 ...\n  ..- attr(*, \"label\")= chr \"How many [digital devices] with screens are there in your [home]?\"\n $ ST254Q01JA  : num [1:6606] 2 3 2 2 2 2 2 2 2 2 ...\n  ..- attr(*, \"label\")= chr \"How many of the following [digital devices] are in your [home]: Televisions\"\n $ ST254Q02JA  : num [1:6606] 1 2 2 1 3 2 2 5 2 2 ...\n  ..- attr(*, \"label\")= chr \"How many of the following [digital devices] are in your [home]: Desktop computers\"\n $ ST254Q03JA  : num [1:6606] 3 2 2 2 2 2 3 3 3 4 ...\n  ..- attr(*, \"label\")= chr \"How many of the following [digital devices] are in your [home]: Laptop computers or notebooks\"\n $ ST254Q04JA  : num [1:6606] 2 3 2 1 1 2 2 3 3 2 ...\n  ..- attr(*, \"label\")= chr \"How many of the following [digital devices] are in your [home]: Tablets (e.g. [iPad®], [BlackBerry® Playbook™])\"\n $ ST254Q05JA  : num [1:6606] 1 5 1 1 NA 1 1 5 2 2 ...\n  ..- attr(*, \"label\")= chr \"How many of the following [digital devices] are in your [home]: E-book readers (e.g. [Kindle™], [Kobo], [Bookeen])\"\n $ ST254Q06JA  : num [1:6606] 3 2 3 3 4 2 4 3 4 4 ...\n  ..- attr(*, \"label\")= chr \"How many of the following [digital devices] are in your [home]: [Cell phones] with Internet access (i.e. smartphones)\"\n $ ST255Q01JA  : num [1:6606] 7 4 4 3 2 2 4 5 7 4 ...\n  ..- attr(*, \"label\")= chr \"How many books are there in your [home]?\"\n $ ST256Q01JA  : num [1:6606] 2 4 5 2 4 1 1 3 4 4 ...\n  ..- attr(*, \"label\")= chr \"How many of these books at [home]: Religious books (e.g. [Bible], [Example 2])\"\n $ ST256Q02JA  : num [1:6606] 2 5 2 1 1 2 1 5 4 2 ...\n  ..- attr(*, \"label\")= chr \"How many of these books at [home]: Classical literature (e.g. [Shakespeare], [Example 2])\"\n $ ST256Q03JA  : num [1:6606] 4 5 2 1 1 2 2 5 5 1 ...\n  ..- attr(*, \"label\")= chr \"How many of these books at [home]: Contemporary literature\"\n $ ST256Q06JA  : num [1:6606] 4 3 3 2 2 5 2 4 4 1 ...\n  ..- attr(*, \"label\")= chr \"How many of these books at [home]: Books on science\"\n $ ST256Q07JA  : num [1:6606] 3 5 5 2 2 5 1 4 3 1 ...\n  ..- attr(*, \"label\")= chr \"How many of these books at [home]: Books on art, music, or design\"\n $ ST256Q08JA  : num [1:6606] 3 3 3 1 1 5 1 5 5 2 ...\n  ..- attr(*, \"label\")= chr \"How many of these books at [home]: [Technical reference books]\"\n $ ST256Q09JA  : num [1:6606] 2 2 4 2 2 2 2 2 2 3 ...\n  ..- attr(*, \"label\")= chr \"How many of these books at [home]: Dictionaries\"\n $ ST256Q10JA  : num [1:6606] 4 4 5 2 4 1 4 4 4 3 ...\n  ..- attr(*, \"label\")= chr \"How many of these books at [home]: Books to help with your school work\"\n $ ST230Q01JA  : num [1:6606] 4 4 2 4 4 3 2 2 3 4 ...\n  ..- attr(*, \"label\")= chr \"How many siblings (including brothers, sisters, step-brothers, and step-sisters) do you have?\"\n $ ST005Q01JA  : num [1:6606] 2 2 2 2 2 2 2 2 2 2 ...\n  ..- attr(*, \"label\")= chr \"What is the [highest level of schooling] completed by your mother?\"\n $ ST006Q01JA  : num [1:6606] 2 2 2 2 2 2 2 NA 2 2 ...\n  ..- attr(*, \"label\")= chr \"Does your mother have any of the following qualifications: [ISCED level 8]\"\n $ ST006Q02JA  : num [1:6606] 2 2 2 2 2 2 2 1 2 2 ...\n  ..- attr(*, \"label\")= chr \"Does your mother have any of the following qualifications: [ISCED level 7]\"\n $ ST006Q03JA  : num [1:6606] 1 2 2 2 2 2 2 1 1 1 ...\n  ..- attr(*, \"label\")= chr \"Does your mother have any of the following qualifications: [ISCED level 6]\"\n $ ST006Q04JA  : num [1:6606] 2 1 2 2 1 1 2 1 1 2 ...\n  ..- attr(*, \"label\")= chr \"Does your mother have any of the following qualifications: [ISCED level 5]\"\n $ ST006Q05JA  : num [1:6606] 1 1 2 1 2 1 1 1 1 1 ...\n  ..- attr(*, \"label\")= chr \"Does your mother have any of the following qualifications: [ISCED level 4]\"\n $ ST007Q01JA  : num [1:6606] 2 2 2 4 2 2 4 2 2 2 ...\n  ..- attr(*, \"label\")= chr \"What is the [highest level of schooling] completed by your father?\"\n $ ST008Q01JA  : num [1:6606] 2 2 2 NA 2 2 2 NA 2 2 ...\n  ..- attr(*, \"label\")= chr \"Does your father have any of the following qualifications: [ISCED level 8]\"\n $ ST008Q02JA  : num [1:6606] 2 2 2 NA 2 1 2 NA 2 2 ...\n  ..- attr(*, \"label\")= chr \"Does your father have any of the following qualifications: [ISCED level 7]\"\n $ ST008Q03JA  : num [1:6606] 2 2 2 NA 2 1 2 1 1 2 ...\n  ..- attr(*, \"label\")= chr \"Does your father have any of the following qualifications: [ISCED level 6]\"\n $ ST008Q04JA  : num [1:6606] 1 1 2 NA 1 1 2 1 1 1 ...\n  ..- attr(*, \"label\")= chr \"Does your father have any of the following qualifications: [ISCED level 5]\"\n $ ST008Q05JA  : num [1:6606] 2 1 2 1 2 1 2 1 1 2 ...\n  ..- attr(*, \"label\")= chr \"Does your father have any of the following qualifications: [ISCED level 4]\"\n $ ST258Q01JA  : num [1:6606] 1 1 1 5 1 1 1 1 1 1 ...\n  ..- attr(*, \"label\")= chr \"In the past 30 days, how often did you not eat because there was not enough money to buy food?\"\n $ ST259Q01JA  : num [1:6606] NA NA NA NA NA NA NA NA NA NA ...\n  ..- attr(*, \"label\")= chr \"Now think about where you would place your family on this scale. Where would you say your family stands at this time?\"\n $ ST259Q02JA  : num [1:6606] NA NA NA NA NA NA NA NA NA NA ...\n  ..- attr(*, \"label\")= chr \"Now think about where you would place your family on this scale. Where do you think you will stand when you are 30?\"\n $ ST019AQ01T  : num [1:6606] 1 1 1 1 1 2 1 2 1 1 ...\n  ..- attr(*, \"label\")= chr \"In what country were you and your parents born? You\"\n $ ST019BQ01T  : num [1:6606] 1 1 2 1 1 2 1 2 1 1 ...\n  ..- attr(*, \"label\")= chr \"In what country were you and your parents born? Mother\"\n $ ST019CQ01T  : num [1:6606] 1 1 1 1 1 2 1 2 1 1 ...\n  ..- attr(*, \"label\")= chr \"In what country were you and your parents born? Father\"\n $ ST021Q01TA  : num [1:6606] NA NA NA NA NA 1 NA 1 NA NA ...\n  ..- attr(*, \"label\")= chr \"How old were you when you arrived in [country of test]?\"\n $ ST022Q01TA  : num [1:6606] 1 1 2 2 1 2 1 2 1 2 ...\n  ..- attr(*, \"label\")= chr \"What language do you speak at home most of the time?\"\n $ ST226Q01JA  : num [1:6606] 1 1 1 1 1 1 1 4 1 1 ...\n  ..- attr(*, \"label\")= chr \"How long have you been enrolled at this school?\"\n $ ST125Q01NA  : num [1:6606] 3 5 8 4 8 3 4 8 8 4 ...\n  ..- attr(*, \"label\")= chr \"How old were you when you started [ISCED 0]: Years\"\n $ ST126Q01TA  : num [1:6606] 4 5 5 5 5 5 5 5 4 5 ...\n  ..- attr(*, \"label\")= chr \"How old were you when you started [ISCED 1]: Years\"\n $ ST127Q01TA  : num [1:6606] 1 1 1 1 1 1 1 1 1 1 ...\n  ..- attr(*, \"label\")= chr \"Have you ever repeated a [grade]: At [ISCED 1]\"\n $ ST127Q02TA  : num [1:6606] 1 1 1 1 1 1 1 1 1 1 ...\n  ..- attr(*, \"label\")= chr \"Have you ever repeated a [grade]: At [ISCED 2]\"\n $ ST127Q03TA  : num [1:6606] 1 1 1 1 1 1 1 1 1 1 ...\n  ..- attr(*, \"label\")= chr \"Have you ever repeated a [grade]: At [ISCED 3]\"\n $ ST260Q01JA  : num [1:6606] 1 1 1 1 1 1 1 1 1 1 ...\n  ..- attr(*, \"label\")= chr \"Have you ever missed school for more than three months in a row: At [ISCED 1]\"\n $ ST260Q02JA  : num [1:6606] 1 1 1 1 1 1 1 1 1 1 ...\n  ..- attr(*, \"label\")= chr \"Have you ever missed school for more than three months in a row: At [ISCED 2]\"\n $ ST260Q03JA  : num [1:6606] 1 1 1 1 1 1 1 1 1 1 ...\n  ..- attr(*, \"label\")= chr \"Have you ever missed school for more than three months in a row: At [ISCED 3]\"\n $ ST261Q01JA  : num [1:6606] NA NA NA NA NA NA NA NA NA NA ...\n  ..- attr(*, \"label\")= chr \"Why miss school for 3+ months: I was bored.\"\n $ ST261Q02JA  : num [1:6606] NA NA NA NA NA NA NA NA NA NA ...\n  ..- attr(*, \"label\")= chr \"Why miss school for 3+ months: I was suspended for something (e.g. violence, aggression, use of drugs, drug dealing).\"\n $ ST261Q03JA  : num [1:6606] NA NA NA NA NA NA NA NA NA NA ...\n  ..- attr(*, \"label\")= chr \"Why miss school for 3+ months: I was pregnant.\"\n $ ST261Q04JA  : num [1:6606] NA NA NA NA NA NA NA NA NA NA ...\n  ..- attr(*, \"label\")= chr \"Why miss school for 3+ months: I could not reach school because of transportation problems.\"\n $ ST261Q05JA  : num [1:6606] NA NA NA NA NA NA NA NA NA NA ...\n  ..- attr(*, \"label\")= chr \"Why miss school for 3+ months: I had to take care of a family member.\"\n $ ST261Q06JA  : num [1:6606] NA NA NA NA NA NA NA NA NA NA ...\n  ..- attr(*, \"label\")= chr \"Why miss school for 3+ months: I had to help with work at home, the family business, or on the family land.\"\n $ ST261Q07JA  : num [1:6606] NA NA NA NA NA NA NA NA NA NA ...\n  ..- attr(*, \"label\")= chr \"Why miss school for 3+ months: I had to get work to bring money home.\"\n $ ST261Q08JA  : num [1:6606] NA NA NA NA NA NA NA NA NA NA ...\n  ..- attr(*, \"label\")= chr \"Why miss school for 3+ months: I was sick.\"\n $ ST261Q09JA  : num [1:6606] NA NA NA NA NA NA NA NA NA NA ...\n  ..- attr(*, \"label\")= chr \"Why miss school for 3+ months: I did not feel safe at school.\"\n $ ST261Q10JA  : num [1:6606] NA NA NA NA NA NA NA NA NA NA ...\n  ..- attr(*, \"label\")= chr \"Why miss school for 3+ months: I could not pay [school fees].\"\n $ ST261Q11JA  : num [1:6606] NA NA NA NA NA NA NA NA NA NA ...\n  ..- attr(*, \"label\")= chr \"Why miss school for 3+ months: School was closed because of a natural disaster (e.g. flood, earthquake).\"\n $ ST062Q01TA  : num [1:6606] 1 1 1 1 2 1 1 1 1 1 ...\n  ..- attr(*, \"label\")= chr \"In the last two full weeks of school, how often: I [skipped] a whole school day\"\n  [list output truncated]\n\n\nThe dataset contains the Intl. School ID (CNTSCHID), Intl. Student ID (CNTSTUID), and Student (Standardized) Gender (ST004D01T) variables, which are currently kept as numeric data types. We will convert these to categorical data types due to the following reasons:\n\nThe International School ID is a numerical designation used to uniquely identify various schools. The numbers lack inherent mathematical significance; they serve solely as designations.\nComparable to school IDs, The International Student ID is a distinct identity assigned to each student, it should be regarded as a label.\n“Student (Standardized) Gender” represents gender and is characterized by discrete categories such as male or female rather than a numerical scale.\n\n\nstu_qqq_Sg$CNTSCHID &lt;- as.factor(stu_qqq_Sg$CNTSCHID)\nstu_qqq_Sg$CNTSTUID &lt;- as.factor(stu_qqq_Sg$CNTSTUID)\nstu_qqq_Sg$ST004D01T &lt;- as.factor(stu_qqq_Sg$ST004D01T)\n\nWe proceed to check for duplicates.\n\nduplicate_rows &lt;- stu_qqq_Sg[duplicated(stu_qqq_Sg),]\nprint(head(duplicate_rows))\n\n# A tibble: 0 × 1,279\n# ℹ 1,279 variables: CNT &lt;chr&gt;, CNTRYID &lt;dbl&gt;, CNTSCHID &lt;fct&gt;, CNTSTUID &lt;fct&gt;,\n#   CYC &lt;chr&gt;, NatCen &lt;chr&gt;, STRATUM &lt;chr&gt;, SUBNATIO &lt;chr&gt;, REGION &lt;dbl&gt;,\n#   OECD &lt;dbl&gt;, ADMINMODE &lt;dbl&gt;, LANGTEST_QQQ &lt;dbl&gt;, LANGTEST_COG &lt;dbl&gt;,\n#   LANGTEST_PAQ &lt;dbl&gt;, Option_CT &lt;dbl&gt;, Option_FL &lt;dbl&gt;, Option_ICTQ &lt;dbl&gt;,\n#   Option_WBQ &lt;dbl&gt;, Option_PQ &lt;dbl&gt;, Option_TQ &lt;dbl&gt;, Option_UH &lt;dbl&gt;,\n#   BOOKID &lt;dbl&gt;, ST001D01T &lt;dbl&gt;, ST003D02T &lt;dbl&gt;, ST003D03T &lt;dbl&gt;,\n#   ST004D01T &lt;fct&gt;, ST250Q01JA &lt;dbl&gt;, ST250Q02JA &lt;dbl&gt;, ST250Q03JA &lt;dbl&gt;, …\n\n\nThe output # A tibble: 0 × 1,279 indicates that there are zero rows in the resulting tibble. This means that no duplicate rows were found in dataset stu_qqq_Sg across all 1,279 variables.\nNext, we proceed to check for missing values.\n\n# Count the total number of missing values in the dataset\ntotal_na &lt;- sum(is.na(stu_qqq_Sg))\nprint(total_na)\n\n[1] 4168500\n\n\nWhile there are numerous missing values in the dataset, our focus is primarily on specific columns. We’re interested in the columns labeled:\n\nCNTSCHID (International School ID)\nCNTSTUID (International Student ID)\nST004D01T (Student Standardized Gender)\nHISEI (Highest parental occupational status based on 4-digit human coded ISCO)\nESCS (Index of economic, social and cultural status)\n\nand a series of columns related to plausible values in different subjects. These subjects include:\n\nMathematics (PV1MATH to PV10MATH)\nReading (PV1READ to PV10READ)\nScience (PV1SCIE to PV10SCIE)\n\nWe’ll examine these columns for missing data, as they are relevant to our analysis.\nWe can use the select function from the dplyr package to extract the specific columns.\n\nlibrary(dplyr)\n\n# Selecting specific columns explicitly\nselected_columns &lt;- stu_qqq_Sg %&gt;%\n  select(CNTSCHID, CNTSTUID, ST004D01T,\n         HISEI, ESCS,\n         PV1MATH, PV2MATH, PV3MATH, PV4MATH, PV5MATH, PV6MATH, PV7MATH, PV8MATH, PV9MATH, PV10MATH,\n         PV1READ, PV2READ, PV3READ, PV4READ, PV5READ, PV6READ, PV7READ, PV8READ, PV9READ, PV10READ,\n         PV1SCIE, PV2SCIE, PV3SCIE, PV4SCIE, PV5SCIE, PV6SCIE, PV7SCIE, PV8SCIE, PV9SCIE, PV10SCIE)\n\n# Count the number of missing values per selected column\nna_per_selected_column &lt;- colSums(is.na(selected_columns))\n\n# Printing the number of missing values per selected column\nprint(na_per_selected_column)\n\n CNTSCHID  CNTSTUID ST004D01T     HISEI      ESCS   PV1MATH   PV2MATH   PV3MATH \n        0         0         0       310        47         0         0         0 \n  PV4MATH   PV5MATH   PV6MATH   PV7MATH   PV8MATH   PV9MATH  PV10MATH   PV1READ \n        0         0         0         0         0         0         0         0 \n  PV2READ   PV3READ   PV4READ   PV5READ   PV6READ   PV7READ   PV8READ   PV9READ \n        0         0         0         0         0         0         0         0 \n PV10READ   PV1SCIE   PV2SCIE   PV3SCIE   PV4SCIE   PV5SCIE   PV6SCIE   PV7SCIE \n        0         0         0         0         0         0         0         0 \n  PV8SCIE   PV9SCIE  PV10SCIE \n        0         0         0 \n\n\nThe counts of missing values for the variables in question are as follows:\n\nHighest Parental Occupational Status (HISEI): 310 missing values\nIndex of economic, social and cultural status (ESCS): 47 missing values\n\nTo ensure our analysis is accurate, we’re going to remove these incomplete rows from our dataset."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#calculate-average-plausible-values-for-each-student",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#calculate-average-plausible-values-for-each-student",
+    "title": "Take-home Exercise 1",
+    "section": "2.1 Calculate average plausible values for each student",
+    "text": "2.1 Calculate average plausible values for each student\nWe calculate each student’s average plausible values for each subject, condensing multiple data points into one representative score per subject. This simplification aids in analyzing the distribution of performances across different subjects in Singapore.\n\nlibrary(dplyr)\n\n# Calculate the mean PV scores for each student in each subject\nstudent_avg_scores &lt;- stu_qqq_Sg %&gt;%\n  mutate(\n    AvgMathPV = rowMeans(select(., starts_with(\"PV1MATH\"):starts_with(\"PV10MATH\")), na.rm = TRUE),\n    AvgReadPV = rowMeans(select(., starts_with(\"PV1READ\"):starts_with(\"PV10READ\")), na.rm = TRUE),\n    AvgSciePV = rowMeans(select(., starts_with(\"PV1SCIE\"):starts_with(\"PV10SCIE\")), na.rm = TRUE)\n  )\n\n# View the student level averages\nprint(student_avg_scores)\n\n# A tibble: 6,606 × 1,282\n   CNT   CNTRYID CNTSCHID CNTSTUID CYC   NatCen STRATUM SUBNATIO REGION  OECD\n   &lt;chr&gt;   &lt;dbl&gt; &lt;fct&gt;    &lt;fct&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;\n 1 SGP       702 70200052 70200001 08MS  070200 SGP01   7020000   70200     0\n 2 SGP       702 70200134 70200002 08MS  070200 SGP01   7020000   70200     0\n 3 SGP       702 70200112 70200003 08MS  070200 SGP01   7020000   70200     0\n 4 SGP       702 70200004 70200004 08MS  070200 SGP01   7020000   70200     0\n 5 SGP       702 70200152 70200005 08MS  070200 SGP01   7020000   70200     0\n 6 SGP       702 70200043 70200006 08MS  070200 SGP01   7020000   70200     0\n 7 SGP       702 70200049 70200007 08MS  070200 SGP01   7020000   70200     0\n 8 SGP       702 70200107 70200008 08MS  070200 SGP01   7020000   70200     0\n 9 SGP       702 70200012 70200009 08MS  070200 SGP01   7020000   70200     0\n10 SGP       702 70200061 70200010 08MS  070200 SGP01   7020000   70200     0\n# ℹ 6,596 more rows\n# ℹ 1,272 more variables: ADMINMODE &lt;dbl&gt;, LANGTEST_QQQ &lt;dbl&gt;,\n#   LANGTEST_COG &lt;dbl&gt;, LANGTEST_PAQ &lt;dbl&gt;, Option_CT &lt;dbl&gt;, Option_FL &lt;dbl&gt;,\n#   Option_ICTQ &lt;dbl&gt;, Option_WBQ &lt;dbl&gt;, Option_PQ &lt;dbl&gt;, Option_TQ &lt;dbl&gt;,\n#   Option_UH &lt;dbl&gt;, BOOKID &lt;dbl&gt;, ST001D01T &lt;dbl&gt;, ST003D02T &lt;dbl&gt;,\n#   ST003D03T &lt;dbl&gt;, ST004D01T &lt;fct&gt;, ST250Q01JA &lt;dbl&gt;, ST250Q02JA &lt;dbl&gt;,\n#   ST250Q03JA &lt;dbl&gt;, ST250Q04JA &lt;dbl&gt;, ST250Q05JA &lt;dbl&gt;, ST250D06JA &lt;chr&gt;, …"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#consolidate-individual-student-performance-data-into-school-wide-metrics",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#consolidate-individual-student-performance-data-into-school-wide-metrics",
+    "title": "Take-home Exercise 1",
+    "section": "2.2 Consolidate individual student performance data into school-wide metrics",
+    "text": "2.2 Consolidate individual student performance data into school-wide metrics\nWe compute the average of plausible value (PV) scores for each subject at the school level. The steps to accomplish this in R include:\n\nAggregation of PV Scores per Subject\n\nStart by determining the average PV scores for every student by taking the mean across the ten plausible values for Mathematics, Reading, and Science respectively.\n\nConsolidation by School\n\nOrganize the dataset around the International School ID (CNTSCHID) to group students according to their school.\n\nSchool-Level Averages\n\nFor each group representing a school, compute the mean of these individual averages. This results in a single average score that represents the collective performance of students in each subject for that school.\n\n\n\nlibrary(dplyr)\n\n# Calculate the mean PV scores for each student in each subject\nstu_qqq_Sg &lt;- stu_qqq_Sg %&gt;%\n  mutate(AvgMathPV = rowMeans(select(., starts_with(\"PV1MATH\"):starts_with(\"PV10MATH\")), na.rm = TRUE),\n         AvgReadPV = rowMeans(select(., starts_with(\"PV1READ\"):starts_with(\"PV10READ\")), na.rm = TRUE),\n         AvgSciePV = rowMeans(select(., starts_with(\"PV1SCIE\"):starts_with(\"PV10SCIE\")), na.rm = TRUE))\n\n# Group by school ID and calculate the mean of the student averages for each school\nschool_avg_scores &lt;- stu_qqq_Sg %&gt;%\n  group_by(CNTSCHID) %&gt;%\n  summarise(AvgMathScore = mean(AvgMathPV, na.rm = TRUE),\n            AvgReadScore = mean(AvgReadPV, na.rm = TRUE),\n            AvgScieScore = mean(AvgSciePV, na.rm = TRUE))\n\n# View the school level averages\nprint(school_avg_scores)\n\n# A tibble: 164 × 4\n   CNTSCHID AvgMathScore AvgReadScore AvgScieScore\n   &lt;fct&gt;           &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;\n 1 70200001         725.         653.         698.\n 2 70200002         535.         507.         534.\n 3 70200003         740.         665.         714.\n 4 70200004         510.         480.         494.\n 5 70200005         547.         516.         529.\n 6 70200006         487.         468.         477.\n 7 70200007         580.         540.         579.\n 8 70200008         567.         522.         540.\n 9 70200009         560.         536.         552.\n10 70200010         531.         503.         540.\n# ℹ 154 more rows"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#gender-labeling",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#gender-labeling",
+    "title": "Take-home Exercise 1",
+    "section": "2.3 Gender Labeling",
+    "text": "2.3 Gender Labeling\nHere, we label genders and calculate average PV Scores per subject for each student.\n\nlibrary(dplyr)\n\n# Assuming 'stu_qqq_Sg' is your data frame, 'CNTSTUID' is the column with International Student IDs,\n# and 'ST004D01T' is the column with Student Standardized Gender (1 for female; 0 for male)\n\n# Calculate the mean PV scores for each student in each subject and map gender numeric values to labels\ngender_avg_scores &lt;- stu_qqq_Sg %&gt;%\n  mutate(\n    Gender = ifelse(ST004D01T == 1, \"Female\", \"Male\"),\n    AvgMathPV = rowMeans(select(., starts_with(\"PV1MATH\"):starts_with(\"PV10MATH\")), na.rm = TRUE),\n    AvgReadPV = rowMeans(select(., starts_with(\"PV1READ\"):starts_with(\"PV10READ\")), na.rm = TRUE),\n    AvgSciePV = rowMeans(select(., starts_with(\"PV1SCIE\"):starts_with(\"PV10SCIE\")), na.rm = TRUE)\n  )\n\n# Now, 'gender_avg_scores' contains the individual student's data with their gender and average scores\nprint(gender_avg_scores)\n\n# A tibble: 6,606 × 1,283\n   CNT   CNTRYID CNTSCHID CNTSTUID CYC   NatCen STRATUM SUBNATIO REGION  OECD\n   &lt;chr&gt;   &lt;dbl&gt; &lt;fct&gt;    &lt;fct&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;\n 1 SGP       702 70200052 70200001 08MS  070200 SGP01   7020000   70200     0\n 2 SGP       702 70200134 70200002 08MS  070200 SGP01   7020000   70200     0\n 3 SGP       702 70200112 70200003 08MS  070200 SGP01   7020000   70200     0\n 4 SGP       702 70200004 70200004 08MS  070200 SGP01   7020000   70200     0\n 5 SGP       702 70200152 70200005 08MS  070200 SGP01   7020000   70200     0\n 6 SGP       702 70200043 70200006 08MS  070200 SGP01   7020000   70200     0\n 7 SGP       702 70200049 70200007 08MS  070200 SGP01   7020000   70200     0\n 8 SGP       702 70200107 70200008 08MS  070200 SGP01   7020000   70200     0\n 9 SGP       702 70200012 70200009 08MS  070200 SGP01   7020000   70200     0\n10 SGP       702 70200061 70200010 08MS  070200 SGP01   7020000   70200     0\n# ℹ 6,596 more rows\n# ℹ 1,273 more variables: ADMINMODE &lt;dbl&gt;, LANGTEST_QQQ &lt;dbl&gt;,\n#   LANGTEST_COG &lt;dbl&gt;, LANGTEST_PAQ &lt;dbl&gt;, Option_CT &lt;dbl&gt;, Option_FL &lt;dbl&gt;,\n#   Option_ICTQ &lt;dbl&gt;, Option_WBQ &lt;dbl&gt;, Option_PQ &lt;dbl&gt;, Option_TQ &lt;dbl&gt;,\n#   Option_UH &lt;dbl&gt;, BOOKID &lt;dbl&gt;, ST001D01T &lt;dbl&gt;, ST003D02T &lt;dbl&gt;,\n#   ST003D03T &lt;dbl&gt;, ST004D01T &lt;fct&gt;, ST250Q01JA &lt;dbl&gt;, ST250Q02JA &lt;dbl&gt;,\n#   ST250Q03JA &lt;dbl&gt;, ST250Q04JA &lt;dbl&gt;, ST250Q05JA &lt;dbl&gt;, ST250D06JA &lt;chr&gt;, …"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#create-clean-hisei-and-escs-dataframes",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#create-clean-hisei-and-escs-dataframes",
+    "title": "Take-home Exercise 1",
+    "section": "2.4 Create clean HISEI and ESCS dataframes",
+    "text": "2.4 Create clean HISEI and ESCS dataframes\nAs mentioned earlier, we’ll create a new dataframe for HISEI where any row with a missing HISEI value is removed. This will reduce our dataset by 310 rows.\n\n# Assuming 'stu_qqq_Sg' is your original data frame\n\n# Creating a data frame for HISEI\ndf_hisei &lt;- stu_qqq_Sg %&gt;%\n  filter(!is.na(HISEI)) %&gt;%\n  mutate(\n    AvgMathPV = rowMeans(select(., starts_with(\"PV1MATH\"), starts_with(\"PV10MATH\")), na.rm = TRUE),\n    AvgReadPV = rowMeans(select(., starts_with(\"PV1READ\"), starts_with(\"PV10READ\")), na.rm = TRUE),\n    AvgSciePV = rowMeans(select(., starts_with(\"PV1SCIE\"), starts_with(\"PV10SCIE\")), na.rm = TRUE)\n  )\n\nprint(df_hisei)\n\n# A tibble: 6,296 × 1,282\n   CNT   CNTRYID CNTSCHID CNTSTUID CYC   NatCen STRATUM SUBNATIO REGION  OECD\n   &lt;chr&gt;   &lt;dbl&gt; &lt;fct&gt;    &lt;fct&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;\n 1 SGP       702 70200052 70200001 08MS  070200 SGP01   7020000   70200     0\n 2 SGP       702 70200134 70200002 08MS  070200 SGP01   7020000   70200     0\n 3 SGP       702 70200112 70200003 08MS  070200 SGP01   7020000   70200     0\n 4 SGP       702 70200004 70200004 08MS  070200 SGP01   7020000   70200     0\n 5 SGP       702 70200152 70200005 08MS  070200 SGP01   7020000   70200     0\n 6 SGP       702 70200043 70200006 08MS  070200 SGP01   7020000   70200     0\n 7 SGP       702 70200049 70200007 08MS  070200 SGP01   7020000   70200     0\n 8 SGP       702 70200107 70200008 08MS  070200 SGP01   7020000   70200     0\n 9 SGP       702 70200012 70200009 08MS  070200 SGP01   7020000   70200     0\n10 SGP       702 70200061 70200010 08MS  070200 SGP01   7020000   70200     0\n# ℹ 6,286 more rows\n# ℹ 1,272 more variables: ADMINMODE &lt;dbl&gt;, LANGTEST_QQQ &lt;dbl&gt;,\n#   LANGTEST_COG &lt;dbl&gt;, LANGTEST_PAQ &lt;dbl&gt;, Option_CT &lt;dbl&gt;, Option_FL &lt;dbl&gt;,\n#   Option_ICTQ &lt;dbl&gt;, Option_WBQ &lt;dbl&gt;, Option_PQ &lt;dbl&gt;, Option_TQ &lt;dbl&gt;,\n#   Option_UH &lt;dbl&gt;, BOOKID &lt;dbl&gt;, ST001D01T &lt;dbl&gt;, ST003D02T &lt;dbl&gt;,\n#   ST003D03T &lt;dbl&gt;, ST004D01T &lt;fct&gt;, ST250Q01JA &lt;dbl&gt;, ST250Q02JA &lt;dbl&gt;,\n#   ST250Q03JA &lt;dbl&gt;, ST250Q04JA &lt;dbl&gt;, ST250Q05JA &lt;dbl&gt;, ST250D06JA &lt;chr&gt;, …\n\n\nFor ESCS, We’ll make another dataframe where we remove rows missing ESCS values. This will decrease the dataset by 47 rows.\n\nlibrary(dplyr)\n\n# Assuming 'stu_qqq_Sg' is your original data frame\n\n# Creating a data frame for ESCS\ndf_escs &lt;- stu_qqq_Sg %&gt;%\n  filter(!is.na(ESCS)) %&gt;%\n  mutate(\n    AvgMathPV = rowMeans(select(., starts_with(\"PV1MATH\"), starts_with(\"PV10MATH\")), na.rm = TRUE),\n    AvgReadPV = rowMeans(select(., starts_with(\"PV1READ\"), starts_with(\"PV10READ\")), na.rm = TRUE),\n    AvgSciePV = rowMeans(select(., starts_with(\"PV1SCIE\"), starts_with(\"PV10SCIE\")), na.rm = TRUE)\n  )\n\nprint(df_escs) \n\n# A tibble: 6,559 × 1,282\n   CNT   CNTRYID CNTSCHID CNTSTUID CYC   NatCen STRATUM SUBNATIO REGION  OECD\n   &lt;chr&gt;   &lt;dbl&gt; &lt;fct&gt;    &lt;fct&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;\n 1 SGP       702 70200052 70200001 08MS  070200 SGP01   7020000   70200     0\n 2 SGP       702 70200134 70200002 08MS  070200 SGP01   7020000   70200     0\n 3 SGP       702 70200112 70200003 08MS  070200 SGP01   7020000   70200     0\n 4 SGP       702 70200004 70200004 08MS  070200 SGP01   7020000   70200     0\n 5 SGP       702 70200152 70200005 08MS  070200 SGP01   7020000   70200     0\n 6 SGP       702 70200043 70200006 08MS  070200 SGP01   7020000   70200     0\n 7 SGP       702 70200049 70200007 08MS  070200 SGP01   7020000   70200     0\n 8 SGP       702 70200107 70200008 08MS  070200 SGP01   7020000   70200     0\n 9 SGP       702 70200012 70200009 08MS  070200 SGP01   7020000   70200     0\n10 SGP       702 70200061 70200010 08MS  070200 SGP01   7020000   70200     0\n# ℹ 6,549 more rows\n# ℹ 1,272 more variables: ADMINMODE &lt;dbl&gt;, LANGTEST_QQQ &lt;dbl&gt;,\n#   LANGTEST_COG &lt;dbl&gt;, LANGTEST_PAQ &lt;dbl&gt;, Option_CT &lt;dbl&gt;, Option_FL &lt;dbl&gt;,\n#   Option_ICTQ &lt;dbl&gt;, Option_WBQ &lt;dbl&gt;, Option_PQ &lt;dbl&gt;, Option_TQ &lt;dbl&gt;,\n#   Option_UH &lt;dbl&gt;, BOOKID &lt;dbl&gt;, ST001D01T &lt;dbl&gt;, ST003D02T &lt;dbl&gt;,\n#   ST003D03T &lt;dbl&gt;, ST004D01T &lt;fct&gt;, ST250Q01JA &lt;dbl&gt;, ST250Q02JA &lt;dbl&gt;,\n#   ST250Q03JA &lt;dbl&gt;, ST250Q04JA &lt;dbl&gt;, ST250Q05JA &lt;dbl&gt;, ST250D06JA &lt;chr&gt;, …"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#distribution-of-average-plausible-values-by-students-in-singapore",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#distribution-of-average-plausible-values-by-students-in-singapore",
+    "title": "Take-home Exercise 1",
+    "section": "3.1 Distribution of Average Plausible Values by Students in Singapore",
+    "text": "3.1 Distribution of Average Plausible Values by Students in Singapore\n\nlibrary(tidyverse)\nlibrary(hrbrthemes)\nlibrary(viridis)\nlibrary(forcats)\n\n# Reshape the data to long format\nstudent_avg_long &lt;- student_avg_scores %&gt;%\n  pivot_longer(\n    cols = c(AvgMathPV, AvgReadPV, AvgSciePV),\n    names_to = \"subject\",\n    values_to = \"value\"\n  )\n\n# Replace the subject names with more readable names if necessary\nstudent_avg_long$subject &lt;- recode(student_avg_long$subject,\n                                   AvgMathPV = \"Mathematics\",\n                                   AvgReadPV = \"Reading\",\n                                   AvgSciePV = \"Science\")\n\n# Create the ggplot object with larger axis title texts\np &lt;- student_avg_long %&gt;%\n  ggplot(aes(x = value, fill = subject)) +\n  geom_histogram(binwidth = 10, alpha = 1) +  # Full opacity\n  scale_fill_manual(values = c(\"Mathematics\" = \"darkblue\", \"Reading\" = \"orange\", \"Science\" = \"darkgreen\")) +\n  facet_wrap(~subject, scales = \"free_x\", ncol = 3) +\n  labs(\n    title = 'Distribution of Average Plausible Values for Each Subject',\n    x = 'Average Plausible Values',\n    y = 'Count of Students'\n  ) +\n  theme_ipsum(base_size = 16) +  # Increase base font size\n  theme(\n    plot.title = element_text(hjust = 0.5, size = 20),  # Center and increase plot title size\n    axis.title.x = element_text(hjust = 0.5, size = 14),  # Center and increase x-axis title size\n    axis.title.y = element_text(hjust = 0.5, size = 14),  # Center and increase y-axis title size\n    strip.text = element_text(hjust = 0.5),  # Center the facet labels\n    legend.position = \"none\",\n    panel.spacing = unit(0.1, \"lines\"),\n    axis.text.x = element_text(size = 14),   # Increase x-axis tick label size\n    axis.text.y = element_text(size = 14),   # Increase y-axis tick label size\n    axis.ticks.y = element_line(color = \"black\"),\n    panel.grid.major.y = element_line(colour = \"grey90\"),  # Specify color for horizontal grid lines\n    panel.grid.major.x = element_blank(),  # Remove vertical grid lines\n    panel.grid.minor.x = element_blank(),  # Remove minor vertical grid lines\n    # Ensure the axis text and ticks for the non-leftmost panels are removed\n    axis.text.y.right = element_blank(),\n    axis.ticks.y.right = element_blank()\n  )\n\n# Print the plot\np\n\n\n\n\nFor each subject represented in the histograms, the scores predominantly converge around a central peak, indicative of the mode — the score range that most students fall into. The distribution patterns reveal a diminished number of students attaining scores at both extremities of the spectrum, either very high or very low. This results in a bell-shaped curve, reflecting a typical distribution where scores are most densely populated near the central value."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#distribution-of-average-plausible-values-by-school",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#distribution-of-average-plausible-values-by-school",
+    "title": "Take-home Exercise 1",
+    "section": "3.2 Distribution of Average Plausible Values by School",
+    "text": "3.2 Distribution of Average Plausible Values by School\n\nlibrary(tidyverse)\nlibrary(hrbrthemes)\nlibrary(viridis)\nlibrary(forcats)\n\n# Rank schools by AvgMathScore, AvgReadScore, and AvgScieScore and add labels for top and bottom schools\nschool_avg_scores &lt;- school_avg_scores %&gt;%\n  mutate(\n    RankMath = rank(-AvgMathScore),\n    RankRead = rank(-AvgReadScore),\n    RankScie = rank(-AvgScieScore),\n    LabelMath = ifelse(RankMath == 1 | RankMath == n(), as.character(CNTSCHID), NA),\n    LabelRead = ifelse(RankRead == 1 | RankRead == n(), as.character(CNTSCHID), NA),\n    LabelScie = ifelse(RankScie == 1 | RankScie == n(), as.character(CNTSCHID), NA)\n  )\n\n# Find the maximum score to set the limits of the y-axis\nmax_score &lt;- max(school_avg_scores$AvgMathScore, school_avg_scores$AvgReadScore, school_avg_scores$AvgScieScore)\nmax_rank &lt;- max(school_avg_scores$RankMath, school_avg_scores$RankRead, school_avg_scores$RankScie, na.rm = TRUE) + 10\np &lt;- ggplot(school_avg_scores) +\n  geom_point(aes(x = RankMath, y = AvgMathScore, color = \"Mathematics\"), size = 0.5) +\n  geom_point(aes(x = RankRead, y = AvgReadScore, color = \"Reading\"), size = 0.5) +\n  geom_point(aes(x = RankScie, y = AvgScieScore, color = \"Science\"), size = 0.5) +\n  geom_text(data = subset(school_avg_scores, !is.na(LabelMath)), \n            aes(x = ifelse(RankMath == 1, RankMath + 30, RankMath + 1), y = AvgMathScore, \n                label = ifelse(RankMath == 1, paste(\"Maths/Science =\", LabelMath), \"\")), size = 2.5) +\n  geom_text(data = subset(school_avg_scores, !is.na(LabelRead)), \n            aes(x = ifelse(RankRead == 1, RankRead + 35, RankRead + 1), y = AvgReadScore, \n                label = ifelse(RankRead == 1, paste(\"Reading =\", LabelRead), \"\")), size = 2.5) +\n  geom_text(data = subset(school_avg_scores, !is.na(LabelMath) & RankMath != 1), \n            aes(x = RankMath - 0.2, y = AvgMathScore - 120, \n                label = paste(\"Maths/Reading =\", LabelMath)), size = 2.5) +\n  geom_text(data = subset(school_avg_scores, !is.na(LabelScie) & RankScie != 1), \n            aes(x = RankScie - 0.2, y = AvgScieScore - 160, \n                label = paste(\"Science =\", LabelScie)), size = 2.5) +\n  scale_color_viridis_d() +\n   scale_color_manual(values = c(\"Mathematics\" = \"darkblue\", \"Reading\" = \"orange\", \"Science\" = \"darkgreen\")) +\n  theme_ipsum() +\n  labs(title = 'Distribution of Average Plausible Values by School',\n       color = \"\") +  # Remove the word \"Subject\" from the legend\n  theme(\n    legend.position = \"top\",  # Move the legend to the top\n    legend.justification = c(1, 1),  # Align the legend to the top-right corner\n    legend.text = element_text(size = 11),  # Decrease legend text size to 11\n    axis.title.x = element_text(size = 14, hjust = 0.5),  # Increase x-axis title size and center\n    axis.title.y = element_text(size = 14, hjust = 0.5),  # Increase y-axis title size and center\n    plot.title = element_text(size = 20, hjust = 0.5),  # Center the title\n    plot.subtitle = element_text(size = 14),\n    axis.text.x = element_blank(),  # Remove x-axis labels\n    panel.grid.major.x = element_blank(),  # Remove vertical gridlines\n    panel.grid.minor.x = element_blank()  # Remove vertical gridlines\n  ) +\n  xlab('International School ID') +\n  ylab('Average Plausible Values') +\n  coord_cartesian(xlim = c(0, max_rank + 2), ylim = c(0, max_score * 1.1))  # Adjusted coordinate limits\n\n# Print the plot\nprint(p)\n\n\n\n\nThe data points create a descending trajectory from left to right, indicating that schools positioned at the left end of the spectrum generally exhibit higher average scores compared to those towards the right. This gradient suggests performance disparities across schools, with some institutions outperforming others.\nThe data presents noteworthy insights, particularly the exemplary performance in Mathematics and Science by the school labeled with ID 70200003. In contrast, the school assigned ID 70200149 is distinguished by its underachievement in both Mathematics and Reading."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#distribution-of-average-plausible-values-by-gender",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#distribution-of-average-plausible-values-by-gender",
+    "title": "Take-home Exercise 1",
+    "section": "3.3 Distribution of Average Plausible Values by Gender",
+    "text": "3.3 Distribution of Average Plausible Values by Gender\n\nlibrary(dplyr)\nlibrary(dplyr)\nlibrary(tidyr)\nlibrary(ggplot2)\nlibrary(hrbrthemes)  # Load hrbrthemes for theme_ipsum\n\n# Assuming 'stu_qqq_Sg' is your data frame\n\n# Prepare the data with gender and average scores\ngender_scores &lt;- stu_qqq_Sg %&gt;%\n  mutate(\n    Gender = ifelse(ST004D01T == 1, \"Female\", \"Male\"),\n    AvgMathPV = rowMeans(select(., starts_with(\"PV1MATH\"):starts_with(\"PV10MATH\")), na.rm = TRUE),\n    AvgReadPV = rowMeans(select(., starts_with(\"PV1READ\"):starts_with(\"PV10READ\")), na.rm = TRUE),\n    AvgSciePV = rowMeans(select(., starts_with(\"PV1SCIE\"):starts_with(\"PV10SCIE\")), na.rm = TRUE)\n  )\n\n# Reshape the data to long format\nlong_format &lt;- gender_scores %&gt;%\n  select(CNTSTUID, Gender, AvgMathPV, AvgReadPV, AvgSciePV) %&gt;%\n  pivot_longer(\n    cols = c(AvgMathPV, AvgReadPV, AvgSciePV),\n    names_to = \"Subject\",\n    values_to = \"Score\"\n  ) %&gt;%\n  mutate(Subject = recode(Subject,\n                          AvgMathPV = \"Mathematics\",\n                          AvgReadPV = \"Reading\",\n                          AvgSciePV = \"Science\"))\n\n# Calculate averages for each group\ngroup_averages &lt;- long_format %&gt;%\n  group_by(Gender, Subject) %&gt;%\n  summarize(AvgScore = mean(Score, na.rm = TRUE), .groups = 'drop')\n\n# Create the boxplot with gender colors and move the facet labels to the top\nboxplot &lt;- ggplot(long_format, aes(x = Gender, y = Score, fill = Gender)) +\n  geom_boxplot() +\n  geom_point(data = group_averages, aes(x = Gender, y = AvgScore, group = Gender), \n             color = \"red\", size = 2, show.legend = FALSE) +  # Change dot color to red\n  geom_text(data = group_averages, aes(x = Gender, y = AvgScore, label = paste(\"Avg=\", round(AvgScore, 1))), \n            nudge_y = 10, color = \"black\", size = 2.5, show.legend = FALSE, vjust = -1) +  # Remove fontface argument\n  facet_wrap(~Subject, strip.position = \"top\", labeller = labeller(Subject = c(Mathematics = \"Mathematics\", Reading = \"Reading\", Science = \"Science\"))) +\n  labs(\n    title = \"PV Score Distribution by Gender and Subject\",\n    x = \"\",\n    y = \"Average Plausible Values\"\n  ) +\n  theme_ipsum(base_size = 16, base_family = \"\") +  # Set base font size to 16\n  theme(\n    legend.title = element_blank(),\n    legend.position = \"bottom\",\n    strip.text = element_text(size = 11, hjust = 0.5),  # Center facet labels and increase size\n    axis.text.x = element_blank(),  # Remove x-axis labels\n    axis.ticks.x = element_blank(),  # Remove x-axis ticks\n    plot.title = element_text(size = 18, hjust = 0.5),  # Center plot title\n    axis.text.y = element_text(size = 11, hjust = 0.5),  # Center y-axis text\n    axis.title.y = element_text(size = 14, hjust = 0.5),  # Center y-axis title\n    panel.grid.major.x = element_blank(),  # Remove vertical gridlines\n    panel.grid.minor.x = element_blank()  # Remove vertical gridlines\n  ) +\n  scale_y_continuous(limits = c(0, NA), expand = expansion(mult = c(0, 0.05))) +  # Start y-axis at 0\n  scale_fill_manual(values = c(\"Female\" = \"#FF69B4\", \"Male\" = \"#1E90FF\"))\n\n# Print the boxplot\nprint(boxplot)\n\n\n\n\nThe box plots illustrate the median scores (indicated by the line within each box), the interquartile range (the span of the box), and the range of the data (the “whiskers” extending from the boxes), which includes outliers (represented by the dots).\nThe red dots represent the mean scores and we can see that in Mathematics, male students have a slightly higher average score (579.5) compared to female students (568.2). The Reading scores show a more pronounced difference, with female students having a higher average score (552.9) than male students (532.4). In Science, the average scores are closer, with male students averaging 563.9 and female students averaging 558."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#relationship-between-hisei-and-average-pv-scores",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#relationship-between-hisei-and-average-pv-scores",
+    "title": "Take-home Exercise 1",
+    "section": "3.4 Relationship between HISEI and Average PV Scores",
+    "text": "3.4 Relationship between HISEI and Average PV Scores\n\nlibrary(ggplot2)\nlibrary(tidyr)\nlibrary(dplyr)\nlibrary(hrbrthemes)  # Load hrbrthemes for theme_ipsum\n\n# Assuming 'df_hisei' is your data frame and it has been loaded correctly\n\n# Reshaping the data\nlong_df_hisei &lt;- df_hisei %&gt;%\n  pivot_longer(\n    cols = c(\"AvgMathPV\", \"AvgReadPV\", \"AvgSciePV\"),\n    names_to = \"Subject\",\n    values_to = \"AveragePV\"\n  ) %&gt;%\n  mutate(Subject = recode(Subject,\n                          \"AvgMathPV\" = \"Math\",\n                          \"AvgReadPV\" = \"Reading\",\n                          \"AvgSciePV\" = \"Science\"))\n\n# Creating a scatter plot with ggplot2\nggplot(long_df_hisei, aes(x = HISEI, y = AveragePV, color = Subject)) +\n  geom_point(size = 0.4, alpha = 0.5) +\n  geom_smooth(method = \"lm\", se = FALSE, aes(group = Subject), size = 0.8) +  # Adjust the size for trend lines\n  scale_color_manual(values = c(\"Math\" = \"darkblue\", \"Reading\" = \"orange\", \"Science\" = \"darkgreen\")) +\n  labs(title = 'Relationship between HISEI and Average PV Scores',\n       x = 'HISEI',\n       y = 'Average PV Score') +\n  theme_ipsum() +\n  theme(\n    legend.title = element_blank(),\n    legend.text = element_text(size = 12),  # Increase legend font size to 11\n    legend.position = \"bottom\",  # Adjust legend position\n    axis.title.x = element_text(size = 12, hjust = 0.5),  # Increase x-axis title font size and center\n    axis.title.y = element_text(size = 12, hjust = 0.5),  # Increase y-axis title font size and center\n    plot.title = element_text(size = 20, hjust = 0.5),  # Center main title and set font size to 20\n    panel.grid.minor = element_blank()  # Remove minor gridlines\n  ) +\n  scale_x_continuous(limits = c(0, NA)) +  # Start x-axis at 0\n  scale_y_continuous(limits = c(0, NA))  # Start y-axis at 0\n\n\n\n\nThe trend lines for each subject indicate a positive correlation between HISEI and the average PV scores, suggesting that as HISEI increases, so does the average score in these subjects. In other words, students with higher socio-economic backgrounds, as measured by their parents’ occupational status, tend to score higher average PV scores.\nHowever, the spread of the data points suggests there is variability that is not solely explained by HISEI. This indicates that while there is a trend, there are other factors at play influencing student performance in these subjects. The wide dispersion of scores at similar HISEI levels suggests that other factors may influence educational outcomes."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#relationship-between-escs-and-average-pv-scores",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#relationship-between-escs-and-average-pv-scores",
+    "title": "Take-home Exercise 1",
+    "section": "3.5 Relationship between ESCS and Average PV Scores",
+    "text": "3.5 Relationship between ESCS and Average PV Scores\n\nlibrary(ggplot2)\nlibrary(tidyr)\nlibrary(dplyr)\nlibrary(hrbrthemes)  # Load hrbrthemes for theme_ipsum\n\n# Assuming 'df_escs' is your data frame and it has been loaded correctly\n\n# Reshaping the data\nlong_df_escs &lt;- df_escs %&gt;%\n  pivot_longer(\n    cols = c(\"AvgMathPV\", \"AvgReadPV\", \"AvgSciePV\"),\n    names_to = \"Subject\",\n    values_to = \"AveragePV\"\n  ) %&gt;%\n  mutate(Subject = recode(Subject,\n                          \"AvgMathPV\" = \"Math\",\n                          \"AvgReadPV\" = \"Reading\",\n                          \"AvgSciePV\" = \"Science\"))\n\n# Creating a scatter plot with ggplot2\nggplot(long_df_escs, aes(x = ESCS, y = AveragePV, color = Subject)) +\n  geom_point(size = 0.4, alpha = 0.5) +\n  geom_smooth(method = \"lm\", se = FALSE, aes(group = Subject), size = 0.8) +  # Adjust the size for trend lines\n  scale_color_manual(values = c(\"Math\" = \"darkblue\", \"Reading\" = \"orange\", \"Science\" = \"darkgreen\")) +\n  labs(title = 'Relationship between ESCS and Average PV Scores',\n       x = 'ESCS',\n       y = 'Average PV Score') +\n  theme_ipsum() +\n  theme(\n    legend.title = element_blank(),\n    legend.text = element_text(size = 12),  # Increase legend font size to 12\n    legend.position = \"bottom\",  # Adjust legend position\n    axis.title.x = element_text(size = 12, hjust = 0.5),  # Increase x-axis title font size to 14 and center\n    axis.title.y = element_text(size = 12, hjust = 0.5),  # Increase y-axis title font size to 14 and center\n    plot.title = element_text(size = 20, hjust = 0.5),  # Center main title and set font size to 18\n    panel.grid.minor = element_blank()  # Remove minor gridlines\n  ) +\n  scale_x_continuous(limits = c(0, NA)) +  # Start x-axis at 0\n  scale_y_continuous(limits = c(0, NA))  # Start y-axis at 0\n\n\n\n\nAll three subjects show a positive correlation between the ESCS and the average PV scores, as indicated by the upward trend of the lines fitted to the data points in each subject area. This suggests that students whose parents have higher index of economic, social and cultural status tend to achieve better average scores. The trend lines for each subject are quite close to one another, indicating that the relationship between ESCS and average PV scores is similar across all three subjects.\nThe scatter plot indicates a more concentrated distribution of data points around the trend line for each subject area when assessing the relationship between ESCS and average PV scores. This tighter clustering suggests that ESCS may have a more consistent association with student performance in Mathematics, Reading, and Science, compared to the broader spread observed with HISEI.\nWhile the trend lines still point to a positive correlation—higher ESCS often correlates with higher PV scores—the reduced spread implies that ESCS could be a more reliable indicator of average scores. Nevertheless, the presence of scores outside the immediate vicinity of the trend lines does indicate that factors beyond ESCS also play a role in educational performance."
   },
   {
     "objectID": "In-class_Ex/In-class_Ex02/In-class_Ex02.html",
@@ -348,12 +1139,5 @@
     "title": "In-class Exercise 2",
     "section": "",
     "text": "Tableau Public"
-  },
-  {
-    "objectID": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#learning-points",
-    "href": "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html#learning-points",
-    "title": "Take-home Exercise 2",
-    "section": "6. Learning Points",
-    "text": "6. Learning Points\nThe Take Home Exercise 2 was instrumental in deepening my understanding of the importance of selecting appropriate visualizations and tailoring charts to the audience’s perspective. It was an enlightening experience to learn about efficient coding practices from my peers’ work. This exercise also afforded me the opportunity to delve deeper into ggplot, enhancing my ability to add layers and craft more insightful charts. It was a valuable exercise in not just honing technical skills but also in appreciating the nuances of effective data visualization."
   }
 ]
