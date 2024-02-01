@@ -39,7 +39,7 @@ pacman::p_load(ggdist, ggridges, ggthemes,
 For the purpose of this exercise, Exam_data.csv will be used.
 
 ```{r}
-exam <- read_csv("data/Exam_data.csv")
+exam <- read_csv("../../data/Exam_data.csv")
 ```
 
 # 9.3 Visualising Distribution with Ridgeline Plot
@@ -270,7 +270,7 @@ pacman::p_load(ggstatsplot, tidyverse)
 ## 10.3.2 Importing data
 
 ```{r}
-exam <- read_csv("data/Exam_data.csv")
+exam <- read_csv("../../data/Exam_data.csv")
 ```
 
 ## 10.3.3 One-sample test: gghistostats() method
@@ -397,7 +397,7 @@ pacman::p_load(readxl, performance, parameters, see)
 In the code chunk below, read_xls() of readxl package is used to import the data worksheet of ToyotaCorolla.xls workbook into R.
 
 ```{r}
-car_resale <- read_xls("data/ToyotaCorolla.xls", 
+car_resale <- read_xls("../../data/ToyotaCorolla.xls", 
                        "data")
 car_resale
 ```
@@ -528,7 +528,7 @@ pacman::p_load(ungeviz, plotly, crosstalk,
 For the purpose of this exercise, Exam_data.csv will be used.
 
 ```{r}
-exam <- read_csv("data/Exam_data.csv")
+exam <- read_csv("../../data/Exam_data.csv")
 ```
 
 # 11.3 Visualizing the uncertainty of point estimates: ggplot2 methods
@@ -810,7 +810,7 @@ In this section, COVID-19_DKI_Jakarta will be used. The data was downloaded from
 The code chunk below imports the data into R and save it into a tibble data frame object called covid19.
 
 ```{r}
-covid19 <- read_csv("data/COVID-19_DKI_Jakarta.csv") %>%
+covid19 <- read_csv("../../data/COVID-19_DKI_Jakarta.csv") %>%
   mutate_if(is.character, as.factor)
 ```
 

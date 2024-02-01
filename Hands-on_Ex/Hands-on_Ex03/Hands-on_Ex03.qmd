@@ -45,7 +45,7 @@ In this section, Exam_data.csv provided will be used. Using read_csv() of readr 
 The code chunk below read_csv() of readr package is used to import Exam_data.csv data file into R and save it as an tibble data frame called exam_data.
 
 ```{r}
-exam_data <- read_csv("data/Exam_data.csv")
+exam_data <- read_csv("../../data/Exam_data.csv")
 ```
 
 # 3.4 Interactive Data Visualisation - ggiraph methods
@@ -612,7 +612,7 @@ Write a code chunk to import Data worksheet from GlobalPopulation Excel workbook
 
 ```{r}
 col <- c("Country", "Continent")
-globalPop <- read_xls("data/GlobalPopulation.xls",
+globalPop <- read_xls("../../data/GlobalPopulation.xls",
                       sheet="Data") %>%
   mutate_each_(funs(factor(.)), col) %>%
   mutate(Year = as.integer(Year))
@@ -622,7 +622,7 @@ Unfortunately, mutate_each\_() was deprecated in dplyr 0.7.0. and funs() was dep
 
 ```{r}
 col <- c("Country", "Continent")
-globalPop <- read_xls("data/GlobalPopulation.xls",
+globalPop <- read_xls("../../data/GlobalPopulation.xls",
                       sheet="Data") %>%
   mutate_at(col, as.factor) %>%
   mutate(Year = as.integer(Year))
@@ -632,7 +632,7 @@ Instead of using mutate_at(), across() can be used to derive the same outputs.
 
 ```{r}
 col <- c("Country", "Continent")
-globalPop <- read_xls("data/GlobalPopulation.xls",
+globalPop <- read_xls("../../data/GlobalPopulation.xls",
                       sheet="Data") %>%
   mutate(across(col, as.factor)) %>%
   mutate(Year = as.integer(Year))

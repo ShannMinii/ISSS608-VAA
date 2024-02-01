@@ -4,8 +4,8 @@
 .httr-oauth
 .DS_Store
 .quarto
-.RDataTmp
-.RDataTmp1
+.Related_math_read_scie_data.rds
+.stu_qqq_SG.rds
 
 /.quarto/
 data/

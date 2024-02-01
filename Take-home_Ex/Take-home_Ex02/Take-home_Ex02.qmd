@@ -33,7 +33,7 @@ pacman::p_load(tidyverse, haven, ggrepel, patchwork,
 The code chunk below uses read_sas() of haven to import PISA data into R environment.
 
 ```{r}
-stu_qqq <- read_sas("data/STU_QQQ_SAS/cy08msp_stu_qqq.sas7bdat")
+stu_qqq <- read_sas("../../data/STU_QQQ_SAS/cy08msp_stu_qqq.sas7bdat")
 ```
 
 ```{r}
@@ -43,14 +43,14 @@ stu_qqq_SG <- stu_qqq %>%
 
 ```{r}
 write_rds(stu_qqq_SG,
-          "data/STU_QQQ_SAS/stu_qqq_SG.rds")
+          "../../data/STU_QQQ_SAS/stu_qqq_SG.rds")
 ```
 
 We upload the file as stu_qqq_Sg.
 
 ```{r}
 stu_qqq_Sg <-
-  read_rds("data/STU_QQQ_SAS/stu_qqq_SG.rds")
+  read_rds("../../data/STU_QQQ_SAS/stu_qqq_SG.rds")
 ```
 
 The makeover is designed to refine the original visualization while staying true to the dataset's range, as selected by my classmate. Therefore, I will be focusing on the same variables: student performance in mathematics, reading, and science, along with school identification, gender, and parental education levels.
@@ -62,12 +62,12 @@ Related_math_read_scie_data <- stu_qqq_SG %>%
 
 ```{r}
 write_rds(Related_math_read_scie_data,
-          "data/Related_math_read_scie_data.rds")
+          "../../data/Related_math_read_scie_data.rds")
 ```
 
 ```{r}
 Related_math_read_scie_data <- 
-read_rds("data/Related_math_read_scie_data.rds")
+read_rds("../../data/Related_math_read_scie_data.rds")
 ```
 
 # 2. Critique I
@@ -498,4 +498,5 @@ print(p_combined)
 ```
 
 ## 6. Learning Points
+
 The Take Home Exercise 2 was instrumental in deepening my understanding of the importance of selecting appropriate visualizations and tailoring charts to the audience's perspective. It was an enlightening experience to learn about efficient coding practices from my peers' work. This exercise also afforded me the opportunity to delve deeper into ggplot, enhancing my ability to add layers and craft more insightful charts. It was a valuable exercise in not just honing technical skills but also in appreciating the nuances of effective data visualization.

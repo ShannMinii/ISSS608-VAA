@@ -29,7 +29,7 @@ The code chunk below uses [`read_sas()`](https://haven.tidyverse.org/reference/r
 
 ```{r}
 #| eval: false
-stu_qqq <- read_sas("data/STU_QQQ_SAS/cy08msp_stu_qqq.sas7bdat")
+stu_qqq <- read_sas("../../data/STU_QQQ_SAS/cy08msp_stu_qqq.sas7bdat")
 ```
 
 ```{r}
@@ -41,10 +41,10 @@ stu_qqq_SG <- stu_qqq %>%
 ```{r}
 #| eval: false
 write_rds(stu_qqq_SG,
-          "data/STU_QQQ_SAS/stu_qqq_SG.rds")
+          "../../data/STU_QQQ_SAS/stu_qqq_SG.rds")
 ```
 
 ```{r}
 stu_qqq_Sg <-
-  read_rds("data/STU_QQQ_SAS/stu_qqq_SG.rds")
+  read_rds("../../data/STU_QQQ_SAS/stu_qqq_SG.rds")
 ```

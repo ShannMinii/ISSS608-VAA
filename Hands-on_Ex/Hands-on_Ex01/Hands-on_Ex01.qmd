@@ -24,7 +24,7 @@ pacman::p_load(tidyverse)
 ## 1.2.2 Importing data
 
 ```{r}
-exam_data <- read_csv("data/Exam_data.csv")
+exam_data <- read_csv("../../data/Exam_data.csv")
 ```
 
 # 1.3 Introducing ggplot
