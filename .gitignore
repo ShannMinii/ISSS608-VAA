@@ -6,6 +6,10 @@
 .quarto
 .Related_math_read_scie_data.rds
 .stu_qqq_SG.rds
+.RdataTmp
+.RdataTmp1
+.RdataTmp2
+.RdataTmp3
 
 /.quarto/
 data/
