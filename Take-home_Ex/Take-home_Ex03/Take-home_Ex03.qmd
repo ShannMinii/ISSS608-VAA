@@ -1,0 +1,215 @@
+---
+title: "Take-home Exercise 3"
+date: "February 8, 2024"
+date-modified: "last-modified"
+output: 
+  html_document:
+    css: styles.css 
+execute: 
+  eval: true
+  echo: true
+  warning: false
+---
+```{r}
+options(repos = c(CRAN = "https://cloud.r-project.org/"))
+install.packages("dplyr")
+install.packages("readr")
+install.packages("readxl")
+install.packages("plotly")
+install.packages("tidyr")
+install.packages("RColorBrewer")
+
+library(dplyr)
+library(readr)
+library(readxl)
+library(plotly)
+library(tidyr)
+library(RColorBrewer)
+```
+
+```{r}
+# Load the data from the Excel file
+file_path <- ("../../data/Tengah_Jun_1983_2023.xlsx")
+df <- read_excel(file_path)
+
+# Convert non-numeric values to NA in 'Mean Temperature (°C)' column
+df$`Mean Temperature (°C)` <- as.numeric(as.character(df$`Mean Temperature (°C)`))
+
+# Handle possible warning from conversion by coercing issues to NA
+df$`Mean Temperature (°C)`[is.na(df$`Mean Temperature (°C)`)] <- NA
+
+# Calculate the mean temperature for each year
+mean_temperatures <- df %>%
+  group_by(Year) %>%
+  summarize(MeanTemperatureJune = mean(`Mean Temperature (°C)`, na.rm = TRUE))
+
+# View the calculated mean temperatures
+print(mean_temperatures)
+
+```
+
+```{r}
+# Assuming 'mean_temperatures' is your data frame
+mean_temperatures <- data.frame(
+  Year = c(1983, 1993, 2003, 2013, 2023),
+  MeanTemperatureJune = c(NA, 27.9, 27.8, 28.8, 28.2)
+)
+
+# Remove rows with NA values for a cleaner plot
+mean_temperatures_clean <- mean_temperatures %>% drop_na()
+
+# Create an interactive plot
+p <- plot_ly(data = mean_temperatures_clean, x = ~Year, y = ~MeanTemperatureJune, type = 'scatter', mode = 'lines+markers',
+             text = ~paste("Year:", Year, "<br>Mean Temp:", MeanTemperatureJune), hoverinfo = 'text') %>%
+  layout(title = 'Mean Temperature in June (1983 - 2023)',
+         xaxis = list(title = 'Year'),
+         yaxis = list(title = 'Mean Temperature (°C)'))
+
+# Display the plot
+p
+
+```
+
+```{r}
+# Display the column names of the data frame to confirm 'Day' is present
+colnames(df)
+```
+
+```{r}
+library(plotly)
+library(dplyr)
+library(readxl) # Ensure this library is loaded to use read_excel
+
+# Load the data from the Excel file
+file_path <- ("../../data/Tengah_Jun_1983_2023.xlsx")
+df <- read_excel(file_path)
+
+# Convert non-numeric values to NA in 'Mean Temperature (°C)' column
+df$`Mean Temperature (°C)` <- as.numeric(as.character(df$`Mean Temperature (°C)`))
+df$`Mean Temperature (°C)`[is.na(df$`Mean Temperature (°C)`)] <- NA
+
+# Assuming 'mean_temperatures' holds the mean temperature for each June as calculated before
+
+# Create a new column 'Date' in df that represents each day in June for each year
+df <- df %>%
+  mutate(Date = as.Date(paste(Year, Month, Day, sep="-")))
+
+# Plot the daily mean temperatures using `df`
+p <- plot_ly(data = df, x = ~Date, y = ~`Mean Temperature (°C)`, color = ~as.factor(Year),
+             type = 'scatter', mode = 'markers') %>%
+  layout(title = 'Daily Mean Temperature in June (1983 - 2023)',
+         xaxis = list(title = 'Date'),
+         yaxis = list(title = 'Mean Temperature (°C)'))
+
+# Add the text labels for hover information
+p <- p %>% add_text(text = ~paste("Date:", format(Date, "%Y-%m-%d"), "Mean Temp:", `Mean Temperature (°C)`),
+                     hoverinfo = 'text', showlegend = FALSE)
+
+# Overlay the mean temperature for each June using `mean_temperatures`
+# Assuming June 15th as representative for the month's mean
+mean_temperatures <- mean_temperatures %>%
+  mutate(Date = as.Date(paste(Year, "6", "15", sep="-")))
+
+p <- p %>% add_lines(data = mean_temperatures, x = ~Date, y = ~MeanTemperatureJune,
+                     line = list(color = 'black', width = 2),
+                     name = 'Monthly Mean Temperature')
+
+# Display the plot
+p
+
+```
+
+```{r}
+library(plotly)
+library(dplyr)
+library(readxl) # Ensure this library is loaded to use read_excel
+
+# Load the data from the Excel file
+file_path <- ("../../data/Tengah_Jun_1983_2023.xlsx")
+df <- read_excel(file_path)
+
+# Convert non-numeric values to NA in 'Mean Temperature (°C)' column
+df$`Mean Temperature (°C)` <- as.numeric(as.character(df$`Mean Temperature (°C)`))
+df$`Mean Temperature (°C)`[is.na(df$`Mean Temperature (°C)`)] <- NA
+
+# Assuming 'mean_temperatures' holds the mean temperature for each June as calculated before
+
+# Create a new column 'Date' in df that represents each day in June for each year
+df <- df %>%
+  mutate(Date = as.Date(paste(Year, Month, Day, sep="-")))
+
+# Create hover text
+df$hover_text <- paste("Date:", format(df$Date, "%Y-%m-%d"), "Mean Temp:", df$`Mean Temperature (°C)`)
+
+# Plot the daily mean temperatures using `df`
+p <- plot_ly(data = df, x = ~Date, y = ~`Mean Temperature (°C)`, color = ~as.factor(Year),
+             type = 'scatter', mode = 'markers',
+             text = ~hover_text,  # use the hover text created above
+             hoverinfo = 'text',  # show hover text only
+             marker = list(size = 5)) %>%
+  layout(title = 'Daily Mean Temperature in June (1983 - 2023)',
+         xaxis = list(title = 'Date'),
+         yaxis = list(title = 'Mean Temperature (°C)'))
+
+# Overlay the mean temperature for each June using `mean_temperatures`
+# Assuming June 15th as representative for the month's mean
+mean_temperatures <- mean_temperatures %>%
+  mutate(Date = as.Date(paste(Year, "6", "15", sep="-"))) %>%
+  mutate(hover_text = paste("Yearly Mean:", MeanTemperatureJune))
+
+p <- p %>% add_lines(data = mean_temperatures, x = ~Date, y = ~MeanTemperatureJune,
+                     line = list(color = 'black', width = 2),
+                     text = ~hover_text,  # use the hover text created above
+                     hoverinfo = 'text',  # show hover text only
+                     name = 'Monthly Mean Temperature')
+
+# Display the plot
+p
+
+```
+
+```{r}
+library(plotly)
+library(dplyr)
+library(readxl)
+
+# Load the data from the Excel file
+file_path <- ("../../data/Tengah_Jun_1983_2023.xlsx")
+df <- read_excel(file_path)
+
+# Convert non-numeric values to NA in 'Mean Temperature (°C)' column
+df$`Mean Temperature (°C)` <- as.numeric(as.character(df$`Mean Temperature (°C)`))
+df$`Mean Temperature (°C)`[is.na(df$`Mean Temperature (°C)`)] <- NA
+
+# Create a Date column for each entry in df
+df <- df %>%
+  mutate(Date = as.Date(paste(Year, Month, Day, sep="-"))) %>%
+  filter(!is.na(Date))  # Ensure there are no NA Dates
+
+# Assuming 'mean_temperatures' holds the mean temperature for each June as calculated before
+mean_temperatures <- mean_temperatures %>%
+  mutate(Date = as.Date(paste(Year, 6, 15, sep="-")))  # Use the middle of June as the representative date
+
+# Plot the daily mean temperatures using `df`
+p <- plot_ly() %>%
+  add_markers(data = df, x = ~Date, y = ~`Mean Temperature (°C)`, color = ~as.factor(Year),
+              text = ~paste("Date:", format(Date, "%Y-%m-%d"), "Mean Temp:", `Mean Temperature (°C)`),
+              hoverinfo = 'text', marker = list(size = 5)) %>%
+  layout(title = 'Daily Mean Temperature in June (1983 - 2023)',
+         xaxis = list(title = 'Date'),
+         yaxis = list(title = 'Mean Temperature (°C)'))
+
+# Add the mean temperature points as markers
+p <- p %>% add_markers(data = mean_temperatures, x = ~Date, y = ~MeanTemperatureJune,
+                       marker = list(color = 'black', size = 10),
+                       name = 'Mean Temperature')
+
+# Connect the mean temperature points with a line
+p <- p %>% add_lines(data = mean_temperatures, x = ~Date, y = ~MeanTemperatureJune,
+                     line = list(color = 'black', width = 2),
+                     name = 'Mean Temperature Trend')
+
+# Display the plot
+p
+```
+

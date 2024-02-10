@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2024-02-08">
+
+<title>ISSS608-VAA - Take-home Exercise 3</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="../../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="../../site_libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="../../site_libs/typedarray-0.1/typedarray.min.js"></script>
+<script src="../../site_libs/jquery-3.5.1/jquery.min.js"></script>
+<link href="../../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="../../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="../../site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="../../site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">ISSS608-VAA</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-hands-on-exercise" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Hands-on Exercise</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-hands-on-exercise">    
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 4</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05A.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 5a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05B.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 5b</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05C.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 5c</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05D.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 5d</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05E.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 5e</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-in-class-exercise" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">In-class Exercise</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-in-class-exercise">    
+        <li>
+    <a class="dropdown-item" href="../../In-class_Ex/In-class_Ex01/In-class_Ex01.html" rel="" target="">
+ <span class="dropdown-text">In-class Exercise 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../In-class_Ex/In-class_Ex02/In-class_Ex02.html" rel="" target="">
+ <span class="dropdown-text">In-class Exercise 2</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-take-home-exercise" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Take-home Exercise</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-take-home-exercise">    
+        <li>
+    <a class="dropdown-item" href="../../Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html" rel="" target="">
+ <span class="dropdown-text">Take-home Exercise 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html" rel="" target="">
+ <span class="dropdown-text">Take-home Exercise 2</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Take-home Exercise 3</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 8, 2024</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">February 8, 2024</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repos =</span> <span class="fu">c</span>(<span class="at">CRAN =</span> <span class="st">"https://cloud.r-project.org/"</span>))</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"dplyr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+The downloaded binary packages are in
+    /var/folders/96/x3nlspkx4kz_2c94gv1tq66m0000gq/T//Rtmpr2v0Yc/downloaded_packages</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"readr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+The downloaded binary packages are in
+    /var/folders/96/x3nlspkx4kz_2c94gv1tq66m0000gq/T//Rtmpr2v0Yc/downloaded_packages</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"readxl"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+The downloaded binary packages are in
+    /var/folders/96/x3nlspkx4kz_2c94gv1tq66m0000gq/T//Rtmpr2v0Yc/downloaded_packages</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"plotly"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+The downloaded binary packages are in
+    /var/folders/96/x3nlspkx4kz_2c94gv1tq66m0000gq/T//Rtmpr2v0Yc/downloaded_packages</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+The downloaded binary packages are in
+    /var/folders/96/x3nlspkx4kz_2c94gv1tq66m0000gq/T//Rtmpr2v0Yc/downloaded_packages</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"RColorBrewer"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+The downloaded binary packages are in
+    /var/folders/96/x3nlspkx4kz_2c94gv1tq66m0000gq/T//Rtmpr2v0Yc/downloaded_packages</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the data from the Excel file</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>file_path <span class="ot">&lt;-</span> (<span class="st">"../../data/Tengah_Jun_1983_2023.xlsx"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(file_path)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert non-numeric values to NA in 'Mean Temperature (°C)' column</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span><span class="st">`</span><span class="at">Mean Temperature (°C)</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(df<span class="sc">$</span><span class="st">`</span><span class="at">Mean Temperature (°C)</span><span class="st">`</span>))</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Handle possible warning from conversion by coercing issues to NA</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span><span class="st">`</span><span class="at">Mean Temperature (°C)</span><span class="st">`</span>[<span class="fu">is.na</span>(df<span class="sc">$</span><span class="st">`</span><span class="at">Mean Temperature (°C)</span><span class="st">`</span>)] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the mean temperature for each year</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>mean_temperatures <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Year) <span class="sc">%&gt;%</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">MeanTemperatureJune =</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">Mean Temperature (°C)</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co"># View the calculated mean temperatures</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mean_temperatures)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+   Year MeanTemperatureJune
+  &lt;dbl&gt;               &lt;dbl&gt;
+1  1983               NaN  
+2  1993                27.9
+3  2003                27.8
+4  2013                28.8
+5  2023                28.2</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming 'mean_temperatures' is your data frame</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>mean_temperatures <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Year =</span> <span class="fu">c</span>(<span class="dv">1983</span>, <span class="dv">1993</span>, <span class="dv">2003</span>, <span class="dv">2013</span>, <span class="dv">2023</span>),</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">MeanTemperatureJune =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="fl">27.9</span>, <span class="fl">27.8</span>, <span class="fl">28.8</span>, <span class="fl">28.2</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove rows with NA values for a cleaner plot</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>mean_temperatures_clean <span class="ot">&lt;-</span> mean_temperatures <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>()</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an interactive plot</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">plot_ly</span>(<span class="at">data =</span> mean_temperatures_clean, <span class="at">x =</span> <span class="sc">~</span>Year, <span class="at">y =</span> <span class="sc">~</span>MeanTemperatureJune, <span class="at">type =</span> <span class="st">'scatter'</span>, <span class="at">mode =</span> <span class="st">'lines+markers'</span>,</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">text =</span> <span class="sc">~</span><span class="fu">paste</span>(<span class="st">"Year:"</span>, Year, <span class="st">"&lt;br&gt;Mean Temp:"</span>, MeanTemperatureJune), <span class="at">hoverinfo =</span> <span class="st">'text'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layout</span>(<span class="at">title =</span> <span class="st">'Mean Temperature in June (1983 - 2023)'</span>,</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">xaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">'Year'</span>),</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">'Mean Temperature (°C)'</span>))</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the plot</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-f0d152b105877f625392" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-f0d152b105877f625392">{"x":{"visdat":{"7de053f1ee53":["function () ","plotlyVisDat"]},"cur_data":"7de053f1ee53","attrs":{"7de053f1ee53":{"x":{},"y":{},"mode":"lines+markers","text":{},"hoverinfo":"text","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Mean Temperature in June (1983 - 2023)","xaxis":{"domain":[0,1],"automargin":true,"title":"Year"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Mean Temperature (°C)"},"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[1993,2003,2013,2023],"y":[27.899999999999999,27.800000000000001,28.800000000000001,28.199999999999999],"mode":"lines+markers","text":["Year: 1993 <br>Mean Temp: 27.9","Year: 2003 <br>Mean Temp: 27.8","Year: 2013 <br>Mean Temp: 28.8","Year: 2023 <br>Mean Temp: 28.2"],"hoverinfo":["text","text","text","text"],"type":"scatter","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the column names of the data frame to confirm 'Day' is present</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Station"                       "Year"                         
+ [3] "Month"                         "Day"                          
+ [5] "Daily Rainfall Total (mm)"     "Highest 30 Min Rainfall (mm)" 
+ [7] "Highest 60 Min Rainfall (mm)"  "Highest 120 Min Rainfall (mm)"
+ [9] "Mean Temperature (°C)"         "Maximum Temperature (°C)"     
+[11] "Minimum Temperature (°C)"      "Mean Wind Speed (km/h)"       
+[13] "Max Wind Speed (km/h)"        </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl) <span class="co"># Ensure this library is loaded to use read_excel</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the data from the Excel file</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>file_path <span class="ot">&lt;-</span> (<span class="st">"../../data/Tengah_Jun_1983_2023.xlsx"</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(file_path)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert non-numeric values to NA in 'Mean Temperature (°C)' column</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span><span class="st">`</span><span class="at">Mean Temperature (°C)</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(df<span class="sc">$</span><span class="st">`</span><span class="at">Mean Temperature (°C)</span><span class="st">`</span>))</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span><span class="st">`</span><span class="at">Mean Temperature (°C)</span><span class="st">`</span>[<span class="fu">is.na</span>(df<span class="sc">$</span><span class="st">`</span><span class="at">Mean Temperature (°C)</span><span class="st">`</span>)] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming 'mean_temperatures' holds the mean temperature for each June as calculated before</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new column 'Date' in df that represents each day in June for each year</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Date =</span> <span class="fu">as.Date</span>(<span class="fu">paste</span>(Year, Month, Day, <span class="at">sep=</span><span class="st">"-"</span>)))</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the daily mean temperatures using `df`</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">plot_ly</span>(<span class="at">data =</span> df, <span class="at">x =</span> <span class="sc">~</span>Date, <span class="at">y =</span> <span class="sc">~</span><span class="st">`</span><span class="at">Mean Temperature (°C)</span><span class="st">`</span>, <span class="at">color =</span> <span class="sc">~</span><span class="fu">as.factor</span>(Year),</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>             <span class="at">type =</span> <span class="st">'scatter'</span>, <span class="at">mode =</span> <span class="st">'markers'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layout</span>(<span class="at">title =</span> <span class="st">'Daily Mean Temperature in June (1983 - 2023)'</span>,</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>         <span class="at">xaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">'Date'</span>),</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>         <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">'Mean Temperature (°C)'</span>))</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the text labels for hover information</span></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">%&gt;%</span> <span class="fu">add_text</span>(<span class="at">text =</span> <span class="sc">~</span><span class="fu">paste</span>(<span class="st">"Date:"</span>, <span class="fu">format</span>(Date, <span class="st">"%Y-%m-%d"</span>), <span class="st">"Mean Temp:"</span>, <span class="st">`</span><span class="at">Mean Temperature (°C)</span><span class="st">`</span>),</span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>                     <span class="at">hoverinfo =</span> <span class="st">'text'</span>, <span class="at">showlegend =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Overlay the mean temperature for each June using `mean_temperatures`</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming June 15th as representative for the month's mean</span></span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>mean_temperatures <span class="ot">&lt;-</span> mean_temperatures <span class="sc">%&gt;%</span></span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Date =</span> <span class="fu">as.Date</span>(<span class="fu">paste</span>(Year, <span class="st">"6"</span>, <span class="st">"15"</span>, <span class="at">sep=</span><span class="st">"-"</span>)))</span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">%&gt;%</span> <span class="fu">add_lines</span>(<span class="at">data =</span> mean_temperatures, <span class="at">x =</span> <span class="sc">~</span>Date, <span class="at">y =</span> <span class="sc">~</span>MeanTemperatureJune,</span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a>                     <span class="at">line =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">'black'</span>, <span class="at">width =</span> <span class="dv">2</span>),</span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a>                     <span class="at">name =</span> <span class="st">'Monthly Mean Temperature'</span>)</span>
+<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the plot</span></span>
+<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-2859e21562be4a88c91d" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-2859e21562be4a88c91d">{"x":{"visdat":{"7de070f5b057":["function () ","plotlyVisDat"],"7de0120c59b1":["function () ","data"]},"cur_data":"7de0120c59b1","attrs":{"7de070f5b057":{"x":{},"y":{},"mode":"markers","color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"},"7de070f5b057.1":{"x":{},"y":{},"mode":"text","color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter","text":{},"hoverinfo":"text","showlegend":false,"inherit":true},"7de0120c59b1":{"x":{},"y":{},"mode":"lines","color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter","line":{"color":"black","width":2},"name":"Monthly Mean Temperature","inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Daily Mean Temperature in June (1983 - 2023)","xaxis":{"domain":[0,1],"automargin":true,"title":"Date"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Mean Temperature (°C)"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["1993-06-01","1993-06-02","1993-06-03","1993-06-04","1993-06-05","1993-06-06","1993-06-07","1993-06-08","1993-06-09","1993-06-10","1993-06-11","1993-06-12","1993-06-13","1993-06-14","1993-06-15","1993-06-16","1993-06-17","1993-06-18","1993-06-19","1993-06-20","1993-06-21","1993-06-22","1993-06-23","1993-06-24","1993-06-25","1993-06-26","1993-06-27","1993-06-28","1993-06-29","1993-06-30"],"y":[27.399999999999999,29.100000000000001,29.5,28.699999999999999,27.399999999999999,26.800000000000001,27.100000000000001,29.300000000000001,29.199999999999999,29.800000000000001,27.800000000000001,27.699999999999999,29.199999999999999,26.800000000000001,25.5,27.699999999999999,27.300000000000001,27.899999999999999,27.699999999999999,27.800000000000001,28.5,28.899999999999999,28.399999999999999,26.5,27.600000000000001,27.699999999999999,28.600000000000001,29,27,26.199999999999999],"mode":"markers","type":"scatter","name":"1993","marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"textfont":{"color":"rgba(252,141,98,1)"},"error_y":{"color":"rgba(252,141,98,1)"},"error_x":{"color":"rgba(252,141,98,1)"},"line":{"color":"rgba(252,141,98,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2003-06-01","2003-06-02","2003-06-03","2003-06-04","2003-06-05","2003-06-06","2003-06-07","2003-06-08","2003-06-09","2003-06-10","2003-06-11","2003-06-12","2003-06-13","2003-06-14","2003-06-15","2003-06-16","2003-06-17","2003-06-18","2003-06-19","2003-06-20","2003-06-21","2003-06-22","2003-06-23","2003-06-24","2003-06-25","2003-06-26","2003-06-27","2003-06-28","2003-06-29","2003-06-30"],"y":[29,29,29,28.399999999999999,28.899999999999999,28.699999999999999,29,28.5,28.800000000000001,28.699999999999999,27.199999999999999,27.399999999999999,28,28.199999999999999,28.699999999999999,27.300000000000001,25.899999999999999,27.600000000000001,28.399999999999999,28.899999999999999,28.100000000000001,28.199999999999999,27.199999999999999,25.300000000000001,25.100000000000001,26.300000000000001,26,27.100000000000001,26.199999999999999,27.5],"mode":"markers","type":"scatter","name":"2003","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"line":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2013-06-01","2013-06-03","2013-06-13","2013-06-15","2013-06-16","2013-06-17","2013-06-19","2013-06-20","2013-06-21","2013-06-22","2013-06-23","2013-06-24","2013-06-25","2013-06-26","2013-06-27","2013-06-28","2013-06-29"],"y":[27.899999999999999,29.199999999999999,29.600000000000001,29.399999999999999,29.800000000000001,28.899999999999999,29.100000000000001,28.800000000000001,29.100000000000001,29.399999999999999,29.300000000000001,29.699999999999999,27.600000000000001,26.600000000000001,28.399999999999999,28.100000000000001,28.699999999999999],"mode":"markers","type":"scatter","name":"2013","marker":{"color":"rgba(231,138,195,1)","line":{"color":"rgba(231,138,195,1)"}},"textfont":{"color":"rgba(231,138,195,1)"},"error_y":{"color":"rgba(231,138,195,1)"},"error_x":{"color":"rgba(231,138,195,1)"},"line":{"color":"rgba(231,138,195,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2023-06-01","2023-06-02","2023-06-03","2023-06-04","2023-06-05","2023-06-06","2023-06-07","2023-06-08","2023-06-09","2023-06-10","2023-06-11","2023-06-12","2023-06-13","2023-06-14","2023-06-15","2023-06-16","2023-06-17","2023-06-18","2023-06-19","2023-06-20","2023-06-21","2023-06-22","2023-06-23","2023-06-24","2023-06-25","2023-06-26","2023-06-27","2023-06-28","2023-06-29","2023-06-30"],"y":[26.699999999999999,28.300000000000001,28.100000000000001,26.399999999999999,28.199999999999999,27.800000000000001,28.199999999999999,28.5,28.899999999999999,28.899999999999999,29.399999999999999,27.100000000000001,28.600000000000001,27.699999999999999,28.699999999999999,29.800000000000001,29.699999999999999,27.199999999999999,28.300000000000001,28.699999999999999,29.399999999999999,29.5,28.600000000000001,27.399999999999999,28.100000000000001,27.199999999999999,27.100000000000001,27.399999999999999,28.100000000000001,27.300000000000001],"mode":"markers","type":"scatter","name":"2023","marker":{"color":"rgba(166,216,84,1)","line":{"color":"rgba(166,216,84,1)"}},"textfont":{"color":"rgba(166,216,84,1)"},"error_y":{"color":"rgba(166,216,84,1)"},"error_x":{"color":"rgba(166,216,84,1)"},"line":{"color":"rgba(166,216,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["1993-06-01","1993-06-02","1993-06-03","1993-06-04","1993-06-05","1993-06-06","1993-06-07","1993-06-08","1993-06-09","1993-06-10","1993-06-11","1993-06-12","1993-06-13","1993-06-14","1993-06-15","1993-06-16","1993-06-17","1993-06-18","1993-06-19","1993-06-20","1993-06-21","1993-06-22","1993-06-23","1993-06-24","1993-06-25","1993-06-26","1993-06-27","1993-06-28","1993-06-29","1993-06-30"],"y":[27.399999999999999,29.100000000000001,29.5,28.699999999999999,27.399999999999999,26.800000000000001,27.100000000000001,29.300000000000001,29.199999999999999,29.800000000000001,27.800000000000001,27.699999999999999,29.199999999999999,26.800000000000001,25.5,27.699999999999999,27.300000000000001,27.899999999999999,27.699999999999999,27.800000000000001,28.5,28.899999999999999,28.399999999999999,26.5,27.600000000000001,27.699999999999999,28.600000000000001,29,27,26.199999999999999],"mode":"text","type":"scatter","text":["Date: 1993-06-01 Mean Temp: 27.4","Date: 1993-06-02 Mean Temp: 29.1","Date: 1993-06-03 Mean Temp: 29.5","Date: 1993-06-04 Mean Temp: 28.7","Date: 1993-06-05 Mean Temp: 27.4","Date: 1993-06-06 Mean Temp: 26.8","Date: 1993-06-07 Mean Temp: 27.1","Date: 1993-06-08 Mean Temp: 29.3","Date: 1993-06-09 Mean Temp: 29.2","Date: 1993-06-10 Mean Temp: 29.8","Date: 1993-06-11 Mean Temp: 27.8","Date: 1993-06-12 Mean Temp: 27.7","Date: 1993-06-13 Mean Temp: 29.2","Date: 1993-06-14 Mean Temp: 26.8","Date: 1993-06-15 Mean Temp: 25.5","Date: 1993-06-16 Mean Temp: 27.7","Date: 1993-06-17 Mean Temp: 27.3","Date: 1993-06-18 Mean Temp: 27.9","Date: 1993-06-19 Mean Temp: 27.7","Date: 1993-06-20 Mean Temp: 27.8","Date: 1993-06-21 Mean Temp: 28.5","Date: 1993-06-22 Mean Temp: 28.9","Date: 1993-06-23 Mean Temp: 28.4","Date: 1993-06-24 Mean Temp: 26.5","Date: 1993-06-25 Mean Temp: 27.6","Date: 1993-06-26 Mean Temp: 27.7","Date: 1993-06-27 Mean Temp: 28.6","Date: 1993-06-28 Mean Temp: 29","Date: 1993-06-29 Mean Temp: 27","Date: 1993-06-30 Mean Temp: 26.2"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text"],"showlegend":false,"name":"1993","marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"textfont":{"color":"rgba(252,141,98,1)"},"error_y":{"color":"rgba(252,141,98,1)"},"error_x":{"color":"rgba(252,141,98,1)"},"line":{"color":"rgba(252,141,98,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2003-06-01","2003-06-02","2003-06-03","2003-06-04","2003-06-05","2003-06-06","2003-06-07","2003-06-08","2003-06-09","2003-06-10","2003-06-11","2003-06-12","2003-06-13","2003-06-14","2003-06-15","2003-06-16","2003-06-17","2003-06-18","2003-06-19","2003-06-20","2003-06-21","2003-06-22","2003-06-23","2003-06-24","2003-06-25","2003-06-26","2003-06-27","2003-06-28","2003-06-29","2003-06-30"],"y":[29,29,29,28.399999999999999,28.899999999999999,28.699999999999999,29,28.5,28.800000000000001,28.699999999999999,27.199999999999999,27.399999999999999,28,28.199999999999999,28.699999999999999,27.300000000000001,25.899999999999999,27.600000000000001,28.399999999999999,28.899999999999999,28.100000000000001,28.199999999999999,27.199999999999999,25.300000000000001,25.100000000000001,26.300000000000001,26,27.100000000000001,26.199999999999999,27.5],"mode":"text","type":"scatter","text":["Date: 2003-06-01 Mean Temp: 29","Date: 2003-06-02 Mean Temp: 29","Date: 2003-06-03 Mean Temp: 29","Date: 2003-06-04 Mean Temp: 28.4","Date: 2003-06-05 Mean Temp: 28.9","Date: 2003-06-06 Mean Temp: 28.7","Date: 2003-06-07 Mean Temp: 29","Date: 2003-06-08 Mean Temp: 28.5","Date: 2003-06-09 Mean Temp: 28.8","Date: 2003-06-10 Mean Temp: 28.7","Date: 2003-06-11 Mean Temp: 27.2","Date: 2003-06-12 Mean Temp: 27.4","Date: 2003-06-13 Mean Temp: 28","Date: 2003-06-14 Mean Temp: 28.2","Date: 2003-06-15 Mean Temp: 28.7","Date: 2003-06-16 Mean Temp: 27.3","Date: 2003-06-17 Mean Temp: 25.9","Date: 2003-06-18 Mean Temp: 27.6","Date: 2003-06-19 Mean Temp: 28.4","Date: 2003-06-20 Mean Temp: 28.9","Date: 2003-06-21 Mean Temp: 28.1","Date: 2003-06-22 Mean Temp: 28.2","Date: 2003-06-23 Mean Temp: 27.2","Date: 2003-06-24 Mean Temp: 25.3","Date: 2003-06-25 Mean Temp: 25.1","Date: 2003-06-26 Mean Temp: 26.3","Date: 2003-06-27 Mean Temp: 26","Date: 2003-06-28 Mean Temp: 27.1","Date: 2003-06-29 Mean Temp: 26.2","Date: 2003-06-30 Mean Temp: 27.5"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text"],"showlegend":false,"name":"2003","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"line":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2013-06-01","2013-06-03","2013-06-13","2013-06-15","2013-06-16","2013-06-17","2013-06-19","2013-06-20","2013-06-21","2013-06-22","2013-06-23","2013-06-24","2013-06-25","2013-06-26","2013-06-27","2013-06-28","2013-06-29"],"y":[27.899999999999999,29.199999999999999,29.600000000000001,29.399999999999999,29.800000000000001,28.899999999999999,29.100000000000001,28.800000000000001,29.100000000000001,29.399999999999999,29.300000000000001,29.699999999999999,27.600000000000001,26.600000000000001,28.399999999999999,28.100000000000001,28.699999999999999],"mode":"text","type":"scatter","text":["Date: 2013-06-01 Mean Temp: 27.9","Date: 2013-06-03 Mean Temp: 29.2","Date: 2013-06-13 Mean Temp: 29.6","Date: 2013-06-15 Mean Temp: 29.4","Date: 2013-06-16 Mean Temp: 29.8","Date: 2013-06-17 Mean Temp: 28.9","Date: 2013-06-19 Mean Temp: 29.1","Date: 2013-06-20 Mean Temp: 28.8","Date: 2013-06-21 Mean Temp: 29.1","Date: 2013-06-22 Mean Temp: 29.4","Date: 2013-06-23 Mean Temp: 29.3","Date: 2013-06-24 Mean Temp: 29.7","Date: 2013-06-25 Mean Temp: 27.6","Date: 2013-06-26 Mean Temp: 26.6","Date: 2013-06-27 Mean Temp: 28.4","Date: 2013-06-28 Mean Temp: 28.1","Date: 2013-06-29 Mean Temp: 28.7"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text"],"showlegend":false,"name":"2013","marker":{"color":"rgba(231,138,195,1)","line":{"color":"rgba(231,138,195,1)"}},"textfont":{"color":"rgba(231,138,195,1)"},"error_y":{"color":"rgba(231,138,195,1)"},"error_x":{"color":"rgba(231,138,195,1)"},"line":{"color":"rgba(231,138,195,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2023-06-01","2023-06-02","2023-06-03","2023-06-04","2023-06-05","2023-06-06","2023-06-07","2023-06-08","2023-06-09","2023-06-10","2023-06-11","2023-06-12","2023-06-13","2023-06-14","2023-06-15","2023-06-16","2023-06-17","2023-06-18","2023-06-19","2023-06-20","2023-06-21","2023-06-22","2023-06-23","2023-06-24","2023-06-25","2023-06-26","2023-06-27","2023-06-28","2023-06-29","2023-06-30"],"y":[26.699999999999999,28.300000000000001,28.100000000000001,26.399999999999999,28.199999999999999,27.800000000000001,28.199999999999999,28.5,28.899999999999999,28.899999999999999,29.399999999999999,27.100000000000001,28.600000000000001,27.699999999999999,28.699999999999999,29.800000000000001,29.699999999999999,27.199999999999999,28.300000000000001,28.699999999999999,29.399999999999999,29.5,28.600000000000001,27.399999999999999,28.100000000000001,27.199999999999999,27.100000000000001,27.399999999999999,28.100000000000001,27.300000000000001],"mode":"text","type":"scatter","text":["Date: 2023-06-01 Mean Temp: 26.7","Date: 2023-06-02 Mean Temp: 28.3","Date: 2023-06-03 Mean Temp: 28.1","Date: 2023-06-04 Mean Temp: 26.4","Date: 2023-06-05 Mean Temp: 28.2","Date: 2023-06-06 Mean Temp: 27.8","Date: 2023-06-07 Mean Temp: 28.2","Date: 2023-06-08 Mean Temp: 28.5","Date: 2023-06-09 Mean Temp: 28.9","Date: 2023-06-10 Mean Temp: 28.9","Date: 2023-06-11 Mean Temp: 29.4","Date: 2023-06-12 Mean Temp: 27.1","Date: 2023-06-13 Mean Temp: 28.6","Date: 2023-06-14 Mean Temp: 27.7","Date: 2023-06-15 Mean Temp: 28.7","Date: 2023-06-16 Mean Temp: 29.8","Date: 2023-06-17 Mean Temp: 29.7","Date: 2023-06-18 Mean Temp: 27.2","Date: 2023-06-19 Mean Temp: 28.3","Date: 2023-06-20 Mean Temp: 28.7","Date: 2023-06-21 Mean Temp: 29.4","Date: 2023-06-22 Mean Temp: 29.5","Date: 2023-06-23 Mean Temp: 28.6","Date: 2023-06-24 Mean Temp: 27.4","Date: 2023-06-25 Mean Temp: 28.1","Date: 2023-06-26 Mean Temp: 27.2","Date: 2023-06-27 Mean Temp: 27.1","Date: 2023-06-28 Mean Temp: 27.4","Date: 2023-06-29 Mean Temp: 28.1","Date: 2023-06-30 Mean Temp: 27.3"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text"],"showlegend":false,"name":"2023","marker":{"color":"rgba(166,216,84,1)","line":{"color":"rgba(166,216,84,1)"}},"textfont":{"color":"rgba(166,216,84,1)"},"error_y":{"color":"rgba(166,216,84,1)"},"error_x":{"color":"rgba(166,216,84,1)"},"line":{"color":"rgba(166,216,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["1993-06-15"],"y":[27.899999999999999],"mode":"lines","type":"scatter","line":{"color":"black","width":2},"name":"Monthly Mean Temperature","marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"textfont":{"color":"rgba(252,141,98,1)"},"error_y":{"color":"rgba(252,141,98,1)"},"error_x":{"color":"rgba(252,141,98,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2003-06-15"],"y":[27.800000000000001],"mode":"lines","type":"scatter","line":{"color":"black","width":2},"name":"Monthly Mean Temperature","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2013-06-15"],"y":[28.800000000000001],"mode":"lines","type":"scatter","line":{"color":"black","width":2},"name":"Monthly Mean Temperature","marker":{"color":"rgba(231,138,195,1)","line":{"color":"rgba(231,138,195,1)"}},"textfont":{"color":"rgba(231,138,195,1)"},"error_y":{"color":"rgba(231,138,195,1)"},"error_x":{"color":"rgba(231,138,195,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2023-06-15"],"y":[28.199999999999999],"mode":"lines","type":"scatter","line":{"color":"black","width":2},"name":"Monthly Mean Temperature","marker":{"color":"rgba(166,216,84,1)","line":{"color":"rgba(166,216,84,1)"}},"textfont":{"color":"rgba(166,216,84,1)"},"error_y":{"color":"rgba(166,216,84,1)"},"error_x":{"color":"rgba(166,216,84,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl) <span class="co"># Ensure this library is loaded to use read_excel</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the data from the Excel file</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>file_path <span class="ot">&lt;-</span> (<span class="st">"../../data/Tengah_Jun_1983_2023.xlsx"</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(file_path)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert non-numeric values to NA in 'Mean Temperature (°C)' column</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span><span class="st">`</span><span class="at">Mean Temperature (°C)</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(df<span class="sc">$</span><span class="st">`</span><span class="at">Mean Temperature (°C)</span><span class="st">`</span>))</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span><span class="st">`</span><span class="at">Mean Temperature (°C)</span><span class="st">`</span>[<span class="fu">is.na</span>(df<span class="sc">$</span><span class="st">`</span><span class="at">Mean Temperature (°C)</span><span class="st">`</span>)] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming 'mean_temperatures' holds the mean temperature for each June as calculated before</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new column 'Date' in df that represents each day in June for each year</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Date =</span> <span class="fu">as.Date</span>(<span class="fu">paste</span>(Year, Month, Day, <span class="at">sep=</span><span class="st">"-"</span>)))</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Create hover text</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>hover_text <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"Date:"</span>, <span class="fu">format</span>(df<span class="sc">$</span>Date, <span class="st">"%Y-%m-%d"</span>), <span class="st">"Mean Temp:"</span>, df<span class="sc">$</span><span class="st">`</span><span class="at">Mean Temperature (°C)</span><span class="st">`</span>)</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the daily mean temperatures using `df`</span></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">plot_ly</span>(<span class="at">data =</span> df, <span class="at">x =</span> <span class="sc">~</span>Date, <span class="at">y =</span> <span class="sc">~</span><span class="st">`</span><span class="at">Mean Temperature (°C)</span><span class="st">`</span>, <span class="at">color =</span> <span class="sc">~</span><span class="fu">as.factor</span>(Year),</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>             <span class="at">type =</span> <span class="st">'scatter'</span>, <span class="at">mode =</span> <span class="st">'markers'</span>,</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>             <span class="at">text =</span> <span class="sc">~</span>hover_text,  <span class="co"># use the hover text created above</span></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>             <span class="at">hoverinfo =</span> <span class="st">'text'</span>,  <span class="co"># show hover text only</span></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>             <span class="at">marker =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">5</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layout</span>(<span class="at">title =</span> <span class="st">'Daily Mean Temperature in June (1983 - 2023)'</span>,</span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>         <span class="at">xaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">'Date'</span>),</span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>         <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">'Mean Temperature (°C)'</span>))</span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Overlay the mean temperature for each June using `mean_temperatures`</span></span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming June 15th as representative for the month's mean</span></span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a>mean_temperatures <span class="ot">&lt;-</span> mean_temperatures <span class="sc">%&gt;%</span></span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Date =</span> <span class="fu">as.Date</span>(<span class="fu">paste</span>(Year, <span class="st">"6"</span>, <span class="st">"15"</span>, <span class="at">sep=</span><span class="st">"-"</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hover_text =</span> <span class="fu">paste</span>(<span class="st">"Yearly Mean:"</span>, MeanTemperatureJune))</span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">%&gt;%</span> <span class="fu">add_lines</span>(<span class="at">data =</span> mean_temperatures, <span class="at">x =</span> <span class="sc">~</span>Date, <span class="at">y =</span> <span class="sc">~</span>MeanTemperatureJune,</span>
+<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a>                     <span class="at">line =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">'black'</span>, <span class="at">width =</span> <span class="dv">2</span>),</span>
+<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a>                     <span class="at">text =</span> <span class="sc">~</span>hover_text,  <span class="co"># use the hover text created above</span></span>
+<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a>                     <span class="at">hoverinfo =</span> <span class="st">'text'</span>,  <span class="co"># show hover text only</span></span>
+<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a>                     <span class="at">name =</span> <span class="st">'Monthly Mean Temperature'</span>)</span>
+<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-44"><a href="#cb20-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the plot</span></span>
+<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-af0c7626b2a355564880" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-af0c7626b2a355564880">{"x":{"visdat":{"7de0564849cc":["function () ","plotlyVisDat"],"7de023e51c55":["function () ","data"]},"cur_data":"7de023e51c55","attrs":{"7de0564849cc":{"x":{},"y":{},"mode":"markers","text":{},"hoverinfo":"text","marker":{"size":5},"color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"},"7de023e51c55":{"x":{},"y":{},"mode":"lines","text":{},"hoverinfo":"text","marker":{"size":5},"color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter","line":{"color":"black","width":2},"name":"Monthly Mean Temperature","inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Daily Mean Temperature in June (1983 - 2023)","xaxis":{"domain":[0,1],"automargin":true,"title":"Date"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Mean Temperature (°C)"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["1993-06-01","1993-06-02","1993-06-03","1993-06-04","1993-06-05","1993-06-06","1993-06-07","1993-06-08","1993-06-09","1993-06-10","1993-06-11","1993-06-12","1993-06-13","1993-06-14","1993-06-15","1993-06-16","1993-06-17","1993-06-18","1993-06-19","1993-06-20","1993-06-21","1993-06-22","1993-06-23","1993-06-24","1993-06-25","1993-06-26","1993-06-27","1993-06-28","1993-06-29","1993-06-30"],"y":[27.399999999999999,29.100000000000001,29.5,28.699999999999999,27.399999999999999,26.800000000000001,27.100000000000001,29.300000000000001,29.199999999999999,29.800000000000001,27.800000000000001,27.699999999999999,29.199999999999999,26.800000000000001,25.5,27.699999999999999,27.300000000000001,27.899999999999999,27.699999999999999,27.800000000000001,28.5,28.899999999999999,28.399999999999999,26.5,27.600000000000001,27.699999999999999,28.600000000000001,29,27,26.199999999999999],"mode":"markers","text":["Date: 1993-06-01 Mean Temp: 27.4","Date: 1993-06-02 Mean Temp: 29.1","Date: 1993-06-03 Mean Temp: 29.5","Date: 1993-06-04 Mean Temp: 28.7","Date: 1993-06-05 Mean Temp: 27.4","Date: 1993-06-06 Mean Temp: 26.8","Date: 1993-06-07 Mean Temp: 27.1","Date: 1993-06-08 Mean Temp: 29.3","Date: 1993-06-09 Mean Temp: 29.2","Date: 1993-06-10 Mean Temp: 29.8","Date: 1993-06-11 Mean Temp: 27.8","Date: 1993-06-12 Mean Temp: 27.7","Date: 1993-06-13 Mean Temp: 29.2","Date: 1993-06-14 Mean Temp: 26.8","Date: 1993-06-15 Mean Temp: 25.5","Date: 1993-06-16 Mean Temp: 27.7","Date: 1993-06-17 Mean Temp: 27.3","Date: 1993-06-18 Mean Temp: 27.9","Date: 1993-06-19 Mean Temp: 27.7","Date: 1993-06-20 Mean Temp: 27.8","Date: 1993-06-21 Mean Temp: 28.5","Date: 1993-06-22 Mean Temp: 28.9","Date: 1993-06-23 Mean Temp: 28.4","Date: 1993-06-24 Mean Temp: 26.5","Date: 1993-06-25 Mean Temp: 27.6","Date: 1993-06-26 Mean Temp: 27.7","Date: 1993-06-27 Mean Temp: 28.6","Date: 1993-06-28 Mean Temp: 29","Date: 1993-06-29 Mean Temp: 27","Date: 1993-06-30 Mean Temp: 26.2"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text"],"marker":{"color":"rgba(252,141,98,1)","size":5,"line":{"color":"rgba(252,141,98,1)"}},"type":"scatter","name":"1993","textfont":{"color":"rgba(252,141,98,1)"},"error_y":{"color":"rgba(252,141,98,1)"},"error_x":{"color":"rgba(252,141,98,1)"},"line":{"color":"rgba(252,141,98,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2003-06-01","2003-06-02","2003-06-03","2003-06-04","2003-06-05","2003-06-06","2003-06-07","2003-06-08","2003-06-09","2003-06-10","2003-06-11","2003-06-12","2003-06-13","2003-06-14","2003-06-15","2003-06-16","2003-06-17","2003-06-18","2003-06-19","2003-06-20","2003-06-21","2003-06-22","2003-06-23","2003-06-24","2003-06-25","2003-06-26","2003-06-27","2003-06-28","2003-06-29","2003-06-30"],"y":[29,29,29,28.399999999999999,28.899999999999999,28.699999999999999,29,28.5,28.800000000000001,28.699999999999999,27.199999999999999,27.399999999999999,28,28.199999999999999,28.699999999999999,27.300000000000001,25.899999999999999,27.600000000000001,28.399999999999999,28.899999999999999,28.100000000000001,28.199999999999999,27.199999999999999,25.300000000000001,25.100000000000001,26.300000000000001,26,27.100000000000001,26.199999999999999,27.5],"mode":"markers","text":["Date: 2003-06-01 Mean Temp: 29","Date: 2003-06-02 Mean Temp: 29","Date: 2003-06-03 Mean Temp: 29","Date: 2003-06-04 Mean Temp: 28.4","Date: 2003-06-05 Mean Temp: 28.9","Date: 2003-06-06 Mean Temp: 28.7","Date: 2003-06-07 Mean Temp: 29","Date: 2003-06-08 Mean Temp: 28.5","Date: 2003-06-09 Mean Temp: 28.8","Date: 2003-06-10 Mean Temp: 28.7","Date: 2003-06-11 Mean Temp: 27.2","Date: 2003-06-12 Mean Temp: 27.4","Date: 2003-06-13 Mean Temp: 28","Date: 2003-06-14 Mean Temp: 28.2","Date: 2003-06-15 Mean Temp: 28.7","Date: 2003-06-16 Mean Temp: 27.3","Date: 2003-06-17 Mean Temp: 25.9","Date: 2003-06-18 Mean Temp: 27.6","Date: 2003-06-19 Mean Temp: 28.4","Date: 2003-06-20 Mean Temp: 28.9","Date: 2003-06-21 Mean Temp: 28.1","Date: 2003-06-22 Mean Temp: 28.2","Date: 2003-06-23 Mean Temp: 27.2","Date: 2003-06-24 Mean Temp: 25.3","Date: 2003-06-25 Mean Temp: 25.1","Date: 2003-06-26 Mean Temp: 26.3","Date: 2003-06-27 Mean Temp: 26","Date: 2003-06-28 Mean Temp: 27.1","Date: 2003-06-29 Mean Temp: 26.2","Date: 2003-06-30 Mean Temp: 27.5"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text"],"marker":{"color":"rgba(141,160,203,1)","size":5,"line":{"color":"rgba(141,160,203,1)"}},"type":"scatter","name":"2003","textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"line":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2013-06-01","2013-06-03","2013-06-13","2013-06-15","2013-06-16","2013-06-17","2013-06-19","2013-06-20","2013-06-21","2013-06-22","2013-06-23","2013-06-24","2013-06-25","2013-06-26","2013-06-27","2013-06-28","2013-06-29"],"y":[27.899999999999999,29.199999999999999,29.600000000000001,29.399999999999999,29.800000000000001,28.899999999999999,29.100000000000001,28.800000000000001,29.100000000000001,29.399999999999999,29.300000000000001,29.699999999999999,27.600000000000001,26.600000000000001,28.399999999999999,28.100000000000001,28.699999999999999],"mode":"markers","text":["Date: 2013-06-01 Mean Temp: 27.9","Date: 2013-06-03 Mean Temp: 29.2","Date: 2013-06-13 Mean Temp: 29.6","Date: 2013-06-15 Mean Temp: 29.4","Date: 2013-06-16 Mean Temp: 29.8","Date: 2013-06-17 Mean Temp: 28.9","Date: 2013-06-19 Mean Temp: 29.1","Date: 2013-06-20 Mean Temp: 28.8","Date: 2013-06-21 Mean Temp: 29.1","Date: 2013-06-22 Mean Temp: 29.4","Date: 2013-06-23 Mean Temp: 29.3","Date: 2013-06-24 Mean Temp: 29.7","Date: 2013-06-25 Mean Temp: 27.6","Date: 2013-06-26 Mean Temp: 26.6","Date: 2013-06-27 Mean Temp: 28.4","Date: 2013-06-28 Mean Temp: 28.1","Date: 2013-06-29 Mean Temp: 28.7"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text"],"marker":{"color":"rgba(231,138,195,1)","size":5,"line":{"color":"rgba(231,138,195,1)"}},"type":"scatter","name":"2013","textfont":{"color":"rgba(231,138,195,1)"},"error_y":{"color":"rgba(231,138,195,1)"},"error_x":{"color":"rgba(231,138,195,1)"},"line":{"color":"rgba(231,138,195,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2023-06-01","2023-06-02","2023-06-03","2023-06-04","2023-06-05","2023-06-06","2023-06-07","2023-06-08","2023-06-09","2023-06-10","2023-06-11","2023-06-12","2023-06-13","2023-06-14","2023-06-15","2023-06-16","2023-06-17","2023-06-18","2023-06-19","2023-06-20","2023-06-21","2023-06-22","2023-06-23","2023-06-24","2023-06-25","2023-06-26","2023-06-27","2023-06-28","2023-06-29","2023-06-30"],"y":[26.699999999999999,28.300000000000001,28.100000000000001,26.399999999999999,28.199999999999999,27.800000000000001,28.199999999999999,28.5,28.899999999999999,28.899999999999999,29.399999999999999,27.100000000000001,28.600000000000001,27.699999999999999,28.699999999999999,29.800000000000001,29.699999999999999,27.199999999999999,28.300000000000001,28.699999999999999,29.399999999999999,29.5,28.600000000000001,27.399999999999999,28.100000000000001,27.199999999999999,27.100000000000001,27.399999999999999,28.100000000000001,27.300000000000001],"mode":"markers","text":["Date: 2023-06-01 Mean Temp: 26.7","Date: 2023-06-02 Mean Temp: 28.3","Date: 2023-06-03 Mean Temp: 28.1","Date: 2023-06-04 Mean Temp: 26.4","Date: 2023-06-05 Mean Temp: 28.2","Date: 2023-06-06 Mean Temp: 27.8","Date: 2023-06-07 Mean Temp: 28.2","Date: 2023-06-08 Mean Temp: 28.5","Date: 2023-06-09 Mean Temp: 28.9","Date: 2023-06-10 Mean Temp: 28.9","Date: 2023-06-11 Mean Temp: 29.4","Date: 2023-06-12 Mean Temp: 27.1","Date: 2023-06-13 Mean Temp: 28.6","Date: 2023-06-14 Mean Temp: 27.7","Date: 2023-06-15 Mean Temp: 28.7","Date: 2023-06-16 Mean Temp: 29.8","Date: 2023-06-17 Mean Temp: 29.7","Date: 2023-06-18 Mean Temp: 27.2","Date: 2023-06-19 Mean Temp: 28.3","Date: 2023-06-20 Mean Temp: 28.7","Date: 2023-06-21 Mean Temp: 29.4","Date: 2023-06-22 Mean Temp: 29.5","Date: 2023-06-23 Mean Temp: 28.6","Date: 2023-06-24 Mean Temp: 27.4","Date: 2023-06-25 Mean Temp: 28.1","Date: 2023-06-26 Mean Temp: 27.2","Date: 2023-06-27 Mean Temp: 27.1","Date: 2023-06-28 Mean Temp: 27.4","Date: 2023-06-29 Mean Temp: 28.1","Date: 2023-06-30 Mean Temp: 27.3"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text"],"marker":{"color":"rgba(166,216,84,1)","size":5,"line":{"color":"rgba(166,216,84,1)"}},"type":"scatter","name":"2023","textfont":{"color":"rgba(166,216,84,1)"},"error_y":{"color":"rgba(166,216,84,1)"},"error_x":{"color":"rgba(166,216,84,1)"},"line":{"color":"rgba(166,216,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["1993-06-15"],"y":[27.899999999999999],"mode":"lines+markers","text":"Yearly Mean: 27.9","hoverinfo":"text","marker":{"color":"rgba(252,141,98,1)","size":5,"line":{"color":"rgba(252,141,98,1)"}},"type":"scatter","line":{"color":"black","width":2},"name":"Monthly Mean Temperature","textfont":{"color":"rgba(252,141,98,1)"},"error_y":{"color":"rgba(252,141,98,1)"},"error_x":{"color":"rgba(252,141,98,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2003-06-15"],"y":[27.800000000000001],"mode":"lines+markers","text":"Yearly Mean: 27.8","hoverinfo":"text","marker":{"color":"rgba(141,160,203,1)","size":5,"line":{"color":"rgba(141,160,203,1)"}},"type":"scatter","line":{"color":"black","width":2},"name":"Monthly Mean Temperature","textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2013-06-15"],"y":[28.800000000000001],"mode":"lines+markers","text":"Yearly Mean: 28.8","hoverinfo":"text","marker":{"color":"rgba(231,138,195,1)","size":5,"line":{"color":"rgba(231,138,195,1)"}},"type":"scatter","line":{"color":"black","width":2},"name":"Monthly Mean Temperature","textfont":{"color":"rgba(231,138,195,1)"},"error_y":{"color":"rgba(231,138,195,1)"},"error_x":{"color":"rgba(231,138,195,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2023-06-15"],"y":[28.199999999999999],"mode":"lines+markers","text":"Yearly Mean: 28.2","hoverinfo":"text","marker":{"color":"rgba(166,216,84,1)","size":5,"line":{"color":"rgba(166,216,84,1)"}},"type":"scatter","line":{"color":"black","width":2},"name":"Monthly Mean Temperature","textfont":{"color":"rgba(166,216,84,1)"},"error_y":{"color":"rgba(166,216,84,1)"},"error_x":{"color":"rgba(166,216,84,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the data from the Excel file</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>file_path <span class="ot">&lt;-</span> (<span class="st">"../../data/Tengah_Jun_1983_2023.xlsx"</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(file_path)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert non-numeric values to NA in 'Mean Temperature (°C)' column</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span><span class="st">`</span><span class="at">Mean Temperature (°C)</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(df<span class="sc">$</span><span class="st">`</span><span class="at">Mean Temperature (°C)</span><span class="st">`</span>))</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span><span class="st">`</span><span class="at">Mean Temperature (°C)</span><span class="st">`</span>[<span class="fu">is.na</span>(df<span class="sc">$</span><span class="st">`</span><span class="at">Mean Temperature (°C)</span><span class="st">`</span>)] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a Date column for each entry in df</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Date =</span> <span class="fu">as.Date</span>(<span class="fu">paste</span>(Year, Month, Day, <span class="at">sep=</span><span class="st">"-"</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Date))  <span class="co"># Ensure there are no NA Dates</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming 'mean_temperatures' holds the mean temperature for each June as calculated before</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>mean_temperatures <span class="ot">&lt;-</span> mean_temperatures <span class="sc">%&gt;%</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Date =</span> <span class="fu">as.Date</span>(<span class="fu">paste</span>(Year, <span class="dv">6</span>, <span class="dv">15</span>, <span class="at">sep=</span><span class="st">"-"</span>)))  <span class="co"># Use the middle of June as the representative date</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the daily mean temperatures using `df`</span></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">plot_ly</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_markers</span>(<span class="at">data =</span> df, <span class="at">x =</span> <span class="sc">~</span>Date, <span class="at">y =</span> <span class="sc">~</span><span class="st">`</span><span class="at">Mean Temperature (°C)</span><span class="st">`</span>, <span class="at">color =</span> <span class="sc">~</span><span class="fu">as.factor</span>(Year),</span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>              <span class="at">text =</span> <span class="sc">~</span><span class="fu">paste</span>(<span class="st">"Date:"</span>, <span class="fu">format</span>(Date, <span class="st">"%Y-%m-%d"</span>), <span class="st">"Mean Temp:"</span>, <span class="st">`</span><span class="at">Mean Temperature (°C)</span><span class="st">`</span>),</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>              <span class="at">hoverinfo =</span> <span class="st">'text'</span>, <span class="at">marker =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">5</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layout</span>(<span class="at">title =</span> <span class="st">'Daily Mean Temperature in June (1983 - 2023)'</span>,</span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>         <span class="at">xaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">'Date'</span>),</span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>         <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">'Mean Temperature (°C)'</span>))</span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the mean temperature points as markers</span></span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">%&gt;%</span> <span class="fu">add_markers</span>(<span class="at">data =</span> mean_temperatures, <span class="at">x =</span> <span class="sc">~</span>Date, <span class="at">y =</span> <span class="sc">~</span>MeanTemperatureJune,</span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a>                       <span class="at">marker =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">'black'</span>, <span class="at">size =</span> <span class="dv">10</span>),</span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a>                       <span class="at">name =</span> <span class="st">'Mean Temperature'</span>)</span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Connect the mean temperature points with a line</span></span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">%&gt;%</span> <span class="fu">add_lines</span>(<span class="at">data =</span> mean_temperatures, <span class="at">x =</span> <span class="sc">~</span>Date, <span class="at">y =</span> <span class="sc">~</span>MeanTemperatureJune,</span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a>                     <span class="at">line =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">'black'</span>, <span class="at">width =</span> <span class="dv">2</span>),</span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a>                     <span class="at">name =</span> <span class="st">'Mean Temperature Trend'</span>)</span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the plot</span></span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-24af9bcdf820b61334b3" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-24af9bcdf820b61334b3">{"x":{"visdat":{"7de036e1a522":["function () ","plotlyVisDat"],"7de018207754":["function () ","data"],"7de07b7a382b":["function () ","data"],"7de014fdce62":["function () ","data"]},"cur_data":"7de014fdce62","attrs":{"7de018207754":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"type":"scatter","mode":"markers","color":{},"text":{},"hoverinfo":"text","marker":{"size":5},"inherit":true},"7de07b7a382b":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"type":"scatter","mode":"markers","marker":{"color":"black","size":10},"name":"Mean Temperature","inherit":true},"7de014fdce62":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"type":"scatter","mode":"lines","line":{"color":"black","width":2},"name":"Mean Temperature Trend","inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Daily Mean Temperature in June (1983 - 2023)","xaxis":{"domain":[0,1],"automargin":true,"title":"Date"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Mean Temperature (°C)"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["1993-06-01","1993-06-02","1993-06-03","1993-06-04","1993-06-05","1993-06-06","1993-06-07","1993-06-08","1993-06-09","1993-06-10","1993-06-11","1993-06-12","1993-06-13","1993-06-14","1993-06-15","1993-06-16","1993-06-17","1993-06-18","1993-06-19","1993-06-20","1993-06-21","1993-06-22","1993-06-23","1993-06-24","1993-06-25","1993-06-26","1993-06-27","1993-06-28","1993-06-29","1993-06-30"],"y":[27.399999999999999,29.100000000000001,29.5,28.699999999999999,27.399999999999999,26.800000000000001,27.100000000000001,29.300000000000001,29.199999999999999,29.800000000000001,27.800000000000001,27.699999999999999,29.199999999999999,26.800000000000001,25.5,27.699999999999999,27.300000000000001,27.899999999999999,27.699999999999999,27.800000000000001,28.5,28.899999999999999,28.399999999999999,26.5,27.600000000000001,27.699999999999999,28.600000000000001,29,27,26.199999999999999],"type":"scatter","mode":"markers","text":["Date: 1993-06-01 Mean Temp: 27.4","Date: 1993-06-02 Mean Temp: 29.1","Date: 1993-06-03 Mean Temp: 29.5","Date: 1993-06-04 Mean Temp: 28.7","Date: 1993-06-05 Mean Temp: 27.4","Date: 1993-06-06 Mean Temp: 26.8","Date: 1993-06-07 Mean Temp: 27.1","Date: 1993-06-08 Mean Temp: 29.3","Date: 1993-06-09 Mean Temp: 29.2","Date: 1993-06-10 Mean Temp: 29.8","Date: 1993-06-11 Mean Temp: 27.8","Date: 1993-06-12 Mean Temp: 27.7","Date: 1993-06-13 Mean Temp: 29.2","Date: 1993-06-14 Mean Temp: 26.8","Date: 1993-06-15 Mean Temp: 25.5","Date: 1993-06-16 Mean Temp: 27.7","Date: 1993-06-17 Mean Temp: 27.3","Date: 1993-06-18 Mean Temp: 27.9","Date: 1993-06-19 Mean Temp: 27.7","Date: 1993-06-20 Mean Temp: 27.8","Date: 1993-06-21 Mean Temp: 28.5","Date: 1993-06-22 Mean Temp: 28.9","Date: 1993-06-23 Mean Temp: 28.4","Date: 1993-06-24 Mean Temp: 26.5","Date: 1993-06-25 Mean Temp: 27.6","Date: 1993-06-26 Mean Temp: 27.7","Date: 1993-06-27 Mean Temp: 28.6","Date: 1993-06-28 Mean Temp: 29","Date: 1993-06-29 Mean Temp: 27","Date: 1993-06-30 Mean Temp: 26.2"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text"],"marker":{"color":"rgba(252,141,98,1)","size":5,"line":{"color":"rgba(252,141,98,1)"}},"name":"1993","textfont":{"color":"rgba(252,141,98,1)"},"error_y":{"color":"rgba(252,141,98,1)"},"error_x":{"color":"rgba(252,141,98,1)"},"line":{"color":"rgba(252,141,98,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2003-06-01","2003-06-02","2003-06-03","2003-06-04","2003-06-05","2003-06-06","2003-06-07","2003-06-08","2003-06-09","2003-06-10","2003-06-11","2003-06-12","2003-06-13","2003-06-14","2003-06-15","2003-06-16","2003-06-17","2003-06-18","2003-06-19","2003-06-20","2003-06-21","2003-06-22","2003-06-23","2003-06-24","2003-06-25","2003-06-26","2003-06-27","2003-06-28","2003-06-29","2003-06-30"],"y":[29,29,29,28.399999999999999,28.899999999999999,28.699999999999999,29,28.5,28.800000000000001,28.699999999999999,27.199999999999999,27.399999999999999,28,28.199999999999999,28.699999999999999,27.300000000000001,25.899999999999999,27.600000000000001,28.399999999999999,28.899999999999999,28.100000000000001,28.199999999999999,27.199999999999999,25.300000000000001,25.100000000000001,26.300000000000001,26,27.100000000000001,26.199999999999999,27.5],"type":"scatter","mode":"markers","text":["Date: 2003-06-01 Mean Temp: 29","Date: 2003-06-02 Mean Temp: 29","Date: 2003-06-03 Mean Temp: 29","Date: 2003-06-04 Mean Temp: 28.4","Date: 2003-06-05 Mean Temp: 28.9","Date: 2003-06-06 Mean Temp: 28.7","Date: 2003-06-07 Mean Temp: 29","Date: 2003-06-08 Mean Temp: 28.5","Date: 2003-06-09 Mean Temp: 28.8","Date: 2003-06-10 Mean Temp: 28.7","Date: 2003-06-11 Mean Temp: 27.2","Date: 2003-06-12 Mean Temp: 27.4","Date: 2003-06-13 Mean Temp: 28","Date: 2003-06-14 Mean Temp: 28.2","Date: 2003-06-15 Mean Temp: 28.7","Date: 2003-06-16 Mean Temp: 27.3","Date: 2003-06-17 Mean Temp: 25.9","Date: 2003-06-18 Mean Temp: 27.6","Date: 2003-06-19 Mean Temp: 28.4","Date: 2003-06-20 Mean Temp: 28.9","Date: 2003-06-21 Mean Temp: 28.1","Date: 2003-06-22 Mean Temp: 28.2","Date: 2003-06-23 Mean Temp: 27.2","Date: 2003-06-24 Mean Temp: 25.3","Date: 2003-06-25 Mean Temp: 25.1","Date: 2003-06-26 Mean Temp: 26.3","Date: 2003-06-27 Mean Temp: 26","Date: 2003-06-28 Mean Temp: 27.1","Date: 2003-06-29 Mean Temp: 26.2","Date: 2003-06-30 Mean Temp: 27.5"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text"],"marker":{"color":"rgba(141,160,203,1)","size":5,"line":{"color":"rgba(141,160,203,1)"}},"name":"2003","textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"line":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2013-06-01","2013-06-03","2013-06-13","2013-06-15","2013-06-16","2013-06-17","2013-06-19","2013-06-20","2013-06-21","2013-06-22","2013-06-23","2013-06-24","2013-06-25","2013-06-26","2013-06-27","2013-06-28","2013-06-29"],"y":[27.899999999999999,29.199999999999999,29.600000000000001,29.399999999999999,29.800000000000001,28.899999999999999,29.100000000000001,28.800000000000001,29.100000000000001,29.399999999999999,29.300000000000001,29.699999999999999,27.600000000000001,26.600000000000001,28.399999999999999,28.100000000000001,28.699999999999999],"type":"scatter","mode":"markers","text":["Date: 2013-06-01 Mean Temp: 27.9","Date: 2013-06-03 Mean Temp: 29.2","Date: 2013-06-13 Mean Temp: 29.6","Date: 2013-06-15 Mean Temp: 29.4","Date: 2013-06-16 Mean Temp: 29.8","Date: 2013-06-17 Mean Temp: 28.9","Date: 2013-06-19 Mean Temp: 29.1","Date: 2013-06-20 Mean Temp: 28.8","Date: 2013-06-21 Mean Temp: 29.1","Date: 2013-06-22 Mean Temp: 29.4","Date: 2013-06-23 Mean Temp: 29.3","Date: 2013-06-24 Mean Temp: 29.7","Date: 2013-06-25 Mean Temp: 27.6","Date: 2013-06-26 Mean Temp: 26.6","Date: 2013-06-27 Mean Temp: 28.4","Date: 2013-06-28 Mean Temp: 28.1","Date: 2013-06-29 Mean Temp: 28.7"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text"],"marker":{"color":"rgba(231,138,195,1)","size":5,"line":{"color":"rgba(231,138,195,1)"}},"name":"2013","textfont":{"color":"rgba(231,138,195,1)"},"error_y":{"color":"rgba(231,138,195,1)"},"error_x":{"color":"rgba(231,138,195,1)"},"line":{"color":"rgba(231,138,195,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2023-06-01","2023-06-02","2023-06-03","2023-06-04","2023-06-05","2023-06-06","2023-06-07","2023-06-08","2023-06-09","2023-06-10","2023-06-11","2023-06-12","2023-06-13","2023-06-14","2023-06-15","2023-06-16","2023-06-17","2023-06-18","2023-06-19","2023-06-20","2023-06-21","2023-06-22","2023-06-23","2023-06-24","2023-06-25","2023-06-26","2023-06-27","2023-06-28","2023-06-29","2023-06-30"],"y":[26.699999999999999,28.300000000000001,28.100000000000001,26.399999999999999,28.199999999999999,27.800000000000001,28.199999999999999,28.5,28.899999999999999,28.899999999999999,29.399999999999999,27.100000000000001,28.600000000000001,27.699999999999999,28.699999999999999,29.800000000000001,29.699999999999999,27.199999999999999,28.300000000000001,28.699999999999999,29.399999999999999,29.5,28.600000000000001,27.399999999999999,28.100000000000001,27.199999999999999,27.100000000000001,27.399999999999999,28.100000000000001,27.300000000000001],"type":"scatter","mode":"markers","text":["Date: 2023-06-01 Mean Temp: 26.7","Date: 2023-06-02 Mean Temp: 28.3","Date: 2023-06-03 Mean Temp: 28.1","Date: 2023-06-04 Mean Temp: 26.4","Date: 2023-06-05 Mean Temp: 28.2","Date: 2023-06-06 Mean Temp: 27.8","Date: 2023-06-07 Mean Temp: 28.2","Date: 2023-06-08 Mean Temp: 28.5","Date: 2023-06-09 Mean Temp: 28.9","Date: 2023-06-10 Mean Temp: 28.9","Date: 2023-06-11 Mean Temp: 29.4","Date: 2023-06-12 Mean Temp: 27.1","Date: 2023-06-13 Mean Temp: 28.6","Date: 2023-06-14 Mean Temp: 27.7","Date: 2023-06-15 Mean Temp: 28.7","Date: 2023-06-16 Mean Temp: 29.8","Date: 2023-06-17 Mean Temp: 29.7","Date: 2023-06-18 Mean Temp: 27.2","Date: 2023-06-19 Mean Temp: 28.3","Date: 2023-06-20 Mean Temp: 28.7","Date: 2023-06-21 Mean Temp: 29.4","Date: 2023-06-22 Mean Temp: 29.5","Date: 2023-06-23 Mean Temp: 28.6","Date: 2023-06-24 Mean Temp: 27.4","Date: 2023-06-25 Mean Temp: 28.1","Date: 2023-06-26 Mean Temp: 27.2","Date: 2023-06-27 Mean Temp: 27.1","Date: 2023-06-28 Mean Temp: 27.4","Date: 2023-06-29 Mean Temp: 28.1","Date: 2023-06-30 Mean Temp: 27.3"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text"],"marker":{"color":"rgba(166,216,84,1)","size":5,"line":{"color":"rgba(166,216,84,1)"}},"name":"2023","textfont":{"color":"rgba(166,216,84,1)"},"error_y":{"color":"rgba(166,216,84,1)"},"error_x":{"color":"rgba(166,216,84,1)"},"line":{"color":"rgba(166,216,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["1993-06-15","2003-06-15","2013-06-15","2023-06-15"],"y":[27.899999999999999,27.800000000000001,28.800000000000001,28.199999999999999],"type":"scatter","mode":"markers","marker":{"color":"black","size":10,"line":{"color":"rgba(148,103,189,1)"}},"name":"Mean Temperature","error_y":{"color":"rgba(148,103,189,1)"},"error_x":{"color":"rgba(148,103,189,1)"},"line":{"color":"rgba(148,103,189,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["1993-06-15","2003-06-15","2013-06-15","2023-06-15"],"y":[27.899999999999999,27.800000000000001,28.800000000000001,28.199999999999999],"type":"scatter","mode":"lines","line":{"color":"black","width":2},"name":"Mean Temperature Trend","marker":{"color":"rgba(140,86,75,1)","line":{"color":"rgba(140,86,75,1)"}},"error_y":{"color":"rgba(140,86,75,1)"},"error_x":{"color":"rgba(140,86,75,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
