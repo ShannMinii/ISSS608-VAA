@@ -213,3 +213,45 @@ p <- p %>% add_lines(data = mean_temperatures, x = ~Date, y = ~MeanTemperatureJu
 p
 ```
 
+```{r}
+# Load necessary libraries
+library(readxl)
+library(ggplot2)
+library(dplyr)
+
+# Load the data
+file_path <- ("../../data/Tengah_Jun_1983_2023.xlsx")
+data <- read_excel(file_path)
+
+# Replace missing values with NA and convert the Mean Temperature column to numeric
+data$`Mean Temperature (°C)` <- as.numeric(as.character(data$`Mean Temperature (°C)`))
+
+# Interpolate missing values
+data <- data %>%
+  group_by(Year) %>%
+  mutate(`Mean Temperature (°C)` = zoo::na.approx(`Mean Temperature (°C)`, na.rm = FALSE)) %>%
+  ungroup()
+
+# Calculate the average mean temperature for each year
+average_temperatures <- data %>%
+  group_by(Year) %>%
+  summarise(AverageMeanTemperature = mean(`Mean Temperature (°C)`, na.rm = TRUE))
+
+# Fit a linear regression model
+model <- lm(AverageMeanTemperature ~ Year, data = average_temperatures)
+
+# Prepare a summary of the model to get the slope
+model_summary <- summary(model)
+
+# Plotting
+ggplot(average_temperatures, aes(x = Year, y = AverageMeanTemperature)) +
+  geom_point() +
+  geom_smooth(method = "lm", color = "blue") +
+  labs(title = "June Average Mean Temperature Trend (1983, 1993, 2003, 2013, 2023)",
+       y = "Average Mean Temperature (°C)", x = "Year") +
+  theme_minimal()
+
+# Print the slope of the regression line
+coef(model)[["Year"]]
+
+```
