@@ -662,7 +662,7 @@
     "href": "Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05E.html#installing-d3treer-package",
     "title": "Hands-on Exercise 5E",
     "section": "16.6.1 Installing d3treeR package",
-    "text": "16.6.1 Installing d3treeR package\nThis slide shows you how to install a R package which is not available in cran.\n\nIf this is the first time you install a package from github, you should install devtools package by using the code below or else you can skip this step.\n\n\ninstall.packages(\"devtools\")\n\n\nThe downloaded binary packages are in\n    /var/folders/96/x3nlspkx4kz_2c94gv1tq66m0000gq/T//RtmpjSHINm/downloaded_packages\n\n\n\nNext, you will load the devtools library and install the package found in github by using the codes below.\n\n\nlibrary(devtools)\ninstall_github(\"timelyportfolio/d3treeR\")\n\n\nNow you are ready to launch d3treeR package\n\n\nlibrary(d3treeR)"
+    "text": "16.6.1 Installing d3treeR package\nThis slide shows you how to install a R package which is not available in cran.\n\nIf this is the first time you install a package from github, you should install devtools package by using the code below or else you can skip this step.\n\n\ninstall.packages(\"devtools\")\n\n\nThe downloaded binary packages are in\n    /var/folders/96/x3nlspkx4kz_2c94gv1tq66m0000gq/T//RtmpstK99L/downloaded_packages\n\n\n\nNext, you will load the devtools library and install the package found in github by using the codes below.\n\n\nlibrary(devtools)\ninstall_github(\"timelyportfolio/d3treeR\")\n\n\nNow you are ready to launch d3treeR package\n\n\nlibrary(d3treeR)"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05E.html#designing-an-interactive-treemap",
