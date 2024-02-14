@@ -10,28 +10,69 @@ execute:
   echo: true
   warning: false
 ---
-```{r}
-options(repos = c(CRAN = "https://cloud.r-project.org/"))
-install.packages("dplyr")
-install.packages("readr")
-install.packages("readxl")
-install.packages("plotly")
-install.packages("tidyr")
-install.packages("RColorBrewer")
 
-library(dplyr)
-library(readr)
-library(readxl)
-library(plotly)
-library(tidyr)
-library(RColorBrewer)
+# Project Brief
+
+According to an office report as shown in the infographic below:
+
+-   Daily mean temperature are projected to increase by 1.4 to 4.6, and
+
+-   The contrast between the wet months (November to January) and dry month (February and June to September) is likely to be more pronounced.
+
+![](pictures/Image1.png)
+
+As visual analytics greenhorns, we are keen to apply our newly acquired skills in visual interactivity and visualizing uncertainty methods to validate the claims presented above.
+
+# Project Objectives
+
+In this take-home exercise, we are required to:
+
+1.  Choose a weather station and download historical daily temperature or rainfall data from the Meteorological Service Singapore website.
+
+2.  Select either daily temperature or rainfall records for a month from each of the years 1983, 1993, 2003, 2013, and 2023, and then create an analytics-driven data visualization.
+
+3.  Apply appropriate interactive techniques to enhance the user experience in data discovery and/or visual storytelling.
+
+**For my analysis, I've selected Tengah weather station and I have chosen to concentrate on daily temperature data for the month of June from each of the years 1983, 1993, 2003, 2013, and 2023 to validate the claim that projects an increase in daily mean temperatures by 1.4 to 4.6 degrees Celsius.**
+
+# 1. Data Preparation
+
+## 1.1 Installing R packages
+
+pacman::p_load() function from the pacman package is used in the following code chunk to install and call the libraries of multiple R packages:
+
+```{r}
+pacman::p_load(
+  plotly,
+  dplyr,
+  readr,
+  readxl,
+  tidyr,
+  RColorBrewer,
+  ggplot2,
+  lubridate
+)
 ```
 
-```{r}
-# Load the data from the Excel file
-file_path <- ("../../data/Tengah_Jun_1983_2023.xlsx")
-df <- read_excel(file_path)
+## 1.2 Importing Dataset
 
+[Historical daily temperature](http://www.weather.gov.sg/climate-historical-daily/) from [Meteorological Service Singapore](http://www.weather.gov.sg/home/) is provided for the task.
+
+The following code segment utilizes the read_excel() function from the readxl package to load data from an Excel file into the R environment. This operation imports the dataset titled "Tengah_Jun_1983_2023.xlsx" into a dataframe.
+
+```{r}
+# Specify the path to the Excel file
+file_path <- ("../../data/Tengah_Jun_1983_2023.xlsx")
+
+# Import the data into a dataframe
+df <- read_excel(file_path)
+```
+
+# 2. Interactive Data Discovery and Visual Storytelling
+
+## 2.1 Scatter plot with a connected time series line
+
+```{r}
 # Convert non-numeric values to NA in 'Mean Temperature (°C)' column
 df$`Mean Temperature (°C)` <- as.numeric(as.character(df$`Mean Temperature (°C)`))
 
@@ -45,141 +86,6 @@ mean_temperatures <- df %>%
 
 # View the calculated mean temperatures
 print(mean_temperatures)
-
-```
-
-```{r}
-# Assuming 'mean_temperatures' is your data frame
-mean_temperatures <- data.frame(
-  Year = c(1983, 1993, 2003, 2013, 2023),
-  MeanTemperatureJune = c(NA, 27.9, 27.8, 28.8, 28.2)
-)
-
-# Remove rows with NA values for a cleaner plot
-mean_temperatures_clean <- mean_temperatures %>% drop_na()
-
-# Create an interactive plot
-p <- plot_ly(data = mean_temperatures_clean, x = ~Year, y = ~MeanTemperatureJune, type = 'scatter', mode = 'lines+markers',
-             text = ~paste("Year:", Year, "<br>Mean Temp:", MeanTemperatureJune), hoverinfo = 'text') %>%
-  layout(title = 'Mean Temperature in June (1983 - 2023)',
-         xaxis = list(title = 'Year'),
-         yaxis = list(title = 'Mean Temperature (°C)'))
-
-# Display the plot
-p
-
-```
-
-```{r}
-# Display the column names of the data frame to confirm 'Day' is present
-colnames(df)
-```
-
-```{r}
-library(plotly)
-library(dplyr)
-library(readxl) # Ensure this library is loaded to use read_excel
-
-# Load the data from the Excel file
-file_path <- ("../../data/Tengah_Jun_1983_2023.xlsx")
-df <- read_excel(file_path)
-
-# Convert non-numeric values to NA in 'Mean Temperature (°C)' column
-df$`Mean Temperature (°C)` <- as.numeric(as.character(df$`Mean Temperature (°C)`))
-df$`Mean Temperature (°C)`[is.na(df$`Mean Temperature (°C)`)] <- NA
-
-# Assuming 'mean_temperatures' holds the mean temperature for each June as calculated before
-
-# Create a new column 'Date' in df that represents each day in June for each year
-df <- df %>%
-  mutate(Date = as.Date(paste(Year, Month, Day, sep="-")))
-
-# Plot the daily mean temperatures using `df`
-p <- plot_ly(data = df, x = ~Date, y = ~`Mean Temperature (°C)`, color = ~as.factor(Year),
-             type = 'scatter', mode = 'markers') %>%
-  layout(title = 'Daily Mean Temperature in June (1983 - 2023)',
-         xaxis = list(title = 'Date'),
-         yaxis = list(title = 'Mean Temperature (°C)'))
-
-# Add the text labels for hover information
-p <- p %>% add_text(text = ~paste("Date:", format(Date, "%Y-%m-%d"), "Mean Temp:", `Mean Temperature (°C)`),
-                     hoverinfo = 'text', showlegend = FALSE)
-
-# Overlay the mean temperature for each June using `mean_temperatures`
-# Assuming June 15th as representative for the month's mean
-mean_temperatures <- mean_temperatures %>%
-  mutate(Date = as.Date(paste(Year, "6", "15", sep="-")))
-
-p <- p %>% add_lines(data = mean_temperatures, x = ~Date, y = ~MeanTemperatureJune,
-                     line = list(color = 'black', width = 2),
-                     name = 'Monthly Mean Temperature')
-
-# Display the plot
-p
-
-```
-
-```{r}
-library(plotly)
-library(dplyr)
-library(readxl) # Ensure this library is loaded to use read_excel
-
-# Load the data from the Excel file
-file_path <- ("../../data/Tengah_Jun_1983_2023.xlsx")
-df <- read_excel(file_path)
-
-# Convert non-numeric values to NA in 'Mean Temperature (°C)' column
-df$`Mean Temperature (°C)` <- as.numeric(as.character(df$`Mean Temperature (°C)`))
-df$`Mean Temperature (°C)`[is.na(df$`Mean Temperature (°C)`)] <- NA
-
-# Assuming 'mean_temperatures' holds the mean temperature for each June as calculated before
-
-# Create a new column 'Date' in df that represents each day in June for each year
-df <- df %>%
-  mutate(Date = as.Date(paste(Year, Month, Day, sep="-")))
-
-# Create hover text
-df$hover_text <- paste("Date:", format(df$Date, "%Y-%m-%d"), "Mean Temp:", df$`Mean Temperature (°C)`)
-
-# Plot the daily mean temperatures using `df`
-p <- plot_ly(data = df, x = ~Date, y = ~`Mean Temperature (°C)`, color = ~as.factor(Year),
-             type = 'scatter', mode = 'markers',
-             text = ~hover_text,  # use the hover text created above
-             hoverinfo = 'text',  # show hover text only
-             marker = list(size = 5)) %>%
-  layout(title = 'Daily Mean Temperature in June (1983 - 2023)',
-         xaxis = list(title = 'Date'),
-         yaxis = list(title = 'Mean Temperature (°C)'))
-
-# Overlay the mean temperature for each June using `mean_temperatures`
-# Assuming June 15th as representative for the month's mean
-mean_temperatures <- mean_temperatures %>%
-  mutate(Date = as.Date(paste(Year, "6", "15", sep="-"))) %>%
-  mutate(hover_text = paste("Yearly Mean:", MeanTemperatureJune))
-
-p <- p %>% add_lines(data = mean_temperatures, x = ~Date, y = ~MeanTemperatureJune,
-                     line = list(color = 'black', width = 2),
-                     text = ~hover_text,  # use the hover text created above
-                     hoverinfo = 'text',  # show hover text only
-                     name = 'Monthly Mean Temperature')
-
-# Display the plot
-p
-
-```
-
-```{r}
-library(plotly)
-library(dplyr)
-library(readxl)
-
-# Load the data from the Excel file
-file_path <- ("../../data/Tengah_Jun_1983_2023.xlsx")
-df <- read_excel(file_path)
-
-# Convert non-numeric values to NA in 'Mean Temperature (°C)' column
-df$`Mean Temperature (°C)` <- as.numeric(as.character(df$`Mean Temperature (°C)`))
-df$`Mean Temperature (°C)`[is.na(df$`Mean Temperature (°C)`)] <- NA
 
 # Create a Date column for each entry in df
 df <- df %>%
@@ -195,7 +101,7 @@ p <- plot_ly() %>%
   add_markers(data = df, x = ~Date, y = ~`Mean Temperature (°C)`, color = ~as.factor(Year),
               text = ~paste("Date:", format(Date, "%Y-%m-%d"), "Mean Temp:", `Mean Temperature (°C)`),
               hoverinfo = 'text', marker = list(size = 5)) %>%
-  layout(title = 'Daily Mean Temperature in June (1983 - 2023)',
+  layout(title = 'Daily Mean Temperature in June (1993 - 2023)',
          xaxis = list(title = 'Date'),
          yaxis = list(title = 'Mean Temperature (°C)'))
 
@@ -213,12 +119,110 @@ p <- p %>% add_lines(data = mean_temperatures, x = ~Date, y = ~MeanTemperatureJu
 p
 ```
 
-```{r}
-# Load necessary libraries
-library(readxl)
-library(ggplot2)
-library(dplyr)
+The graph displayed is an interactive scatter plot that tracks the daily mean temperature in June from 1993 to 2023. Each dot represents the mean temperature for a specific day in June for the selected years, with the different colors corresponding to different years as labeled in the legend. A black line connects the average mean temperature of the month of June for each year, providing a visual representation of changes over time. It is important to note that there are no records for the year 1893; therefore, the graph starts from the year 1993.
 
+A notable interactive feature of this graph is that when you hover the mouse over a dot, it displays additional information. For instance, hovering over a dot corresponding to the year 2003 reveals detailed data such as the exact date (e.g., "2003-06-07") and the mean temperature for that day (e.g., "Mean Temp: 29°C"). This hover-over capability enriches the user experience by allowing immediate access to specific data points without cluttering the visual presentation. It is a valuable tool for exploring the dataset and observing particular trends and anomalies at a granular level.
+
+## 2.2 Temperature Variations Over Time: A Heatmap Representation
+
+```{r}
+# Load your data
+file_path <- ("../../data/Tengah_Jun_1983_2023.xlsx")
+data <- read_excel(file_path)
+
+# Ensure that 'Mean Temperature (°C)' is a numeric variable
+data$`Mean Temperature (°C)` <- as.numeric(as.character(data$`Mean Temperature (°C)`))
+
+# Create 'DayOfMonth' based on 'Date' or 'Day' column
+# Ensure that 'Date' or 'Day' column exists and is in the correct format
+if("Date" %in% names(data)) {
+  # If 'Date' column is present and in the Date format
+  data$DayOfMonth <- day(data$Date)
+} else if("Day" %in% names(data)) {
+  # If 'Day' column is present and represents day of the month
+  data$DayOfMonth <- data$Day
+} else {
+  stop("The dataset does not have a 'Date' or 'Day' column in the expected format.")
+}
+
+# Assuming the 'Year' column is numeric and contains only the years of interest
+# We convert it to a factor to ensure it is treated as a discrete variable
+data$Year <- factor(data$Year)
+
+# Create the ggplot heatmap plot
+p <- ggplot(data, aes(x = DayOfMonth, y = Year, fill = `Mean Temperature (°C)`)) +
+  geom_tile(aes(text = paste("Date: ", DayOfMonth, " June ", "Year: ", Year, "<br>Temp: ", `Mean Temperature (°C)`)), color = "white") +  
+  scale_fill_gradient(low = "blue", high = "red") +  
+  labs(title = "Heatmap Calendar for the Month of June", 
+       x = "Day of the Month", 
+       y = "Year", 
+       fill = "Mean Temperature (°C)") +
+  theme_minimal()
+
+# Convert to an interactive plotly object
+ggplotly(p, tooltip = "text")
+```
+
+The heatmap provided is an interactive visualization tool that represents the daily mean temperatures for each day in the month of June over a range of years. The x-axis of the heatmap denotes the days of the month, while the y-axis corresponds to the years, ranging from 1983 to 2023. Each cell within the heatmap represents the mean temperature for a particular day in June of a given year, with the color indicating the temperature magnitude according to the color scale on the right. Warmer colors (e.g., red) signify higher temperatures, while cooler colors (e.g., blue) indicate lower temperatures.
+
+A distinctive feature of this heatmap is its interactivity: when you hover over a specific cell, it displays additional information. For instance, hovering over a cell corresponding to the 25th of June, 2003, would reveal the exact temperature for that day, such as "Temp: 25.1°C". This function enhances the user's ability to extract and analyze data, providing a quick and intuitive means to identify specific temperature values across different dates and years.
+
+Heatmaps like this are particularly useful for spotting trends and anomalies over time and can reveal days with exceptionally high or low temperatures at a glance. They also allow for quick visual comparisons across different years, providing an immediate sense of temporal patterns in temperature data.
+
+## 2.3 Line Graph of Cumulative Temperature Changes
+
+```{r}
+# Load your data
+file_path <- ("../../data/Tengah_Jun_1983_2023.xlsx")
+data <- read_excel(file_path)
+
+# Make sure the 'Mean Temperature (°C)' column is numeric
+data$`Mean Temperature (°C)` <- as.numeric(as.character(data$`Mean Temperature (°C)`))
+
+# Calculate the annual average temperatures
+annual_avg_temps <- data %>%
+  group_by(Year) %>%
+  summarize(AverageTemp = mean(`Mean Temperature (°C)`, na.rm = TRUE)) %>%
+  ungroup()  # Make sure to ungroup for subsequent operations
+
+# Calculate the year-to-year differences
+annual_avg_temps <- annual_avg_temps %>%
+  arrange(Year) %>%
+  mutate(TempChange = c(NA, diff(AverageTemp)))
+
+# Remove the NA introduced by the diff function
+annual_avg_temps$TempChange[is.na(annual_avg_temps$TempChange)] <- 0
+
+# Calculate the cumulative temperature change
+annual_avg_temps$CumulativeChange <- cumsum(annual_avg_temps$TempChange)
+
+# Create a ggplot object
+p <- ggplot(annual_avg_temps, aes(x = Year, y = CumulativeChange)) +
+  geom_line() +
+  geom_point(aes(text = paste("Year: ", Year, 
+                              "<br>Cumulative Change: ", CumulativeChange, 
+                              "<br>Annual Change: ", TempChange))) +
+  labs(title = "Cumulative Temperature Change Over Time",
+       x = "Year",
+       y = "Cumulative Temperature Change (°C)") +
+  theme_minimal()
+
+# Convert ggplot object to an interactive plotly object
+p <- ggplotly(p, tooltip = "text")
+
+# Print the interactive plot
+p
+```
+
+This line graph presents the cumulative change in temperature from a baseline year to 2023. The y-axis quantifies the cumulative temperature variation in degrees Celsius, while the x-axis tracks the progression of years. Starting from zero change, the graph reveals a rise in cumulative temperature, climaxing in 2013 with an approximate increase of 0.86 degrees Celsius from the baseline, and an annual change in that year of around 1.05 degrees Celsius, indicating a substantial escalation relative to the baseline.
+
+Post-2013, the graph shows a sharp downturn, with a notable reduction in cumulative temperature by 2023, although the overall change remains positive, signifying a rise from the start of the recorded period. The detailed tooltip for 2023 discloses a cumulative increase of roughly 0.24 degrees Celsius since the baseline, juxtaposed with a significant annual decrease of about -0.62 degrees Celsius from 2013 to 2023.
+
+The observed pattern of increase followed by a decrease may reflect periodic fluctuations rather than a steady trend of warming, suggesting the influence of various climatic elements or the inherent variability of the dataset.
+
+## 2.4 Linear Trend Analysis
+
+```{r}
 # Load the data
 file_path <- ("../../data/Tengah_Jun_1983_2023.xlsx")
 data <- read_excel(file_path)
@@ -243,15 +247,23 @@ model <- lm(AverageMeanTemperature ~ Year, data = average_temperatures)
 # Prepare a summary of the model to get the slope
 model_summary <- summary(model)
 
-# Plotting
-ggplot(average_temperatures, aes(x = Year, y = AverageMeanTemperature)) +
-  geom_point() +
+# Create ggplot with text aesthetic for hover info on points
+p <- ggplot(average_temperatures, aes(x = Year, y = AverageMeanTemperature)) +
+  geom_point(aes(text = paste("Year:", Year, "<br>Temperature:", AverageMeanTemperature))) +
   geom_smooth(method = "lm", color = "blue") +
   labs(title = "June Average Mean Temperature Trend (1983, 1993, 2003, 2013, 2023)",
        y = "Average Mean Temperature (°C)", x = "Year") +
   theme_minimal()
 
-# Print the slope of the regression line
+# Convert ggplot object to plotly for interactivity, ensuring hover info is on points
+ggplotly(p, tooltip = "text")
 coef(model)[["Year"]]
-
 ```
+
+This graph is a time series plot showing the trend in June's average mean temperature across selected years: 1983, 1993, 2003, 2013, and 2023. The blue line represents the linear regression model fitted to these data points, which predicts the average mean temperature based on the year. The shaded area around the regression line represents the confidence interval, indicating the degree of uncertainty around the estimated trend.
+
+The regression coefficient for the year obtained from the linear model, coef(model)\[\["Year"\]\] = 0.01975287, suggests that on average, there has been a yearly increase of about 0.0198°C in the mean temperature for June from 1983 to 2023. This positive coefficient indicates a slight upward trend in temperature over time.
+
+Data points, represented by dots, show the actual observed average mean temperatures for the months of June in the specified years. The confidence interval widens as it extends away from the data points, reflecting increasing uncertainty in predictions further away from the observed data.
+
+Interpreting the graph, it appears that temperatures in June have generally been increasing over the 40-year span, with a notable peak around 2013. However, by 2023, there's a visible decline as indicated by the last data point. The overall upward trend line, in conjunction with the regression coefficient, suggests a gradual increase in temperatures, albeit with some fluctuations, such as the drop in 2023.
