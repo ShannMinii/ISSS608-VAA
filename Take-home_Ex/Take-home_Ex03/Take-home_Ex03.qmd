@@ -126,31 +126,27 @@ A notable interactive feature of this graph is that when you hover the mouse ove
 ## 2.2 Temperature Variations Over Time: A Heatmap Representation
 
 ```{r}
-# Load your data
-file_path <- ("../../data/Tengah_Jun_1983_2023.xlsx")
-data <- read_excel(file_path)
-
 # Ensure that 'Mean Temperature (°C)' is a numeric variable
-data$`Mean Temperature (°C)` <- as.numeric(as.character(data$`Mean Temperature (°C)`))
+df$`Mean Temperature (°C)` <- as.numeric(as.character(df$`Mean Temperature (°C)`))
 
 # Create 'DayOfMonth' based on 'Date' or 'Day' column
 # Ensure that 'Date' or 'Day' column exists and is in the correct format
-if("Date" %in% names(data)) {
+if("Date" %in% names(df)) {
   # If 'Date' column is present and in the Date format
-  data$DayOfMonth <- day(data$Date)
-} else if("Day" %in% names(data)) {
+  df$DayOfMonth <- day(df$Date)
+} else if("Day" %in% names(df)) {
   # If 'Day' column is present and represents day of the month
-  data$DayOfMonth <- data$Day
+  df$DayOfMonth <- df$Day
 } else {
   stop("The dataset does not have a 'Date' or 'Day' column in the expected format.")
 }
 
 # Assuming the 'Year' column is numeric and contains only the years of interest
 # We convert it to a factor to ensure it is treated as a discrete variable
-data$Year <- factor(data$Year)
+df$Year <- factor(df$Year)
 
 # Create the ggplot heatmap plot
-p <- ggplot(data, aes(x = DayOfMonth, y = Year, fill = `Mean Temperature (°C)`)) +
+p <- ggplot(df, aes(x = DayOfMonth, y = Year, fill = `Mean Temperature (°C)`)) +
   geom_tile(aes(text = paste("Date: ", DayOfMonth, " June ", "Year: ", Year, "<br>Temp: ", `Mean Temperature (°C)`)), color = "white") +  
   scale_fill_gradient(low = "blue", high = "red") +  
   labs(title = "Heatmap Calendar for the Month of June", 
@@ -172,23 +168,20 @@ Heatmaps like this are particularly useful for spotting trends and anomalies ove
 ## 2.3 Line Graph of Cumulative Temperature Changes
 
 ```{r}
-# Load your data
-file_path <- ("../../data/Tengah_Jun_1983_2023.xlsx")
-data <- read_excel(file_path)
-
 # Make sure the 'Mean Temperature (°C)' column is numeric
-data$`Mean Temperature (°C)` <- as.numeric(as.character(data$`Mean Temperature (°C)`))
+df$`Mean Temperature (°C)` <- as.numeric(as.character(df$`Mean Temperature (°C)`))
 
 # Calculate the annual average temperatures
-annual_avg_temps <- data %>%
+annual_avg_temps <- df %>%
   group_by(Year) %>%
   summarize(AverageTemp = mean(`Mean Temperature (°C)`, na.rm = TRUE)) %>%
   ungroup()  # Make sure to ungroup for subsequent operations
 
+# Check if the dataframe is ordered by Year
+annual_avg_temps <- arrange(annual_avg_temps, Year)
+
 # Calculate the year-to-year differences
-annual_avg_temps <- annual_avg_temps %>%
-  arrange(Year) %>%
-  mutate(TempChange = c(NA, diff(AverageTemp)))
+annual_avg_temps <- mutate(annual_avg_temps, TempChange = c(NA, diff(AverageTemp)))
 
 # Remove the NA introduced by the diff function
 annual_avg_temps$TempChange[is.na(annual_avg_temps$TempChange)] <- 0
@@ -196,9 +189,13 @@ annual_avg_temps$TempChange[is.na(annual_avg_temps$TempChange)] <- 0
 # Calculate the cumulative temperature change
 annual_avg_temps$CumulativeChange <- cumsum(annual_avg_temps$TempChange)
 
-# Create a ggplot object
-p <- ggplot(annual_avg_temps, aes(x = Year, y = CumulativeChange)) +
-  geom_line() +
+# Ensure that Year is treated as a numeric variable for plotting
+annual_avg_temps$Year <- as.numeric(as.character(annual_avg_temps$Year))
+
+# Create a ggplot object with the correct dataframe
+# Ensure that we explicitly group the data to draw the line correctly
+p <- ggplot(annual_avg_temps, aes(x = Year, y = CumulativeChange, group = 1)) +
+  geom_line() +  # Ensure that this line is connecting the points
   geom_point(aes(text = paste("Year: ", Year, 
                               "<br>Cumulative Change: ", CumulativeChange, 
                               "<br>Annual Change: ", TempChange))) +
@@ -220,34 +217,63 @@ Post-2013, the graph shows a sharp downturn, with a notable reduction in cumulat
 
 The observed pattern of increase followed by a decrease may reflect periodic fluctuations rather than a steady trend of warming, suggesting the influence of various climatic elements or the inherent variability of the dataset.
 
-## 2.4 Linear Trend Analysis
+## 2.4 Decadal Box Plot Analysis
 
 ```{r}
-# Load the data
-file_path <- ("../../data/Tengah_Jun_1983_2023.xlsx")
-data <- read_excel(file_path)
+df$Year <- as.factor(df$Year)
 
-# Replace missing values with NA and convert the Mean Temperature column to numeric
-data$`Mean Temperature (°C)` <- as.numeric(as.character(data$`Mean Temperature (°C)`))
+# Create the Plotly Box Plot
+p <- plot_ly(df, y = ~`Mean Temperature (°C)`, x = ~Year, type = 'box',
+             color = ~Year, 
+             hoverinfo = 'y+x') %>%
+  layout(title = "Box Plot of Daily Mean Temperatures for June Over Decades",
+         xaxis = list(title = "Year"),
+         yaxis = list(title = "Mean Temperature (°C)"))
+
+# Display the plot
+p
+```
+
+This box plot displays the daily mean temperatures for the month of June across four selected years: 1993, 2003, 2013, and 2023. Each box represents the range between the first quartile (Q1, 25th percentile) and the third quartile (Q3, 75th percentile) of temperatures recorded during that month for the corresponding year, with the line inside the box depicting the median (50th percentile) temperature.
+
+-   1993: The median temperature was approximately 27.75°C. The temperatures ranged from a minimum of 25.5°C to a maximum of 29.8°C, with the first quartile at 27.3°C and the third quartile at 28.9°C.
+
+-   2003: The box plot for this year is relatively compact, indicating less variability in the temperatures compared to 1993. The median temperature is slightly lower than in 1993, around 27.75°C.
+
+-   2013: This year shows an outlier, which is a daily mean temperature that falls outside the typical range (below the first quartile or above the third quartile). The overall temperature distribution is higher than previous years, indicating an increase in temperatures over time.
+
+-   2023: The median temperature is higher than in the previous years, which suggests a possible trend of increasing temperatures over the decades. The range between the first and third quartiles is also larger, indicating more variability in daily mean temperatures during June of that year.
+
+The trend over the 30-year span from 1993 to 2023 shows an upward shift in median temperatures, suggesting a warming trend. Additionally, the increase in the interquartile range over time could indicate that temperature fluctuations are becoming more pronounced as the years progress.
+
+## 2.5 Linear Trend Analysis
+
+```{r}
+# Make sure the 'Mean Temperature (°C)' column is numeric
+df$`Mean Temperature (°C)` <- as.numeric(as.character(df$`Mean Temperature (°C)`))
 
 # Interpolate missing values
-data <- data %>%
+df <- df %>%
   group_by(Year) %>%
   mutate(`Mean Temperature (°C)` = zoo::na.approx(`Mean Temperature (°C)`, na.rm = FALSE)) %>%
   ungroup()
 
+# Ensure Year is numeric for the regression
+df$Year <- as.numeric(as.character(df$Year))
+
 # Calculate the average mean temperature for each year
-average_temperatures <- data %>%
+average_temperatures <- df %>%
   group_by(Year) %>%
   summarise(AverageMeanTemperature = mean(`Mean Temperature (°C)`, na.rm = TRUE))
 
 # Fit a linear regression model
 model <- lm(AverageMeanTemperature ~ Year, data = average_temperatures)
 
-# Prepare a summary of the model to get the slope
+# Prepare a summary of the model to check the coefficient names
 model_summary <- summary(model)
+print(model_summary)
 
-# Create ggplot with text aesthetic for hover info on points
+# Create a ggplot with text aesthetic for hover info on points
 p <- ggplot(average_temperatures, aes(x = Year, y = AverageMeanTemperature)) +
   geom_point(aes(text = paste("Year:", Year, "<br>Temperature:", AverageMeanTemperature))) +
   geom_smooth(method = "lm", color = "blue") +
@@ -257,7 +283,15 @@ p <- ggplot(average_temperatures, aes(x = Year, y = AverageMeanTemperature)) +
 
 # Convert ggplot object to plotly for interactivity, ensuring hover info is on points
 ggplotly(p, tooltip = "text")
-coef(model)[["Year"]]
+
+# If the 'Year' coefficient exists, it will be printed here
+if("Year" %in% names(coef(model))) {
+  year_coef <- coef(model)["Year"]
+  print(year_coef)
+} else {
+  print("The 'Year' coefficient does not exist in the model.")
+}
+
 ```
 
 This graph is a time series plot showing the trend in June's average mean temperature across selected years: 1983, 1993, 2003, 2013, and 2023. The blue line represents the linear regression model fitted to these data points, which predicts the average mean temperature based on the year. The shaded area around the regression line represents the confidence interval, indicating the degree of uncertainty around the estimated trend.
@@ -265,3 +299,16 @@ This graph is a time series plot showing the trend in June's average mean temper
 The regression coefficient for the year obtained from the linear model, coef(model)\[\["Year"\]\] = 0.01975287, suggests that on average, there has been a yearly increase of about 0.0198°C in the mean temperature for June from 1983 to 2023. This positive coefficient indicates a slight upward trend in temperature over time.
 
 Interpreting the graph, it appears that temperatures in June have generally been increasing over the 40-year span, with a notable peak around 2013. However, by 2023, there's a visible decline as indicated by the last data point. The overall upward trend line, in conjunction with the regression coefficient, suggests a gradual increase in temperatures, albeit with some fluctuations, such as the drop in 2023.
+
+# 3. Conclusion
+The box plots for the years 1993, 2003, 2013, and 2023 show an upward shift in median temperatures, suggesting a warming trend. However, the specific amounts of increase are not clearly provided in the plots themselves but can be inferred from the positions of the medians. There's also an increase in the interquartile range, indicating greater temperature variability.
+
+The linear regression analysis gives a coefficient of approximately 0.0198°C per year. Over a 40-year period from 1983 to 2023, this would account for a warming of roughly 0.594°C (0.0198°C/year * 30 years), which is an increase but not within the projected increase.
+
+The claim of an increase in daily mean temperatures by 1.4 to 4.6 degrees Celsius is not fully supported by the data and analyses provided from the Tengah weather station. The observed increase from the linear regression analysis is approximately 0.792°C over 30 years, which is below the lower limit of the projected range.
+
+It is important to note that this analysis is based solely on the data for the month of June across selected years and does not take into account other months or the entirety of the annual temperature trends. The claim might be valid when considering a broader range of data or different time spans within each year.
+
+Moreover, the claim may also be considering projections into the future beyond the current data (up to 2023), and these projections might be based on climate models that account for various factors like greenhouse gas emissions scenarios, land-use changes, and other climatic feedbacks that are not directly observable from past data alone.
+
+In conclusion, while the data does show an upward trend in temperatures, the increase is less than what is projected in the claim. Further analysis with more comprehensive data, including future projections, would be necessary to fully validate the claim.
