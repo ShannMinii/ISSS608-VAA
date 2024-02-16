@@ -214,7 +214,7 @@ p <- ggplotly(p, tooltip = "text")
 p
 ```
 
-This line graph presents the cumulative change in temperature from a baseline year to 2023. The y-axis quantifies the cumulative temperature variation in degrees Celsius, while the x-axis tracks the progression of years. Starting from zero change, the graph reveals a rise in cumulative temperature, climaxing in 2013 with an approximate increase of 0.86 degrees Celsius from the baseline, and an annual change in that year of around 1.05 degrees Celsius, indicating a substantial escalation relative to the baseline.
+This line graph presents the cumulative change in temperature from a baseline year(1993) to 2023. The y-axis quantifies the cumulative temperature variation in degrees Celsius, while the x-axis tracks the progression of years. Starting from zero change, the graph reveals a rise in cumulative temperature, climaxing in 2013 with an approximate increase of 0.86 degrees Celsius from the baseline, and an annual change in that year of around 1.05 degrees Celsius, indicating a substantial escalation relative to the baseline.
 
 Post-2013, the graph shows a sharp downturn, with a notable reduction in cumulative temperature by 2023, although the overall change remains positive, signifying a rise from the start of the recorded period. The detailed tooltip for 2023 discloses a cumulative increase of roughly 0.24 degrees Celsius since the baseline, juxtaposed with a significant annual decrease of about -0.62 degrees Celsius from 2013 to 2023.
 
@@ -263,7 +263,5 @@ coef(model)[["Year"]]
 This graph is a time series plot showing the trend in June's average mean temperature across selected years: 1983, 1993, 2003, 2013, and 2023. The blue line represents the linear regression model fitted to these data points, which predicts the average mean temperature based on the year. The shaded area around the regression line represents the confidence interval, indicating the degree of uncertainty around the estimated trend.
 
 The regression coefficient for the year obtained from the linear model, coef(model)\[\["Year"\]\] = 0.01975287, suggests that on average, there has been a yearly increase of about 0.0198°C in the mean temperature for June from 1983 to 2023. This positive coefficient indicates a slight upward trend in temperature over time.
-
-Data points, represented by dots, show the actual observed average mean temperatures for the months of June in the specified years. The confidence interval widens as it extends away from the data points, reflecting increasing uncertainty in predictions further away from the observed data.
 
 Interpreting the graph, it appears that temperatures in June have generally been increasing over the 40-year span, with a notable peak around 2013. However, by 2023, there's a visible decline as indicated by the last data point. The overall upward trend line, in conjunction with the regression coefficient, suggests a gradual increase in temperatures, albeit with some fluctuations, such as the drop in 2023.
