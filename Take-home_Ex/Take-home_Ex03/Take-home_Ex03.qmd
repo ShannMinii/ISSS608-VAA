@@ -2,9 +2,12 @@
 title: "Take-home Exercise 3"
 date: "February 8, 2024"
 date-modified: "last-modified"
-output: 
-  html_document:
-    css: styles.css 
+format:
+  html:
+    code-fold: true
+    code-summary: "Show the code"
+output: html_document
+css: styles.css
 execute: 
   eval: true
   echo: true
@@ -70,7 +73,34 @@ df <- read_excel(file_path)
 
 # 2. Interactive Data Discovery and Visual Storytelling
 
-## 2.1 Scatter plot with a connected time series line
+::: panel-tabset
+## Scatter plot with a connected time series line
+
+### **1. Data Preparation Process**
+
+-   **Numeric Conversion**: Converted **`Mean Temperature (°C)`** to numeric, handling non-numeric values as **`NA`** to ensure data consistency.
+
+-   **Missing Values**: Filtered out **`NA`** values to clean the dataset for analysis.
+
+-   **Annual Mean Calculation**: Grouped data by year to calculate June's mean temperature, simplifying trend analysis.
+
+-   **Date Column Creation**: Formed a **`Date`** column for accurate temporal visualization.
+
+### **2. Visualization Technique Selection**
+
+-   **Scatter Plot with Time Series Line**: This technique is particularly effective for showing individual daily mean temperature data points over time, allowing for the examination of variability within and across years. The connecting line highlights the trend of mean temperatures in June, making it easier to discern patterns or shifts over the selected years.
+
+-   **Interactivity**: Tooltips added for detailed data point inspection, enhancing user engagement.
+
+### **3. Design and Interactivity Principles**
+
+-   **Simplicity and Clarity**: Clear plot titles, axis labels, and a legend make the visualization straightforward to interpret.
+
+-   **Color Utilization**: Colors distinguish between years, facilitating quick visual comparison.
+
+-   **Interactive Features**: Tooltips provide detailed information, allowing for an interactive, exploratory data experience.
+
+-   **Trend Representation**: A connecting line through annual means visualizes temperature trends over time effectively.
 
 ```{r}
 # Convert non-numeric values to NA in 'Mean Temperature (°C)' column
@@ -83,9 +113,6 @@ df$`Mean Temperature (°C)`[is.na(df$`Mean Temperature (°C)`)] <- NA
 mean_temperatures <- df %>%
   group_by(Year) %>%
   summarize(MeanTemperatureJune = mean(`Mean Temperature (°C)`, na.rm = TRUE))
-
-# View the calculated mean temperatures
-print(mean_temperatures)
 
 # Create a Date column for each entry in df
 df <- df %>%
@@ -117,13 +144,18 @@ p <- p %>% add_lines(data = mean_temperatures, x = ~Date, y = ~MeanTemperatureJu
 
 # Display the plot
 p
+
 ```
 
-The graph displayed is an interactive scatter plot that tracks the daily mean temperature in June from 1993 to 2023. Each dot represents the mean temperature for a specific day in June for the selected years, with the different colors corresponding to different years as labeled in the legend. A black line connects the average mean temperature of the month of June for each year, providing a visual representation of changes over time. It is important to note that there are no records for the year 1893; therefore, the graph starts from the year 1993.
+Interpretation
 
-A notable interactive feature of this graph is that when you hover the mouse over a dot, it displays additional information. For instance, hovering over a dot corresponding to the year 2003 reveals detailed data such as the exact date (e.g., "2003-06-07") and the mean temperature for that day (e.g., "Mean Temp: 29°C"). This hover-over capability enriches the user experience by allowing immediate access to specific data points without cluttering the visual presentation. It is a valuable tool for exploring the dataset and observing particular trends and anomalies at a granular level.
+-   There's an overall upward trend in the mean temperature from 1993 to approximately 2013, suggesting an increase in temperatures over this period.
 
-## 2.2 Temperature Variations Over Time: A Heatmap Representation
+-   After reaching a peak around 2013, there's a slight decrease in mean temperature by 2023.
+
+-   Despite the decrease after 2013, the mean temperature in 2023 appears to be higher than in 1993.
+
+## Temperature Variations Over Time: A Heatmap Representation
 
 ```{r}
 # Ensure that 'Mean Temperature (°C)' is a numeric variable
@@ -165,7 +197,7 @@ A distinctive feature of this heatmap is its interactivity: when you hover over 
 
 Heatmaps like this are particularly useful for spotting trends and anomalies over time and can reveal days with exceptionally high or low temperatures at a glance. They also allow for quick visual comparisons across different years, providing an immediate sense of temporal patterns in temperature data.
 
-## 2.3 Line Graph of Cumulative Temperature Changes
+## Line Graph of Cumulative Temperature Changes
 
 ```{r}
 # Make sure the 'Mean Temperature (°C)' column is numeric
@@ -217,7 +249,7 @@ Post-2013, the graph shows a sharp downturn, with a notable reduction in cumulat
 
 The observed pattern of increase followed by a decrease may reflect periodic fluctuations rather than a steady trend of warming, suggesting the influence of various climatic elements or the inherent variability of the dataset.
 
-## 2.4 Decadal Box Plot Analysis
+## Decadal Box Plot Analysis
 
 ```{r}
 df$Year <- as.factor(df$Year)
@@ -246,7 +278,7 @@ This box plot displays the daily mean temperatures for the month of June across 
 
 The trend over the 30-year span from 1993 to 2023 shows an upward shift in median temperatures, suggesting a warming trend. Additionally, the increase in the interquartile range over time could indicate that temperature fluctuations are becoming more pronounced as the years progress.
 
-## 2.5 Linear Trend Analysis
+## Linear Trend Analysis
 
 ```{r}
 # Make sure the 'Mean Temperature (°C)' column is numeric
@@ -268,10 +300,6 @@ average_temperatures <- df %>%
 
 # Fit a linear regression model
 model <- lm(AverageMeanTemperature ~ Year, data = average_temperatures)
-
-# Prepare a summary of the model to check the coefficient names
-model_summary <- summary(model)
-print(model_summary)
 
 # Create a ggplot with text aesthetic for hover info on points
 p <- ggplot(average_temperatures, aes(x = Year, y = AverageMeanTemperature)) +
@@ -300,15 +328,17 @@ The regression coefficient for the year obtained from the linear model, coef(mod
 
 Interpreting the graph, it appears that temperatures in June have generally been increasing over the 40-year span, with a notable peak around 2013. However, by 2023, there's a visible decline as indicated by the last data point. The overall upward trend line, in conjunction with the regression coefficient, suggests a gradual increase in temperatures, albeit with some fluctuations, such as the drop in 2023.
 
-# 3. Conclusion
-The box plots for the years 1993, 2003, 2013, and 2023 show an upward shift in median temperatures, suggesting a warming trend. However, the specific amounts of increase are not clearly provided in the plots themselves but can be inferred from the positions of the medians. There's also an increase in the interquartile range, indicating greater temperature variability.
+# 
+:::
 
-The linear regression analysis gives a coefficient of approximately 0.0198°C per year. Over a 40-year period from 1983 to 2023, this would account for a warming of roughly 0.594°C (0.0198°C/year * 30 years), which is an increase but not within the projected increase.
+In conclusion, the upward shift in median temperatures seen from the box-plot analysis, suggest a warming trend. There's also an increase in the interquartile range, indicating greater temperature variability.
+
+The linear regression analysis gives a coefficient of approximately 0.0198°C per year. Over a 40-year period from 1983 to 2023, this would account for a warming of roughly 0.594°C (0.0198°C/year \* 30 years), which is an increase but not within the projected increase.
 
 The claim of an increase in daily mean temperatures by 1.4 to 4.6 degrees Celsius is not fully supported by the data and analyses provided from the Tengah weather station. The observed increase from the linear regression analysis is approximately 0.792°C over 30 years, which is below the lower limit of the projected range.
 
 It is important to note that this analysis is based solely on the data for the month of June across selected years and does not take into account other months or the entirety of the annual temperature trends. The claim might be valid when considering a broader range of data or different time spans within each year.
 
-Moreover, the claim may also be considering projections into the future beyond the current data (up to 2023), and these projections might be based on climate models that account for various factors like greenhouse gas emissions scenarios, land-use changes, and other climatic feedbacks that are not directly observable from past data alone.
+Moreover, the claim may also be considering projections into the future beyond the current data (up to 2023), and these projections might be based on climate models that account for various factors like rainfall patterns, wind speed and direction, sea-level changes.
 
 In conclusion, while the data does show an upward trend in temperatures, the increase is less than what is projected in the claim. Further analysis with more comprehensive data, including future projections, would be necessary to fully validate the claim.
