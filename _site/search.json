@@ -14,11 +14,18 @@
     "text": "Before getting start, make sure that ggHoriPlot has been included in the pacman::p_load(...) statement above.\n\n\nCode\npacman::p_load(ggHoriPlot, ggthemes, tidyverse)\n\n\n\n\nFor the purpose of this hands-on exercise, Average Retail Prices Of Selected Consumer Items will be used.\nUse the code chunk below to import the AVERP.csv file into R environment.\n\n\nCode\naverp &lt;- read_csv(\"../../data/AVERP.csv\") %&gt;%\n  mutate(`Date` = dmy(`Date`))\n\n\n\n\n\nNext, the code chunk below will be used to plot the horizon graph.\n\n\nCode\naverp %&gt;% \n  filter(Date &gt;= \"2018-01-01\") %&gt;%\n  ggplot() +\n  geom_horizon(aes(x = Date, y=Values), \n               origin = \"midpoint\", \n               horizonscale = 6)+\n  facet_grid(`Consumer Items`~.) +\n    theme_few() +\n  scale_fill_hcl(palette = 'RdBu') +\n  theme(panel.spacing.y=unit(0, \"lines\"), strip.text.y = element_text(\n    size = 5, angle = 0, hjust = 0),\n    legend.position = 'none',\n    axis.text.y = element_blank(),\n    axis.text.x = element_text(size=7),\n    axis.title.y = element_blank(),\n    axis.title.x = element_blank(),\n    axis.ticks.y = element_blank(),\n    panel.border = element_blank()\n    ) +\n    scale_x_date(expand=c(0,0), date_breaks = \"3 month\", date_labels = \"%b%y\") +\n  ggtitle('Average Retail Prices of Selected Consumer Items (Jan 2018 to Dec 2022)')"
   },
   {
-    "objectID": "In-class_Ex/In-class_Ex02/In-class_Ex02.html",
-    "href": "In-class_Ex/In-class_Ex02/In-class_Ex02.html",
-    "title": "In-class Exercise 2",
+    "objectID": "In-class_Ex/In-class_Ex07/In-class_Ex07.html",
+    "href": "In-class_Ex/In-class_Ex07/In-class_Ex07.html",
+    "title": "In-class Exercise 7",
     "section": "",
-    "text": "Tableau Public"
+    "text": "pacman::p_load(sf, terra, gstat, tmap, viridis, tidyverse)\n\n\nrfstations &lt;- read_csv(\"../../data/aspatial/RainfallStation.csv\")\n\n\nrfdata &lt;- read_csv(\"../../data/aspatial/DAILYDATA_202402.csv\") %&gt;%\n  select(c(1,5)) %&gt;%\n  group_by(Station) %&gt;%\n  summarise(MONTHSUM = sum(`Daily Rainfall Total (mm)`)) %&gt;%\n  ungroup()\n\n\nrfdata &lt;- rfdata %&gt;%\n  left_join(rfstations)\n\n\nrfdata_sf &lt;- st_as_sf(rfdata, \n                      coords = c(\"Longitude\",\n                                \"Latitude\"),\n                     crs= 4326) %&gt;%\n  st_transform(crs = 3414)\n\n\nmpsz2019 &lt;- st_read(dsn = \"../../data/geospatial\",\n                    layer = \"MPSZ-2019\") %&gt;%\n  st_transform(crs = 3414)\n\nReading layer `MPSZ-2019' from data source \n  `/Users/shannon/Desktop/ShannMinii/ISSS608-VAA/data/geospatial' \n  using driver `ESRI Shapefile'\nSimple feature collection with 332 features and 6 fields\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: 103.6057 ymin: 1.158699 xmax: 104.0885 ymax: 1.470775\nGeodetic CRS:  WGS 84\n\n\n\ntmap_options(check.and.fix = TRUE)\ntmap_mode(\"view\")\ntm_shape(mpsz2019) +\n  tm_borders() +\ntm_shape(rfdata_sf) +\n  tm_dots(col = 'MONTHSUM')\n\n\n\n\n\ntmap_mode(\"plot\")"
+  },
+  {
+    "objectID": "data/geospatial/MPSZ-2019.html",
+    "href": "data/geospatial/MPSZ-2019.html",
+    "title": "ISSS608-VAA",
+    "section": "",
+    "text": "&lt;!DOCTYPE qgis PUBLIC ‘http://mrcc.com/qgis.dtd’ ‘SYSTEM’&gt;     dataset\n\n\n        0 0     false"
   },
   {
     "objectID": "Take-home_Ex/Take-home_Ex03/Take-home_Ex03.html",
@@ -501,7 +508,7 @@
     "href": "Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05E.html#installing-d3treer-package",
     "title": "Hands-on Exercise 5E",
     "section": "16.6.1 Installing d3treeR package",
-    "text": "16.6.1 Installing d3treeR package\nThis slide shows you how to install a R package which is not available in cran.\n\nIf this is the first time you install a package from github, you should install devtools package by using the code below or else you can skip this step.\n\n\ninstall.packages(\"devtools\")\n\n\nThe downloaded binary packages are in\n    /var/folders/96/x3nlspkx4kz_2c94gv1tq66m0000gq/T//Rtmp0kIbxG/downloaded_packages\n\n\n\nNext, you will load the devtools library and install the package found in github by using the codes below.\n\n\nlibrary(devtools)\ninstall_github(\"timelyportfolio/d3treeR\")\n\n\nNow you are ready to launch d3treeR package\n\n\nlibrary(d3treeR)"
+    "text": "16.6.1 Installing d3treeR package\nThis slide shows you how to install a R package which is not available in cran.\n\nIf this is the first time you install a package from github, you should install devtools package by using the code below or else you can skip this step.\n\n\ninstall.packages(\"devtools\")\n\n\nThe downloaded binary packages are in\n    /var/folders/96/x3nlspkx4kz_2c94gv1tq66m0000gq/T//RtmpbmI6Eg/downloaded_packages\n\n\n\nNext, you will load the devtools library and install the package found in github by using the codes below.\n\n\nlibrary(devtools)\ninstall_github(\"timelyportfolio/d3treeR\")\n\n\nNow you are ready to launch d3treeR package\n\n\nlibrary(d3treeR)"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05E.html#designing-an-interactive-treemap",
@@ -1853,6 +1860,13 @@
     "title": "Take-home Exercise 2",
     "section": "6. Learning Points",
     "text": "6. Learning Points\nThe Take Home Exercise 2 was instrumental in deepening my understanding of the importance of selecting appropriate visualizations and tailoring charts to the audience’s perspective. It was an enlightening experience to learn about efficient coding practices from my peers’ work. This exercise also afforded me the opportunity to delve deeper into ggplot, enhancing my ability to add layers and craft more insightful charts. It was a valuable exercise in not just honing technical skills but also in appreciating the nuances of effective data visualization."
+  },
+  {
+    "objectID": "In-class_Ex/In-class_Ex02/In-class_Ex02.html",
+    "href": "In-class_Ex/In-class_Ex02/In-class_Ex02.html",
+    "title": "In-class Exercise 2",
+    "section": "",
+    "text": "Tableau Public"
   },
   {
     "objectID": "In-class_Ex/In-class_Ex01/In-class_Ex01.html",
