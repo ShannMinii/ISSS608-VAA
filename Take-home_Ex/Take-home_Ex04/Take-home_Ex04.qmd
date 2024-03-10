@@ -462,7 +462,7 @@ By selecting this range of models, we aim to capture the essential dynamics of o
 
 These models include:
 
-###  **`ARIMA (Autoregressive Integrated Moving Average)`**
+### **`ARIMA (Autoregressive Integrated Moving Average)`**
 
 Chosen for its versatility in handling various time series patterns, particularly useful for our data showing linear relationships and trends, such as in economic and financial variables.
 
@@ -472,29 +472,41 @@ data_by_month <- data_by_month %>%
   mutate(Date = as.Date(Date),
          Cement = as.numeric(Cement))
 
-# Subsetting the 'Cement' series for demonstration
-series <- ts(data_by_month$Cement, start=c(year(min(data_by_month$Date)), month(min(data_by_month$Date))), frequency=12)
+# Subsetting the 'Cement' series for demonstration excluding the last 2 months for holdout
+end_holdout <- max(data_by_month$Date) - months(2)
+training_data <- filter(data_by_month, Date <= end_holdout)
+
+# Convert the filtered series to time series
+series <- ts(training_data$Cement, start=c(year(min(training_data$Date)), month(min(training_data$Date))), frequency=12)
 
 # Fit ARIMA model
 fit_arima <- auto.arima(series)
 
-# Forecast for the next 12 months
-future_arima <- forecast(fit_arima, h=12)
+# Forecast for the next 12 months including 99% confidence interval
+future_arima <- forecast(fit_arima, h=12, level=c(99))
 
-# Convert forecast to an 'xts' object for plotting, ensure forecast$mean is your forecasted data
-last_date <- max(data_by_month$Date)
-forecast_dates <- seq(from = last_date + months(1), by = "month", length.out = 12)
+# Convert forecast to an 'xts' object for plotting
+last_training_date <- max(training_data$Date)
+forecast_dates <- seq(from = last_training_date + months(1), by = "month", length.out = 12)
 forecast_xts <- xts(future_arima$mean, order.by = forecast_dates)
+
+# Since the available columns for CI are named "99%", we will use these for the lower and upper bounds.
+forecast_lower_xts <- xts(future_arima$lower[, "99%"], order.by = forecast_dates)
+forecast_upper_xts <- xts(future_arima$upper[, "99%"], order.by = forecast_dates)
 
 # Create an xts object from actual data for plotting
 actual_xts <- xts(data_by_month$Cement, order.by = data_by_month$Date)
 
-# Combine both actual and forecasted data for plotting
-combined_xts <- merge(actual_xts, forecast_xts, all = TRUE)
+# Combine actual, forecasted, and confidence interval data for plotting
+combined_xts <- merge(actual_xts, forecast_xts, forecast_lower_xts, forecast_upper_xts, all = TRUE)
 
 # Plot with dygraph
 dygraph(combined_xts, main = "ARIMA FORECAST OF: Cement for 12 Months") %>%
-  dyOptions(drawGrid = FALSE)
+  dyOptions(drawGrid = FALSE) %>%
+  dySeries("forecast_xts", label = "Forecast") %>%
+  dySeries("forecast_lower_xts", label = "Lower CI") %>%
+  dySeries("forecast_upper_xts", label = "Upper CI") %>%
+  dyLegend(width = 400, show = "always")
 ```
 
 ### **`ARFIMA (Autoregressive Fractionally Integrated Moving Average)`**
@@ -502,46 +514,89 @@ dygraph(combined_xts, main = "ARIMA FORECAST OF: Cement for 12 Months") %>%
 Selected due to its capability to model time series with long memory properties, which is expected in variables like %Change_Index or Rate, where past values may influence future trends over extended periods.
 
 ```{r}
+# Ensure 'Date' is in Date format and 'Cement' column is numeric
+data_by_month <- data_by_month %>%
+  mutate(Date = as.Date(Date),
+         Cement = as.numeric(Cement))
+
+# Subsetting the 'Cement' series for demonstration excluding the last 2 months for holdout
+end_holdout <- max(data_by_month$Date) - months(2)
+training_data <- filter(data_by_month, Date <= end_holdout)
+
+# Convert the filtered series to time series
+series <- ts(training_data$Cement, start=c(year(min(training_data$Date)), month(min(training_data$Date))), frequency=12)
+
 # Fit ARFIMA model
 fit_arfima <- arfima(series)
 
-# Forecast for the next 12 months
-future_arfima <- forecast(fit_arfima, h=12)
+# Forecast for the next 12 months including 99% confidence interval
+future_arfima <- forecast(fit_arfima, h=12, level=c(99))  # Include 99% confidence interval
 
-# Convert forecast to an 'xts' object for plotting
-forecast_dates <- seq(from = last_date + months(1), by = "month", length.out = 12)
+# Convert forecast to an 'xts' object for plotting, includes mean and confidence intervals
+last_training_date <- max(training_data$Date)
+forecast_dates <- seq(from = last_training_date + months(1), by = "month", length.out = 12)
 forecast_xts_arfima <- xts(future_arfima$mean, order.by = forecast_dates)
+forecast_lower_xts_arfima <- xts(future_arfima$lower[, "99%"], order.by = forecast_dates)  # Adjusted for ARFIMA specifics
+forecast_upper_xts_arfima <- xts(future_arfima$upper[, "99%"], order.by = forecast_dates)  # Adjusted for ARFIMA specifics
 
-# Combine both actual and forecasted data for plotting
-combined_xts_arfima <- merge(actual_xts, forecast_xts_arfima, all = TRUE)
+# Create an xts object from actual data for plotting
+actual_xts <- xts(data_by_month$Cement, order.by = data_by_month$Date)
+
+# Combine actual, forecasted, and confidence interval data for plotting
+combined_xts_arfima <- merge(actual_xts, forecast_xts_arfima, forecast_lower_xts_arfima, forecast_upper_xts_arfima, all = TRUE)
 
 # Plot with dygraph
 dygraph(combined_xts_arfima, main = "ARFIMA FORECAST OF: Cement for 12 Months") %>%
-  dyOptions(drawGrid = FALSE)
+  dyOptions(drawGrid = FALSE) %>%
+  dySeries("forecast_xts_arfima", label = "Forecast") %>%
+  dySeries("forecast_lower_xts_arfima", label = "Lower CI") %>%
+  dySeries("forecast_upper_xts_arfima", label = "Upper CI") %>%
+  dyLegend(width = 400, show = "always")
 ```
 
-###  **`ETS (Error, Trend, Seasonality)`**
+### **`ETS (Error, Trend, Seasonality)`**
 
 Utilized for its flexibility in modeling time series with or without seasonal and trend components, making it an excellent choice for variables such as Cement, SteelBar, or ReadyMixConcrete, which might exhibit cyclical industry patterns.
 
 ```{r}
+# Ensure 'Date' is in Date format and 'Cement' column is numeric
+data_by_month <- data_by_month %>%
+  mutate(Date = as.Date(Date),
+         Cement = as.numeric(Cement))
+
+# Subsetting the 'Cement' series for demonstration excluding the last 2 months for holdout
+end_holdout <- max(data_by_month$Date) - months(2)
+training_data <- filter(data_by_month, Date <= end_holdout)
+
+# Convert the filtered series to time series
+series <- ts(training_data$Cement, start=c(year(min(training_data$Date)), month(min(training_data$Date))), frequency = 12)
+
 # Fit ETS model
 fit_ets <- ets(series)
 
-# Forecast for the next 12 months
-future_ets <- forecast(fit_ets, h=12)
+# Forecast for the next 12 months including 99% confidence interval
+future_ets <- forecast(fit_ets, h = 12, level = c(99))  # Including 99% CI
 
-# Convert forecast to an 'xts' object for plotting
-forecast_dates_ets <- seq(from = last_date + months(1), by = "month", length.out = 12)
+# Convert forecast to an 'xts' object for plotting, includes mean and confidence intervals
+last_training_date <- max(training_data$Date)
+forecast_dates_ets <- seq(from = last_training_date + months(1), by = "month", length.out = 12)
 forecast_xts_ets <- xts(future_ets$mean, order.by = forecast_dates_ets)
+forecast_lower_xts_ets <- xts(future_ets$lower[, "99%"], order.by = forecast_dates_ets)  # 99% CI lower
+forecast_upper_xts_ets <- xts(future_ets$upper[, "99%"], order.by = forecast_dates_ets)  # 99% CI upper
 
-# Combine both actual and forecasted data for plotting
-combined_xts_ets <- merge(actual_xts, forecast_xts_ets, all = TRUE)
+# Create an xts object from actual data for plotting
+actual_xts <- xts(data_by_month$Cement, order.by = data_by_month$Date)
+
+# Combine actual, forecasted, and confidence interval data for plotting
+combined_xts_ets <- merge(actual_xts, forecast_xts_ets, forecast_lower_xts_ets, forecast_upper_xts_ets, all = TRUE)
 
 # Plot with dygraph
 dygraph(combined_xts_ets, main = "ETS FORECAST OF: Cement for 12 Months") %>%
-  dyOptions(drawGrid = FALSE)
-
+  dyOptions(drawGrid = FALSE) %>%
+  dySeries("forecast_xts_ets", label = "Forecast") %>%
+  dySeries("forecast_lower_xts_ets", label = "Lower CI") %>%
+  dySeries("forecast_upper_xts_ets", label = "Upper CI") %>%
+  dyLegend(width = 400, show = "always")
 ```
 
 ### **`Holt-Winters Method`**
@@ -556,81 +611,114 @@ This method, including its Additive, Multiplicative, and Damped Trend variations
 # Fit HW Multiplicative model
 fit_hw_multiplicative <- HoltWinters(series, seasonal = "multiplicative")
 
-# Forecast for the next 12 months
-future_hw_multiplicative <- forecast(fit_hw_multiplicative, h=12)
+# Forecast for the next 12 months including 99% confidence interval
+future_hw_multiplicative <- forecast(fit_hw_multiplicative, h=12, level=c(99))
 
-# Convert forecast to an 'xts' object for plotting
-forecast_dates_hw <- seq(from = last_date + months(1), by = "month", length.out = 12)
+# Prepare for plotting
+last_training_date <- max(training_data$Date)
+forecast_dates_hw <- seq(from = last_training_date + months(1), by = "month", length.out = 12)
 forecast_xts_hw_multiplicative <- xts(future_hw_multiplicative$mean, order.by = forecast_dates_hw)
 
-# Combine both actual and forecasted data for plotting
-combined_xts_hw_multiplicative <- merge(actual_xts, forecast_xts_hw_multiplicative, all = TRUE)
+# Extract and convert the lower and upper bounds of the 99% CI for plotting
+forecast_lower_xts_hw_multiplicative <- xts(future_hw_multiplicative$lower[, "99%"], order.by = forecast_dates_hw) # Index based on typical structure, adjust if needed
+forecast_upper_xts_hw_multiplicative <- xts(future_hw_multiplicative$upper[, "99%"], order.by = forecast_dates_hw) # Same here
 
-# Plot with dygraph
+# Combine actual data and forecast for plotting
+actual_xts <- xts(data_by_month$Cement, order.by = data_by_month$Date)
+combined_xts_hw_multiplicative <- merge(actual_xts, forecast_xts_hw_multiplicative, forecast_lower_xts_hw_multiplicative, forecast_upper_xts_hw_multiplicative, all = TRUE)
+
+# Plotting with dygraph
 dygraph(combined_xts_hw_multiplicative, main = "HW MULTIPLICATIVE FORECAST OF: Cement for 12 Months") %>%
-  dyOptions(drawGrid = FALSE)
+  dyOptions(drawGrid = FALSE) %>%
+  dySeries("forecast_xts_hw_multiplicative", label = "Forecast") %>%
+  dySeries("forecast_lower_xts_hw_multiplicative", label = "Lower CI") %>%
+  dySeries("forecast_upper_xts_hw_multiplicative", label = "Upper CI") %>%
+  dyLegend(width = 400, show = "always")
 ```
 
 ```{r}
-# Fit HW Multiplicative Damped Trend model
-# Note: The HoltWinters function in base R does not support damped trend directly. 
-# Instead, use the 'forecast' package's hw function.
-fit_hw_multiplicative_damped <- forecast::hw(series, seasonal = "multiplicative", damped = TRUE)
+# Fit HW Multiplicative Damped Trend model with specified level
+fit_hw_multiplicative_damped <- forecast::hw(series, seasonal = "multiplicative", damped = TRUE, level = c(99))
 
 # Forecast for the next 12 months
-future_hw_multiplicative_damped <- forecast(fit_hw_multiplicative_damped, h=12)
+future_hw_multiplicative_damped <- forecast(fit_hw_multiplicative_damped, h = 12)
 
-# Convert forecast to an 'xts' object for plotting
-forecast_dates_hw_damped <- seq(from = last_date + months(1), by = "month", length.out = 12)
+# Prepare for plotting
+forecast_dates_hw_damped <- seq(from = last_training_date + months(1), by = "month", length.out = 12)
 forecast_xts_hw_multiplicative_damped <- xts(future_hw_multiplicative_damped$mean, order.by = forecast_dates_hw_damped)
 
-# Combine both actual and forecasted data for plotting
-combined_xts_hw_multiplicative_damped <- merge(actual_xts, forecast_xts_hw_multiplicative_damped, all = TRUE)
+# Extract and convert the lower and upper bounds of the 99% CI for plotting
+forecast_lower_xts_hw_multiplicative_damped <- xts(future_hw_multiplicative_damped$lower[, "99%"], order.by = forecast_dates_hw_damped)
+forecast_upper_xts_hw_multiplicative_damped <- xts(future_hw_multiplicative_damped$upper[, "99%"], order.by = forecast_dates_hw_damped)
 
-# Plot with dygraph
+# Combine actual data and forecast for plotting
+combined_xts_hw_multiplicative_damped <- merge(actual_xts, forecast_xts_hw_multiplicative_damped, forecast_lower_xts_hw_multiplicative_damped, forecast_upper_xts_hw_multiplicative_damped, all = TRUE)
+
+# Plotting with dygraph
 dygraph(combined_xts_hw_multiplicative_damped, main = "HW MULTIPLICATIVE DAMPED TREND FORECAST OF: Cement for 12 Months") %>%
-  dyOptions(drawGrid = FALSE)
+  dyOptions(drawGrid = FALSE) %>%
+  dySeries("forecast_xts_hw_multiplicative_damped", label = "Forecast") %>%
+  dySeries("forecast_lower_xts_hw_multiplicative_damped", label = "Lower CI") %>%
+  dySeries("forecast_upper_xts_hw_multiplicative_damped", label = "Upper CI") %>%
+  dyLegend(width = 400, show = "always")
 ```
 
 ```{r}
-# Fit HW Additive model
-fit_hw_additive <- forecast::hw(series, seasonal = "additive")
+# Fit HW Additive model with specified level
+fit_hw_additive <- forecast::hw(series, seasonal = "additive", level = c(99))
 
 # Forecast for the next 12 months
-future_hw_additive <- forecast(fit_hw_additive, h=12)
+future_hw_additive <- forecast(fit_hw_additive, h = 12)
 
-# Convert forecast to an 'xts' object for plotting
-forecast_dates_hw_additive <- seq(from = last_date + months(1), by = "month", length.out = 12)
+# Prepare for plotting
+forecast_dates_hw_additive <- seq(from = last_training_date + months(1), by = "month", length.out = 12)
 forecast_xts_hw_additive <- xts(future_hw_additive$mean, order.by = forecast_dates_hw_additive)
 
-# Combine both actual and forecasted data for plotting
-combined_xts_hw_additive <- merge(actual_xts, forecast_xts_hw_additive, all = TRUE)
+# Extract and convert the lower and upper bounds of the 99% CI for plotting
+forecast_lower_xts_hw_additive <- xts(future_hw_additive$lower[, "99%"], order.by = forecast_dates_hw_additive)
+forecast_upper_xts_hw_additive <- xts(future_hw_additive$upper[, "99%"], order.by = forecast_dates_hw_additive)
 
-# Plot with dygraph
+# Combine actual data and forecast for plotting
+combined_xts_hw_additive <- merge(actual_xts, forecast_xts_hw_additive, forecast_lower_xts_hw_additive, forecast_upper_xts_hw_additive, all = TRUE)
+
+# Plotting with dygraph
 dygraph(combined_xts_hw_additive, main = "HW ADDITIVE FORECAST OF: Cement for 12 Months") %>%
-  dyOptions(drawGrid = FALSE)
+  dyOptions(drawGrid = FALSE) %>%
+  dySeries("forecast_xts_hw_additive", label = "Forecast") %>%
+  dySeries("forecast_lower_xts_hw_additive", label = "Lower CI") %>%
+  dySeries("forecast_upper_xts_hw_additive", label = "Upper CI") %>%
+  dyLegend(width = 400, show = "always")
 ```
 
 ```{r}
-# Fit HW Additive Damped Trend model
-fit_hw_additive_damped <- forecast::hw(series, seasonal = "additive", damped = TRUE)
+# Fit HW Additive Damped Trend model with specified level
+fit_hw_additive_damped <- forecast::hw(series, seasonal = "additive", damped = TRUE, level = c(99))
 
 # Forecast for the next 12 months
-future_hw_additive_damped <- forecast(fit_hw_additive_damped, h=12)
+future_hw_additive_damped <- forecast(fit_hw_additive_damped, h = 12)
 
-# Convert forecast to an 'xts' object for plotting
-forecast_dates_hw_additive_damped <- seq(from = last_date + months(1), by = "month", length.out = 12)
+# Prepare for plotting
+forecast_dates_hw_additive_damped <- seq(from = last_training_date + months(1), by = "month", length.out = 12)
 forecast_xts_hw_additive_damped <- xts(future_hw_additive_damped$mean, order.by = forecast_dates_hw_additive_damped)
 
-# Combine both actual and forecasted data for plotting
-combined_xts_hw_additive_damped <- merge(actual_xts, forecast_xts_hw_additive_damped, all = TRUE)
+# Extract and convert the lower and upper bounds of the 99% CI for plotting
+forecast_lower_xts_hw_additive_damped <- xts(future_hw_additive_damped$lower[, "99%"], order.by = forecast_dates_hw_additive_damped)
+forecast_upper_xts_hw_additive_damped <- xts(future_hw_additive_damped$upper[, "99%"], order.by = forecast_dates_hw_additive_damped)
 
-# Plot with dygraph
+# Combine actual data and forecast for plotting
+combined_xts_hw_additive_damped <- merge(actual_xts, forecast_xts_hw_additive_damped, forecast_lower_xts_hw_additive_damped, forecast_upper_xts_hw_additive_damped, all = TRUE)
+
+# Plotting with dygraph
 dygraph(combined_xts_hw_additive_damped, main = "HW ADDITIVE DAMPED TREND FORECAST OF: Cement for 12 Months") %>%
-  dyOptions(drawGrid = FALSE)
+  dyOptions(drawGrid = FALSE) %>%
+  dySeries("forecast_xts_hw_additive_damped", label = "Forecast") %>%
+  dySeries("forecast_lower_xts_hw_additive_damped", label = "Lower CI") %>%
+  dySeries("forecast_upper_xts_hw_additive_damped", label = "Upper CI") %>%
+  dyLegend(width = 400, show = "always")
+
 ```
 
-### **`TBATS`** 
+### **`TBATS`**
 
 **(Trigonometric, Box-Cox transformation, ARMA errors, Trend, and Seasonal components)**
 
@@ -640,19 +728,29 @@ Adopted for its ability to handle time series with complex or multiple seasonal 
 # Fit TBATS model
 fit_tbats <- tbats(series)
 
-# Forecast for the next 12 months
-future_tbats <- forecast(fit_tbats, h=12)
+# Forecast for the next 12 months including 99% confidence interval
+future_tbats <- forecast(fit_tbats, h=12, level=c(99))
 
-# Convert forecast to an 'xts' object for plotting
-forecast_dates_tbats <- seq(from = last_date + months(1), by = "month", length.out = 12)
+# Prepare for plotting
+last_training_date <- max(training_data$Date)
+forecast_dates_tbats <- seq(from = last_training_date + months(1), by = "month", length.out = 12)
 forecast_xts_tbats <- xts(future_tbats$mean, order.by = forecast_dates_tbats)
 
-# Combine both actual and forecasted data for plotting
-combined_xts_tbats <- merge(actual_xts, forecast_xts_tbats, all = TRUE)
+# Extract and convert the lower and upper bounds of the 99% CI for plotting
+forecast_lower_xts_tbats <- xts(future_tbats$lower[, "99%"], order.by = forecast_dates_tbats)
+forecast_upper_xts_tbats <- xts(future_tbats$upper[, "99%"], order.by = forecast_dates_tbats)
 
-# Plot with dygraph
+# Combine actual data and forecast for plotting
+actual_xts <- xts(data_by_month$Cement, order.by = data_by_month$Date)
+combined_xts_tbats <- merge(actual_xts, forecast_xts_tbats, forecast_lower_xts_tbats, forecast_upper_xts_tbats, all = TRUE)
+
+# Plotting with dygraph
 dygraph(combined_xts_tbats, main = "TBATS FORECAST OF: Cement for 12 Months") %>%
-  dyOptions(drawGrid = FALSE)
+  dyOptions(drawGrid = FALSE) %>%
+  dySeries("forecast_xts_tbats", label = "Forecast") %>%
+  dySeries("forecast_lower_xts_tbats", label = "Lower CI") %>%
+  dySeries("forecast_upper_xts_tbats", label = "Upper CI") %>%
+  dyLegend(width = 400, show = "always")
 ```
 
 # 3. Data Visualization Design

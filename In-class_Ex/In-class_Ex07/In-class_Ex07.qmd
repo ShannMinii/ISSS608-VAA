@@ -56,3 +56,4 @@ tm_shape(rfdata_sf) +
   tm_dots(col = 'MONTHSUM')
 tmap_mode("plot")
 ```
+
